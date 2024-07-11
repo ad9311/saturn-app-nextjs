@@ -4,7 +4,7 @@ import { create } from 'zustand';
 const useUserStore = create<UserStoreValues & UserStoreActions>(set => ({
   user: undefined,
   setUser: (user: User) => set({ user }),
-  clearUser: () => set({ user: undefined })
+  clearUser: () => set({ user: undefined }),
 }));
 
 export default useUserStore;
