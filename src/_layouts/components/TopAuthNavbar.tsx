@@ -1,5 +1,3 @@
 export default function TopAuthNavbar() {
-  return (
-    <div>TopAuthNavbar</div>
-  )
+  return <div>TopAuthNavbar</div>;
 }
