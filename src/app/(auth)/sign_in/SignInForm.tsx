@@ -1,11 +1,13 @@
 'use client';
 
-import { setJWTCookie } from '@/client-services/auth';
+import { setJWTCookie } from '@/services/client-auth';
+import useUserStore from '@/stores/user';
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 
 export default function SignInForm() {
   const route = useRouter();
+  const setUser = useUserStore((state) => state.setUser);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -25,8 +27,11 @@ export default function SignInForm() {
       body: JSON.stringify({ user }),
     });
 
-    const jsonResponse = await response.json();
-    setJWTCookie(jsonResponse.data.token);
+    const json = await response.json();
+
+    setJWTCookie(json.data.token);
+    setUser(json.data.user);
+
     route.push('/');
   }
 
