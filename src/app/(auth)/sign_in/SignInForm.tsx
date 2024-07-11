@@ -25,7 +25,7 @@ export default function SignInForm() {
     const response = await getSession(form.action, body);
     const json = await response.json();
 
-    if (json.data.status === 'CREATED') {
+    if (json.status === 'CREATED') {
       setJWTCookie(json.data.token);
       setUser(json.data.user);
       route.push('/');
@@ -34,7 +34,7 @@ export default function SignInForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} action={`${process.env.NEXT_PUBLIC_API_URL}/users/sign_in`}>
+    <form onSubmit={handleSubmit} action={`${process.env.NEXT_PUBLIC_API_URL}/api/sign_in`}>
       <label htmlFor="email">
         <input
           type="email"
