@@ -1,6 +1,6 @@
 import 'client-only';
+import Cookies from 'js-cookie';
 
 export function setJWTCookie(token: string) {
-  const cookie = `SATURN_APP_AUTH=${token};path='/';Secure=true;SameSite=Strict`;
-  document.cookie = cookie;
+  Cookies.set('SATURN_APP_AUTH', token, { expires: 7, path: '/', secure: true, sameSite: 'Strict' });
 }

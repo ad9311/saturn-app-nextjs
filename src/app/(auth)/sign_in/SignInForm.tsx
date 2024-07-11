@@ -1,5 +1,6 @@
 'use client';
 
+import { fetchSignIn } from '@/helpers/fetch';
 import { setJWTCookie } from '@/services/client-auth';
 import useUserStore from '@/stores/user';
 import { useRouter } from 'next/navigation';
@@ -12,24 +13,16 @@ export default function SignInForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const formData = new FormData(event.target as HTMLFormElement);
-    const user = {
-      email: formData.get('user[email]'),
-      password: formData.get('user[password]'),
-    };
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/users/sign_in`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json; charset=utf-8',
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify({ user }),
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const body = JSON.stringify({
+      user: {
+        email: formData.get('user[email]'),
+        password: formData.get('user[password]'),
       }
-    );
+    });
 
+    const response = await fetchSignIn(form.action, body);
     const json = await response.json();
 
     setJWTCookie(json.data.token);
@@ -39,7 +32,7 @@ export default function SignInForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} action={`${process.env.NEXT_PUBLIC_API_URL}/users/sign_in`}>
       <label htmlFor="email">
         <input
           type="email"
