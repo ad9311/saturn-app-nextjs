@@ -13,7 +13,7 @@ export default function SignInForm() {
       email: formData.get('user[email]'),
       password: formData.get('user[password]'),
     };
-    const response = await fetch('http://localhost:3000/users/sign_in', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/sign_in`, {
       method: 'POST',
       headers: {
         Accept: 'application/json; charset=utf-8',
