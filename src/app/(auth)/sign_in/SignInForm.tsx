@@ -19,7 +19,7 @@ export default function SignInForm() {
       user: {
         email: formData.get('user[email]'),
         password: formData.get('user[password]'),
-      }
+      },
     });
 
     const response = await getSession(form.action, body);
@@ -30,11 +30,12 @@ export default function SignInForm() {
       setUser(json.data.user);
       route.push('/');
     }
-
   }
 
   return (
-    <form onSubmit={handleSubmit} action={`${process.env.NEXT_PUBLIC_API_URL}/api/sign_in`}>
+    <form
+      onSubmit={handleSubmit}
+      action={`${process.env.NEXT_PUBLIC_API_URL}/api/sign_in`}>
       <label htmlFor="email">
         <input
           type="email"
@@ -53,7 +54,9 @@ export default function SignInForm() {
           autoComplete="current-password"
         />
       </label>
-      <button type="submit" name="submit">Sign In</button>
+      <button type="submit" name="submit">
+        Sign In
+      </button>
     </form>
   );
 }
