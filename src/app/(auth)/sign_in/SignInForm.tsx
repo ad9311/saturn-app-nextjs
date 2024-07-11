@@ -1,6 +1,6 @@
 'use client';
 
-import { fetchSignIn } from '@/helpers/fetch';
+import { getSession } from '@/helpers/fetch';
 import { setJWTCookie } from '@/services/client-auth';
 import useUserStore from '@/stores/user';
 import { useRouter } from 'next/navigation';
@@ -22,7 +22,7 @@ export default function SignInForm() {
       }
     });
 
-    const response = await fetchSignIn(form.action, body);
+    const response = await getSession(form.action, body);
     const json = await response.json();
 
     setJWTCookie(json.data.token);

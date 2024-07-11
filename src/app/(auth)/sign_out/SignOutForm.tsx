@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import Cookie from 'js-cookie';
 import useUserStore from '@/stores/user';
-import { fetchSignOut } from '@/helpers/fetch';
+import { deleteSession } from '@/helpers/fetch';
 
 export default function SignOutForm() {
   const router = useRouter();
@@ -15,7 +15,7 @@ export default function SignOutForm() {
 
     const form = e.target as HTMLFormElement;
     const token = Cookie.get('SATURN_APP_AUTH');
-    const response = await fetchSignOut(form.action, token as string);
+    const response = await deleteSession(form.action, token as string);
 
     if (response.ok) {
       Cookie.remove('SATURN_APP_AUTH');
