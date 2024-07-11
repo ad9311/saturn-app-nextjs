@@ -26,7 +26,7 @@ export default function SignOutForm() {
 
   return (
     <form action={`${process.env.NEXT_PUBLIC_API_URL}/users/sign_out`} method="POST" onSubmit={handleSubmit}>
-      <input type="submit" value="Sign out" />
+      <button type="submit" name="submit">Sign out</button>
     </form>
   )
 }

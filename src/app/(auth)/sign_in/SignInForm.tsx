@@ -25,10 +25,12 @@ export default function SignInForm() {
     const response = await getSession(form.action, body);
     const json = await response.json();
 
-    setJWTCookie(json.data.token);
-    setUser(json.data.user);
+    if (json.data.status === 'CREATED') {
+      setJWTCookie(json.data.token);
+      setUser(json.data.user);
+      route.push('/');
+    }
 
-    route.push('/');
   }
 
   return (
@@ -51,7 +53,7 @@ export default function SignInForm() {
           autoComplete="current-password"
         />
       </label>
-      <input type="submit" value="Sign In" />
+      <button type="submit" name="submit">Sign In</button>
     </form>
   );
 }
