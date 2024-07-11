@@ -1,4 +1,4 @@
-import { jwtVerify, JWTPayload, decodeJwt } from 'jose';
+import { jwtVerify, JWTPayload } from 'jose';
 
 export function getJWTSecretKey() {
   const key = process.env.JWT_KEY;

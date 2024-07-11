@@ -1,5 +1,6 @@
 'use client';
 
+import { setJWTCookie } from '@/client-services/auth';
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 
@@ -8,11 +9,13 @@ export default function SignInForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const formData = new FormData(event.target as HTMLFormElement);
     const user = {
       email: formData.get('user[email]'),
       password: formData.get('user[password]'),
     };
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/sign_in`, {
       method: 'POST',
       headers: {
@@ -21,9 +24,9 @@ export default function SignInForm() {
       },
       body: JSON.stringify({ user }),
     });
+
     const jsonResponse = await response.json();
-    const cookie = `SATURN_APP_AUTH=${jsonResponse.data.token};path='/';Secure=true;SameSite=Strict`;
-    document.cookie = cookie;
+    setJWTCookie(jsonResponse.data.token);
     route.push('/');
   }
 

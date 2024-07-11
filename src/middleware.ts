@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyJWTToken } from './services/auth';
+import { verifyJWTToken } from './server-services/auth';
 
 export async function middleware(request: NextRequest) {
   const jwtToken = request.cookies.get('SATURN_APP_AUTH')?.value;
