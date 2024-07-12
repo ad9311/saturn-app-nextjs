@@ -25,7 +25,7 @@ export default function SetUserOnReload() {
     if (user === undefined) {
       setUseronLoad();
     }
-  });
+  }, []);
 
   return null;
 }
