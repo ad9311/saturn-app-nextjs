@@ -20,7 +20,6 @@ export default function SignInForm() {
   const [formState, formAction] = useFormState(createSession, initialState)
 
   useEffect(() => {
-    console.log('HOLA', formState);
     if (formState.user && formState.authToken) {
       setJWTCookie('SATURN_APP_AUTH', formState.authToken);
       setUser(formState.user);

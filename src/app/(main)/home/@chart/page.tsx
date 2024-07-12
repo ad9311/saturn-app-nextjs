@@ -1,4 +1,4 @@
-import HistoryChart from './HistoryChart';
+// import HistoryChart from './HistoryChart';
 
 export default function BudgetPeriodsChart() {
   return <div></div>;
