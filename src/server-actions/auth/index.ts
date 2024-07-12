@@ -18,7 +18,7 @@ export async function createSession(
   });
 
   const response = await postCreateSession(
-    `${process.env.API_URL}/api/sign_in`,
+    `${process.env.API_URL}/users/sign_in`,
     body
   );
   const json = await response.json();

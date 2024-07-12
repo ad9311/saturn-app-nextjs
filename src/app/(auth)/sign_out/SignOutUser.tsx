@@ -13,7 +13,7 @@ export default function SignOutUser() {
 
   async function signOutHandle() {
     const authToken = Cookie.get('SATURN_APP_AUTH');
-    const response = await deleteSession(`${process.env.NEXT_PUBLIC_API_URL}/api/sign_out`, authToken as string)
+    const response = await deleteSession(`${process.env.NEXT_PUBLIC_API_URL}/users/sign_out`, authToken as string)
 
     if (response.ok) {
       Cookie.remove('SATURN_APP_AUTH');
