@@ -1,6 +1,6 @@
 import User from "@/types/client/user";
 
 export type SessionResponseData = {
-  token: string | null;
+  authToken: string | null;
   user: User | undefined;
 }

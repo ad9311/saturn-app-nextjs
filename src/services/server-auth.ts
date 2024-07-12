@@ -12,7 +12,7 @@ export function getJWTSecretKey() {
 }
 
 export async function verifyJWTToken(
-  token: string
+  authToken: string
 ): Promise<JWTPayload | null> {
   try {
     const { payload } = await jwtVerify(token, getJWTSecretKey());

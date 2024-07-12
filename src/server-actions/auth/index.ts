@@ -18,7 +18,7 @@ export async function createSession(prevState: SessionResponseData, formData: Fo
 
   if (json.status === 'CREATED') {
     return {
-      token: json.data.token,
+      authToken: json.data.authToken,
       user: json.data.user
     }
   }

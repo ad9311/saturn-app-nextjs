@@ -10,7 +10,7 @@ import useUserStore from '@/stores/user';
 
 
 const initialState: SessionResponseData = {
-  token: null,
+  authToken: null,
   user: undefined
 }
 
@@ -20,8 +20,8 @@ export default function SignInForm() {
   const [formState, formAction] = useFormState(createSession, initialState)
 
   useEffect(() => {
-    if (formState.user && formState.token) {
-      setJWTCookie('SATURN_APP_AUTH', formState.token);
+    if (formState.user && formState.authToken) {
+      setJWTCookie('SATURN_APP_AUTH', formState.authToken);
       setUser(formState.user);
       route.push('/');
     }

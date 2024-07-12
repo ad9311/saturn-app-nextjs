@@ -1,7 +1,7 @@
 import 'client-only';
 import Cookies from 'js-cookie';
 
-export function setJWTCookie(name: string, token: string) {
+export function setJWTCookie(name: string, authToken: string) {
   Cookies.set(name, token, {
     expires: 7,
     path: '/',
