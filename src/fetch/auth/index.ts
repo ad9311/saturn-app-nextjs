@@ -1,6 +1,6 @@
 import { defaultRequestHeaders } from '..';
 
-export function getSession(
+export function postSession(
   url: string,
   body: BodyInit,
   headers: HeadersInit = defaultRequestHeaders

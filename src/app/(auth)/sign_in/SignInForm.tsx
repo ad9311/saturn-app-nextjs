@@ -1,41 +1,35 @@
 'use client';
 
-import { getSession } from '@/fetch/auth';
-import { setJWTCookie } from '@/services/client-auth';
-import useUserStore from '@/stores/user';
+import { signInUser } from "@/server-actions/auth/sign-in-user";
+import { SessionResponseData } from "@/server-actions/auth/types";
+import { useFormState } from "react-dom";
 import { useRouter } from 'next/navigation';
-import { FormEvent } from 'react';
+import { setJWTCookie } from '@/services/client-auth';
+import { useEffect } from "react";
+import useUserStore from '@/stores/user';
+
+
+const initialState: SessionResponseData = {
+  token: null,
+  user: undefined
+}
 
 export default function SignInForm() {
   const route = useRouter();
   const setUser = useUserStore(state => state.setUser);
+  const [formState, formAction] = useFormState(signInUser, initialState)
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const form = event.target as HTMLFormElement;
-    const formData = new FormData(form);
-    const body = JSON.stringify({
-      user: {
-        email: formData.get('user[email]'),
-        password: formData.get('user[password]'),
-      },
-    });
-
-    const response = await getSession(form.action, body);
-    const json = await response.json();
-
-    if (json.status === 'CREATED') {
-      setJWTCookie('SATURN_APP_AUTH', json.data.token);
-      setUser(json.data.user);
+  useEffect(() => {
+    if (formState.user && formState.token) {
+      setJWTCookie('SATURN_APP_AUTH', formState.token);
+      setUser(formState.user);
       route.push('/');
     }
-  }
+  }, [formState])
 
   return (
     <form
-      onSubmit={handleSubmit}
-      action={`${process.env.NEXT_PUBLIC_API_URL}/api/sign_in`}>
+      action={formAction}>
       <label htmlFor="email">
         <input
           type="email"
