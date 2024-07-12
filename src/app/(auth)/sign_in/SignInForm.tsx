@@ -1,6 +1,6 @@
 'use client';
 
-import { signInUser } from "@/server-actions/auth/sign-in-user";
+import { createSession } from "@/server-actions/auth";
 import { SessionResponseData } from "@/server-actions/auth/types";
 import { useFormState } from "react-dom";
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,7 @@ const initialState: SessionResponseData = {
 export default function SignInForm() {
   const route = useRouter();
   const setUser = useUserStore(state => state.setUser);
-  const [formState, formAction] = useFormState(signInUser, initialState)
+  const [formState, formAction] = useFormState(createSession, initialState)
 
   useEffect(() => {
     if (formState.user && formState.token) {

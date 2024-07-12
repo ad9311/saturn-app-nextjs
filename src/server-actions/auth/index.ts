@@ -1,9 +1,9 @@
 'use server'
 
-import { postSession } from "@/fetch/auth";
+import { postCreateSession } from "@/fetch/auth";
 import { SessionResponseData } from "./types";
 
-export async function signInUser(prevState: SessionResponseData, formData: FormData): Promise<SessionResponseData> {
+export async function createSession(prevState: SessionResponseData, formData: FormData): Promise<SessionResponseData> {
   const body = JSON.stringify({
     user: {
       email: formData.get('user[email]'),
@@ -11,7 +11,7 @@ export async function signInUser(prevState: SessionResponseData, formData: FormD
     },
   });
 
-  const response = await postSession(`${process.env.API_URL}/api/sign_in`, body);
+  const response = await postCreateSession(`${process.env.API_URL}/api/sign_in`, body);
   const json = await response.json();
 
   console.log(json);
