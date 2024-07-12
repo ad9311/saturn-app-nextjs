@@ -3,9 +3,11 @@
 import { getCurrentUser } from '@/fetch/auth';
 import useUserStore from '@/stores/user';
 import Cookie from 'js-cookie';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function SetUserOnReload() {
+  const route = useRouter();
   const [user, setUser] = useUserStore(state => [state.user, state.setUser]);
 
   async function setUseronLoad() {
@@ -14,6 +16,11 @@ export default function SetUserOnReload() {
       `${process.env.NEXT_PUBLIC_API}/api/users/me`,
       authToken as string
     );
+
+    if (response.status === 401) {
+      route.push('/sign_out');
+    }
+
     const json = await response.json();
 
     if (json.status === 'OK') {

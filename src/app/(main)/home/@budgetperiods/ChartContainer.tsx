@@ -5,8 +5,10 @@ import { BudgetPeriod } from '@/types/client/budget-period';
 import Cookie from 'js-cookie';
 import { useEffect, useState } from 'react';
 import HistoryChart from './HistoryChart';
+import { useSignOut } from '@/hooks';
 
 export default function ChartContainer() {
+  const { signOut } = useSignOut();
   const [state, setState] = useState<BudgetPeriod[]>([]);
 
   async function fetchBudgetPeriods() {
@@ -15,6 +17,11 @@ export default function ChartContainer() {
       `${process.env.NEXT_PUBLIC_API}/api/budget_periods?limit=4&order=uid:desc`,
       authToken as string
     );
+
+    if (response.status === 401) {
+      return signOut();
+    }
+
     const json = await response.json();
 
     if (json.status === 'OK') {
@@ -28,6 +35,7 @@ export default function ChartContainer() {
 
   return (
     <div>
+      <button onClick={() => fetchBudgetPeriods()}>click</button>
       <HistoryChart budgetPeriods={state} />
     </div>
   );

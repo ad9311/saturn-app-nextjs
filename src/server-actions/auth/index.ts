@@ -18,7 +18,7 @@ export async function createSession(
   });
 
   const response = await postCreateSession(
-    `${process.env.API_URL}/users/sign_in`,
+    `${process.env.API}/users/sign_in`,
     body
   );
   const json = await response.json();
@@ -39,7 +39,7 @@ export async function destroySession(
 ): Promise<ResponseDeleteSessionData> {
   const authToken = formData.get('auth_token');
   const response = await deleteSession(
-    `${process.env.API_URL}/api/sign_out`,
+    `${process.env.API}/api/sign_out`,
     authToken as string
   );
   if (response.ok) {
