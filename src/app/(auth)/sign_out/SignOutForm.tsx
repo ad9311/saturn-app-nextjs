@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import Cookie from 'js-cookie';
 import useUserStore from '@/stores/user';
-import { deleteSession } from '@/helpers/fetch';
+import { deleteSession } from '@/fetch/auth';
 
 export default function SignOutForm() {
   const router = useRouter();

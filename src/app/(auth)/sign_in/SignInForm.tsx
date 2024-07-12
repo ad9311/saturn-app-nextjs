@@ -1,6 +1,6 @@
 'use client';
 
-import { getSession } from '@/helpers/fetch';
+import { getSession } from '@/fetch/auth';
 import { setJWTCookie } from '@/services/client-auth';
 import useUserStore from '@/stores/user';
 import { useRouter } from 'next/navigation';

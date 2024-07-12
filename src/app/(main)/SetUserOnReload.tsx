@@ -1,6 +1,6 @@
 'use client';
 
-import { getCurrentUser } from '@/helpers/fetch';
+import { getCurrentUser } from '@/fetch/auth';
 import useUserStore from '@/stores/user';
 import Cookie from 'js-cookie';
 import { useEffect } from 'react';
