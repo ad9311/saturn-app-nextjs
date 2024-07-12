@@ -42,7 +42,8 @@ export async function destroySession(
     `${process.env.API}/api/sign_out`,
     authToken as string
   );
-  if (response.ok) {
+
+  if (!response.ok) {
     return { signedOutSuccessfully: true };
   }
 
