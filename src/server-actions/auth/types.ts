@@ -1,6 +1,10 @@
 import User from "@/types/client/user";
 
-export type SessionResponseData = {
+export type ResponseCreateSessionData = {
   authToken: string | null;
   user: User | undefined;
+}
+
+export type ResponseDeleteSessionData = {
+  signedOutSuccessfully: boolean;
 }

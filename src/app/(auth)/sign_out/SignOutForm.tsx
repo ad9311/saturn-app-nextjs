@@ -1,34 +1,31 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { FormEvent } from 'react';
-import Cookie from 'js-cookie';
+import { useFormState } from 'react-dom';
+import { destroySession } from '@/server-actions/auth';
 import useUserStore from '@/stores/user';
-import { deleteSession } from '@/fetch/auth';
+import Cookie from 'js-cookie';
 
 export default function SignOutForm() {
   const router = useRouter();
   const clearUser = useUserStore(state => state.clearUser);
+  const [formState, formAction] = useFormState(destroySession, { signedOutSuccessfully: false })
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const authToken = Cookie.get('SATURN_APP_AUTH');
 
-    const form = e.target as HTMLFormElement;
-    const token = Cookie.get('SATURN_APP_AUTH');
-    const response = await deleteSession(form.action, token as string);
-
-    if (response.ok) {
+  useEffect(() => {
+    if (formState.signedOutSuccessfully) {
       Cookie.remove('SATURN_APP_AUTH');
       router.push('/sign_in');
       clearUser();
     }
-  }
+  }, [formState])
 
   return (
     <form
-      action={`${process.env.NEXT_PUBLIC_API_URL}/api/sign_out`}
-      method="POST"
-      onSubmit={handleSubmit}>
+      action={formAction}>
+      <input type="hidden" name="auth_token" value={authToken} readOnly />
       <button type="submit" name="submit">
         Sign out
       </button>

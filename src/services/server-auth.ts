@@ -15,7 +15,7 @@ export async function verifyJWTToken(
   authToken: string
 ): Promise<JWTPayload | null> {
   try {
-    const { payload } = await jwtVerify(token, getJWTSecretKey());
+    const { payload } = await jwtVerify(authToken, getJWTSecretKey());
     return payload;
   } catch (error) {
     return null;

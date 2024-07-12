@@ -1,7 +1,7 @@
 'use client';
 
 import { createSession } from "@/server-actions/auth";
-import { SessionResponseData } from "@/server-actions/auth/types";
+import { ResponseCreateSessionData } from "@/server-actions/auth/types";
 import { useFormState } from "react-dom";
 import { useRouter } from 'next/navigation';
 import { setJWTCookie } from '@/services/client-auth';
@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import useUserStore from '@/stores/user';
 
 
-const initialState: SessionResponseData = {
+const initialState: ResponseCreateSessionData = {
   authToken: null,
   user: undefined
 }
@@ -20,10 +20,11 @@ export default function SignInForm() {
   const [formState, formAction] = useFormState(createSession, initialState)
 
   useEffect(() => {
+    console.log('HOLA', formState);
     if (formState.user && formState.authToken) {
       setJWTCookie('SATURN_APP_AUTH', formState.authToken);
       setUser(formState.user);
-      route.push('/');
+      route.push('/home');
     }
   }, [formState])
 
