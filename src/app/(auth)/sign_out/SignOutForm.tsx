@@ -10,7 +10,9 @@ import Cookie from 'js-cookie';
 export default function SignOutForm() {
   const router = useRouter();
   const clearUser = useUserStore(state => state.clearUser);
-  const [formState, formAction] = useFormState(destroySession, { signedOutSuccessfully: false })
+  const [formState, formAction] = useFormState(destroySession, {
+    signedOutSuccessfully: false,
+  });
 
   const authToken = Cookie.get('SATURN_APP_AUTH');
 
@@ -20,11 +22,10 @@ export default function SignOutForm() {
       router.push('/sign_in');
       clearUser();
     }
-  }, [formState])
+  }, [formState]);
 
   return (
-    <form
-      action={formAction}>
+    <form action={formAction}>
       <input type="hidden" name="auth_token" value={authToken} readOnly />
       <button type="submit" name="submit">
         Sign out

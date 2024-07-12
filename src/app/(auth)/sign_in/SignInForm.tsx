@@ -1,23 +1,22 @@
 'use client';
 
-import { createSession } from "@/server-actions/auth";
-import { ResponseCreateSessionData } from "@/server-actions/auth/types";
-import { useFormState } from "react-dom";
+import { createSession } from '@/server-actions/auth';
+import { ResponseCreateSessionData } from '@/server-actions/auth/types';
+import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { setJWTCookie } from '@/services/client-auth';
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import useUserStore from '@/stores/user';
-
 
 const initialState: ResponseCreateSessionData = {
   authToken: null,
-  user: undefined
-}
+  user: undefined,
+};
 
 export default function SignInForm() {
   const route = useRouter();
   const setUser = useUserStore(state => state.setUser);
-  const [formState, formAction] = useFormState(createSession, initialState)
+  const [formState, formAction] = useFormState(createSession, initialState);
 
   useEffect(() => {
     if (formState.user && formState.authToken) {
@@ -25,11 +24,10 @@ export default function SignInForm() {
       setUser(formState.user);
       route.push('/home');
     }
-  }, [formState])
+  }, [formState]);
 
   return (
-    <form
-      action={formAction}>
+    <form action={formAction}>
       <label htmlFor="email">
         <input
           type="email"

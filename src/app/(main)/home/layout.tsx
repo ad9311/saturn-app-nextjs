@@ -1,10 +1,10 @@
 export default function HomeLayout({
   children,
-  chart,
-}: Readonly<{ children: React.ReactNode; chart: React.ReactNode }>) {
+  budgetperiods,
+}: Readonly<{ children: React.ReactNode; budgetperiods: React.ReactNode }>) {
   return (
     <div>
-      <div>{chart}</div>
+      <div>{budgetperiods}</div>
       {children}
     </div>
   );
