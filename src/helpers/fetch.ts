@@ -22,7 +22,11 @@ export function deleteSession(
   });
 }
 
-export function getCurrentUser(url: string, authToken: string, headers: HeadersInit = defaultRequestHeaders) {
+export function getCurrentUser(
+  url: string,
+  authToken: string,
+  headers: HeadersInit = defaultRequestHeaders
+) {
   return fetch(url, {
     method: 'GET',
     headers: { ...headers, Authorization: `Bearer ${authToken}` },
