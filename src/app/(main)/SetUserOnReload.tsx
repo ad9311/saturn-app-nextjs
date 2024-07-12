@@ -11,7 +11,7 @@ export default function SetUserOnReload() {
   async function setUseronLoad() {
     const authToken = Cookie.get('SATURN_APP_AUTH');
     const response = await getCurrentUser(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
+      `${process.env.NEXT_PUBLIC_API}/api/users/me`,
       authToken as string
     );
     const json = await response.json();
