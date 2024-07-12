@@ -1,7 +1,4 @@
-export const defaultRequestHeaders: HeadersInit = {
-  Accept: 'application/json; charset=utf-8',
-  'Content-Type': 'application/json; charset=utf-8',
-};
+import { defaultRequestHeaders } from "..";
 
 export function getSession(
   url: string,
@@ -26,7 +23,7 @@ export function getCurrentUser(
   url: string,
   authToken: string,
   headers: HeadersInit = defaultRequestHeaders
-) {
+): Promise<Response> {
   return fetch(url, {
     method: 'GET',
     headers: { ...headers, Authorization: `Bearer ${authToken}` },
