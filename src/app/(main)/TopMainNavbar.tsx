@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import SignOutForm from '@/app/(auth)/sign_out/SignOutForm';
 
 export default function TopMainNavbar() {
   return (
@@ -11,8 +10,10 @@ export default function TopMainNavbar() {
         <li>
           <Link href="/profile">Profile</Link>
         </li>
+        <li>
+          <Link href="/sign_out">Sign out</Link>
+        </li>
       </ul>
-      <SignOutForm />
     </div>
   );
 }
