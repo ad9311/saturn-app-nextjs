@@ -23,7 +23,7 @@ export async function createSession(
   );
   const json = await response.json();
 
-  if (json.status === 'CREATED') {
+  if (json.status === 'SUCCESS') {
     return {
       authToken: json.data.authToken,
       user: json.data.user,

@@ -17,10 +17,12 @@ export default function SignOutUser() {
       authToken as string
     );
 
-    if (response.ok) {
+    if (response.ok || response.status === 401) {
       Cookie.remove('SATURN_APP_AUTH');
       router.push('/sign_in');
       clearUser();
+    } else {
+      // TODO
     }
   }
 

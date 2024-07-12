@@ -1,13 +1,13 @@
 'use client';
 
 import { getCurrentUser } from '@/fetch/auth';
+import { useSignOut } from '@/hooks';
 import useUserStore from '@/stores/user';
 import Cookie from 'js-cookie';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function SetUserOnReload() {
-  const route = useRouter();
+  const { signOut } = useSignOut();
   const [user, setUser] = useUserStore(state => [state.user, state.setUser]);
 
   async function setUseronLoad() {
@@ -17,13 +17,16 @@ export default function SetUserOnReload() {
       authToken as string
     );
 
-    if (response.status === 401) {
-      route.push('/sign_out');
+    if (!response.ok) {
+      // TODO
+      if (response.status === 401) {
+        return signOut();
+      }
     }
 
     const json = await response.json();
 
-    if (json.status === 'OK') {
+    if (json.status === 'SUCCESS') {
       setUser(json.data.user);
     }
   }

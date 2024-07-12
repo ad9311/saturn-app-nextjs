@@ -18,13 +18,16 @@ export default function ChartContainer() {
       authToken as string
     );
 
-    if (response.status === 401) {
-      return signOut();
+    if (!response.ok) {
+      // TODO
+      if (response.status === 401) {
+        return signOut();
+      }
     }
 
     const json = await response.json();
 
-    if (json.status === 'OK') {
+    if (json.status === 'SUCCESS') {
       setState(json.data.budgetPeriods);
     }
   }
