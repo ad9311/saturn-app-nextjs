@@ -15,6 +15,7 @@ export default function SetUserOnReload() {
       authToken as string
     );
     const json = await response.json();
+
     if (json.status === 'OK') {
       setUser(json.data.user);
     }
