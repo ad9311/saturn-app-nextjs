@@ -8,4 +8,4 @@ export type BudgetPeriod = {
   transactionCount: number;
   expenseCount: number;
   incomeCount: number;
-}
+};

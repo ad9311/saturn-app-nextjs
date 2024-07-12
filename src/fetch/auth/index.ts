@@ -1,4 +1,4 @@
-import { defaultRequestHeaders } from "..";
+import { defaultRequestHeaders } from '..';
 
 export function getSession(
   url: string,

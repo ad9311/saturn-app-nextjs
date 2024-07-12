@@ -10,9 +10,7 @@ export default function MainLayout({
       <SetUserOnReload />
       <TopMainNavbar />
       <UserInfo />
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
     </>
   );
 }
