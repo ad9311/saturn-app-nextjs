@@ -4,12 +4,18 @@ import { verifyJWTToken } from './services/server-auth';
 export async function middleware(request: NextRequest) {
   const jwtToken = request.cookies.get('SATURN_APP_AUTH')?.value;
   const validatedJWTToken = await verifyJWTToken(jwtToken as string);
+
   if (jwtToken && validatedJWTToken) {
+    if (request.nextUrl.pathname.startsWith('/sign_in')) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+
     return NextResponse.next();
   } else {
     if (request.nextUrl.pathname.startsWith('/sign_in')) {
       return NextResponse.next();
     }
+
     return NextResponse.redirect(new URL('/sign_in', request.url));
   }
 }
