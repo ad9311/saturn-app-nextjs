@@ -1,4 +1,4 @@
-import TopAuthNavbar from '@/_layouts/components/TopAuthNavbar';
+import TopAuthNavbar from './TopAuthNavbar';
 
 export default function AuthLayout({
   children,

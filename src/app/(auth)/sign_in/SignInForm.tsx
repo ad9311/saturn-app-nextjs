@@ -26,7 +26,7 @@ export default function SignInForm() {
     const json = await response.json();
 
     if (json.status === 'CREATED') {
-      setJWTCookie(json.data.token);
+      setJWTCookie('SATURN_APP_AUTH', json.data.token);
       setUser(json.data.user);
       route.push('/');
     }
