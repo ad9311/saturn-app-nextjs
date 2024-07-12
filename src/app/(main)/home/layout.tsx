@@ -1,9 +1,15 @@
 export default function HomeLayout({
   children,
   budgetperiods,
-}: Readonly<{ children: React.ReactNode; budgetperiods: React.ReactNode }>) {
+  lastbudgetperiod,
+}: Readonly<{
+  children: React.ReactNode;
+  budgetperiods: React.ReactNode;
+  lastbudgetperiod: React.ReactNode;
+}>) {
   return (
     <div>
+      <div>{lastbudgetperiod}</div>
       <div>{budgetperiods}</div>
       {children}
     </div>
