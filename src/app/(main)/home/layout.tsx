@@ -10,7 +10,7 @@ export default function HomeLayout({
   lists: React.ReactNode;
 }>) {
   return (
-    <div className="grid grid-flow-row gap-3">
+    <div className="grid grid-flow-row gap-10">
       <section className="grid grid-flow-row lg:grid-flow-col gap-3">
         <div className="lg:col-span-4">{currentbudgetperiod}</div>
         <div className="lg:col-span-8">{lastbudgetperiods}</div>
