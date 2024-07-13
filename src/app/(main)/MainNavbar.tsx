@@ -1,8 +1,10 @@
 import Link from 'next/link';
 
-export default function TopMainNavbar() {
+export default function MainNavbar(
+  props: React.HTMLAttributes<HTMLDivElement>
+) {
   return (
-    <div>
+    <div {...props}>
       <ul className="flex items-center gap-2">
         <li>
           <Link href="/">Home</Link>

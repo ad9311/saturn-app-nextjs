@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { getResource } from '@/fetch';
 import { BudgetPeriod } from '@/types/client/budget-period';
@@ -44,5 +44,5 @@ export default function ChartContainer() {
     );
   }
 
-  return <p>No content</p>
+  return <p>No content</p>;
 }
