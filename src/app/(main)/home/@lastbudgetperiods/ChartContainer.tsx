@@ -37,7 +37,7 @@ export default function ChartContainer() {
   }, []);
 
   return (
-    <div>
+    <div className="w-fit">
       <HistoryChart budgetPeriods={state} />
     </div>
   );

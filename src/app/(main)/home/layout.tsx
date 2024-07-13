@@ -12,8 +12,8 @@ export default function HomeLayout({
   return (
     <div className="grid grid-flow-row gap-10">
       <section className="grid grid-flow-row lg:grid-flow-col gap-3">
-        <div className="lg:col-span-4">{currentbudgetperiod}</div>
-        <div className="lg:col-span-8">{lastbudgetperiods}</div>
+        <div className="lg:col-span-4 overflow-auto">{currentbudgetperiod}</div>
+        <div className="lg:col-span-8 overflow-auto">{lastbudgetperiods}</div>
       </section>
       <section className="grid grid-flow-row lg:grid-flow-col lg:grid-cols-12 gap-3">
         <div className="lg:col-span-6">{lists}</div>

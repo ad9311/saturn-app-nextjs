@@ -38,7 +38,7 @@ export default function ChartContainer() {
 
   if (state) {
     return (
-      <div>
+      <div className="w-fit">
         <BudgetPeriodPieChart budgetPeriod={state} />
       </div>
     );
