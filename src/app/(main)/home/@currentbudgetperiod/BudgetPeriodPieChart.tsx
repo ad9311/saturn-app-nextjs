@@ -19,18 +19,15 @@ export default function BudgetPeriodPieChart({
 
   const options: ChartOptions<'pie'> = {
     responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Current Budget Period',
-      },
-    },
+    maintainAspectRatio: true,
   };
 
-  return (
-    <div className="relative mx-auto w-[90vw] h-[30vh] lg:w-[30vw] lg:h-[15vh] xl:w-[20vw] xl:h-[45vh]">
-      {budgetPeriod.month}-{budgetPeriod.year}
+ return (
+  <div>
+    {budgetPeriod.month}-{budgetPeriod.year}
+    <div className="relative mx-auto w-[65vw] h-[30vh] md:h-[40vh] lg:w-[25vw] lg:h-[30vh] xl:w-[20vw] xl:h-[40vh]">
       <PieChart data={data} options={options} />
     </div>
+  </div>
   );
 }

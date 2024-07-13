@@ -7,12 +7,13 @@ import {
 } from 'chart.js';
 ChartJS.register(...registerables);
 
-export default function PieChart({
-  data,
-  options,
-}: {
+type ChartProps = {
   data: ChartData<'pie'>;
-  options?: ChartOptions<'pie'>;
-}) {
-  return <Pie data={data} options={options} />;
+  options: ChartOptions<'pie'>;
+}
+
+type CanvasProps = React.HTMLAttributes<HTMLCanvasElement> & ChartProps;
+
+export default function PieChart(props: CanvasProps) {
+  return <Pie {...props} />;
 }

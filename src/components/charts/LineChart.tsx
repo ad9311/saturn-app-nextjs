@@ -7,12 +7,13 @@ import {
 } from 'chart.js';
 ChartJS.register(...registerables);
 
-export default function LineChart({
-  data,
-  options,
-}: {
+type ChartProps = {
   data: ChartData<'line'>;
-  options?: ChartOptions<'line'>;
-}) {
-  return <Line data={data} options={options} />;
+  options: ChartOptions<'line'>;
+}
+
+type CanvasProps = React.HTMLAttributes<HTMLCanvasElement> & ChartProps;
+
+export default function LineChart(props: CanvasProps) {
+  return <Line {...props} />;
 }
