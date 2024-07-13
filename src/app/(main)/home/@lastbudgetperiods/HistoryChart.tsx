@@ -1,33 +1,51 @@
 import { ChartData, ChartOptions } from 'chart.js';
 import LineChart from '@/components/charts/LineChart';
 import { BudgetPeriod } from '@/types/client/budget-period';
+import {
+  balanceChartData,
+  chartDateLables,
+  expensesChartData,
+  incomeChartData,
+} from '@/helpers/charts';
 
 export default function HistoryChart({
   budgetPeriods,
 }: {
   budgetPeriods: BudgetPeriod[];
 }) {
+  const labels = chartDateLables(budgetPeriods);
+  const balanceData = balanceChartData(budgetPeriods);
+  const incomeData = incomeChartData(budgetPeriods);
+  const expensesData = expensesChartData(budgetPeriods);
 
-  const data: ChartData<'line'> = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+  const chartData: ChartData<'line'> = {
+    labels,
     datasets: [
       {
-        label: 'Prueba',
-        data: [5, 2, 4, 10, 5]
-      }
-    ]
+        label: 'Balance',
+        data: balanceData,
+      },
+      {
+        label: 'Income',
+        data: incomeData,
+      },
+      {
+        label: 'Expenses',
+        data: expensesData,
+      },
+    ],
   };
 
   const options: ChartOptions<'line'> = {
     responsive: true,
-    elements: { line: { tension: 0.2 }},
+    elements: { line: { tension: 0.4 } },
     scales: {
       y: {
         ticks: {
           stepSize: 1,
           padding: 1,
         },
-      }
+      },
     },
     plugins: {
       title: {
@@ -35,9 +53,7 @@ export default function HistoryChart({
         text: 'Last Budget Periods',
       },
     },
-  }
+  };
 
-  return (
-    <LineChart data={data} options={options} />
-  );
+  return <LineChart data={chartData} options={options} />;
 }

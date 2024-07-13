@@ -44,5 +44,5 @@ export default function ChartContainer() {
     );
   }
 
-  return <p>No content</p>;
+  return <p>Loading...</p>;
 }

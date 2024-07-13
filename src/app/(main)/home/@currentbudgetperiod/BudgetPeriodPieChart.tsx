@@ -12,9 +12,9 @@ export default function BudgetPeriodPieChart({
     datasets: [
       {
         label: 'Prueba',
-        data: [5, 2, 4, 10, 5]
-      }
-    ]
+        data: [5, 2, 4, 10, 5],
+      },
+    ],
   };
 
   const options: ChartOptions<'pie'> = {
@@ -25,7 +25,7 @@ export default function BudgetPeriodPieChart({
         text: 'Current Budget Period',
       },
     },
-  }
+  };
 
   return (
     <div>

@@ -14,7 +14,7 @@ export default function ChartContainer() {
   async function fetchBudgetPeriods() {
     const authToken = Cookie.get('SATURN_APP_AUTH');
     const response = await getResource(
-      `${process.env.NEXT_PUBLIC_API}/api/budget_periods?limit=4&order=uid:desc`,
+      `${process.env.NEXT_PUBLIC_API}/api/budget_periods?order=uid:desc&limit=4`,
       authToken as string
     );
 
@@ -36,9 +36,13 @@ export default function ChartContainer() {
     fetchBudgetPeriods();
   }, []);
 
-  return (
-    <div className="w-fit">
-      <HistoryChart budgetPeriods={state} />
-    </div>
-  );
+  if (state.length) {
+    return (
+      <div className="w-fit">
+        <HistoryChart budgetPeriods={state} />
+      </div>
+    );
+  }
+
+  return <p>Loading...</p>;
 }
