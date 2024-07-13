@@ -28,7 +28,7 @@ export default function BudgetPeriodPieChart({
   };
 
   return (
-    <div>
+    <div className="relative mx-auto w-[90vw] h-[30vh] lg:w-[30vw] lg:h-[15vh] xl:w-[20vw] xl:h-[45vh]">
       {budgetPeriod.month}-{budgetPeriod.year}
       <PieChart data={data} options={options} />
     </div>

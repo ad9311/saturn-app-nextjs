@@ -38,7 +38,7 @@ export default function ChartContainer() {
 
   if (state.length) {
     return (
-      <div className="w-fit">
+      <div className="w-max">
         <HistoryChart budgetPeriods={state} />
       </div>
     );

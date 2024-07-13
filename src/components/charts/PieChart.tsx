@@ -14,9 +14,5 @@ export default function PieChart({
   data: ChartData<'pie'>;
   options?: ChartOptions<'pie'>;
 }) {
-  return (
-    <div className="relative">
-      <Pie data={data} options={options} />
-    </div>
-  );
+  return <Pie data={data} options={options} />;
 }

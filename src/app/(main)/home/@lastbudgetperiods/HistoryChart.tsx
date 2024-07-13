@@ -55,5 +55,9 @@ export default function HistoryChart({
     },
   };
 
-  return <LineChart data={chartData} options={options} />;
+  return (
+    <div className="relative mx-auto w-[90vw] h-[30vh] lg:w-[50vw] lg:h-[30vh] xl:w-[55vw] xl:h-[40vh]">
+      <LineChart data={chartData} options={options} />
+    </div>
+  );
 }
