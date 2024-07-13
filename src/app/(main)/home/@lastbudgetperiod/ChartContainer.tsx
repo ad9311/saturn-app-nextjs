@@ -14,7 +14,7 @@ export default function ChartContainer() {
   async function fetchBudgetPeriods() {
     const authToken = Cookie.get('SATURN_APP_AUTH');
     const response = await getResource(
-      `${process.env.NEXT_PUBLIC_API}/api/budget_periods/last`,
+      `${process.env.NEXT_PUBLIC_API}/api/budget_periods/last?include:expenses`,
       authToken as string
     );
 
