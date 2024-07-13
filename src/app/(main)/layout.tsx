@@ -1,4 +1,4 @@
-import TopMainNavbar from '@/app/(main)/TopMainNavbar';
+import MainNavbar from '@/app/(main)/MainNavbar';
 import SetUserOnReload from './SetUserOnReload';
 import UserInfo from './UserInfo';
 
@@ -8,7 +8,7 @@ export default function MainLayout({
   return (
     <>
       <SetUserOnReload />
-      <TopMainNavbar />
+      <MainNavbar />
       <UserInfo />
       <main>{children}</main>
     </>
