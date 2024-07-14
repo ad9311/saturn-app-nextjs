@@ -38,7 +38,7 @@ export default function ChartContainer() {
 
   if (state) {
     return (
-      <div className="w-max">
+      <div>
         <BudgetPeriodPieChart budgetPeriod={state} />
       </div>
     );
