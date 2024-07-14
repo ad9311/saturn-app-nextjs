@@ -1,3 +1,5 @@
+import { ExpenseTransaction } from "./transaction";
+
 export type BudgetPeriod = {
   uid: string;
   year: number;
@@ -8,4 +10,5 @@ export type BudgetPeriod = {
   transactionCount: number;
   expenseCount: number;
   incomeCount: number;
+  expenses?: ExpenseTransaction[];
 };
