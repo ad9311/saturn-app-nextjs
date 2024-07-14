@@ -36,8 +36,10 @@ export default function ChartContainer() {
   }
 
   useEffect(() => {
-    fetchBudgetPeriods();
-  }, [budgetPeriod, setBudgetPeriod]);
+    if (budgetPeriod === undefined) {
+      fetchBudgetPeriods();
+    }
+  }, []);
 
   if (budgetPeriod) {
     return (

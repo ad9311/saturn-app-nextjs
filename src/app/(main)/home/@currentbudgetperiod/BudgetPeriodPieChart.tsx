@@ -19,8 +19,6 @@ export default function BudgetPeriodPieChart({
     arrayOfSummedExpenses
   );
 
-  console.log(data);
-
   return (
     <div>
       <h3 className="text-center">
