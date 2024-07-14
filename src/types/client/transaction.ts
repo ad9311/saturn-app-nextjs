@@ -7,7 +7,7 @@ export type Transaction = {
 export type ExpenseCategory = {
   name: string;
   color: string;
-}
+};
 
 export type IncomeTransaction = Transaction;
 export type ExpenseTransaction = Transaction & {

@@ -1,4 +1,4 @@
-import { ExpenseTransaction } from "./transaction";
+import { ExpenseTransaction } from './transaction';
 
 export type BudgetPeriod = {
   uid: string;
