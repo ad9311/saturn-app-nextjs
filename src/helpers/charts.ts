@@ -1,4 +1,4 @@
-import BudgetPeriod from '@/types/client/budget-period';
+import Budget from '@/types/client/budget';
 import { ExpenseTransaction } from '@/types/client/transaction';
 
 type SummedExpenses = {
@@ -10,8 +10,8 @@ type SummedExpenses = {
 
 type ArrayOfSummedExpense = [string, number, string];
 
-export function balanceChartData(budgetPeriods: BudgetPeriod[]) {
-  const datasetData = budgetPeriods.map(bg => [
+export function balanceChartData(budgets: Budget[]) {
+  const datasetData = budgets.map(bg => [
     `${bg.month}/${bg.year}`,
     bg.balance,
   ]);
@@ -19,8 +19,8 @@ export function balanceChartData(budgetPeriods: BudgetPeriod[]) {
   return datasetData;
 }
 
-export function incomeChartData(budgetPeriods: BudgetPeriod[]) {
-  const datasetData = budgetPeriods.map(bg => [
+export function incomeChartData(budgets: Budget[]) {
+  const datasetData = budgets.map(bg => [
     `${bg.month}/${bg.year}`,
     bg.totalIncome,
   ]);
@@ -28,8 +28,8 @@ export function incomeChartData(budgetPeriods: BudgetPeriod[]) {
   return datasetData;
 }
 
-export function expensesChartData(budgetPeriods: BudgetPeriod[]) {
-  const datasetData = budgetPeriods.map(bg => [
+export function expensesChartData(budgets: Budget[]) {
+  const datasetData = budgets.map(bg => [
     `${bg.month}/${bg.year}`,
     bg.totalExpenses,
   ]);

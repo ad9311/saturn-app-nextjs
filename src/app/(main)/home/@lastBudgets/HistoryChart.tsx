@@ -1,6 +1,6 @@
 import { LineChart } from 'react-chartkick';
 import 'chartkick/chart.js';
-import BudgetPeriod from '@/types/client/budget-period';
+import Budget from '@/types/client/budget';
 import {
   balanceChartData,
   expensesChartData,
@@ -8,11 +8,11 @@ import {
 } from '@/helpers/charts';
 
 export default function HistoryChart({
-  budgetPeriods,
+  budgets,
 }: {
-  budgetPeriods: BudgetPeriod[];
+  budgets: Budget[];
 }) {
-  const reverseData = budgetPeriods.toReversed();
+  const reverseData = budgets.toReversed();
 
   const data = [
     { name: 'Balance', data: balanceChartData(reverseData) },

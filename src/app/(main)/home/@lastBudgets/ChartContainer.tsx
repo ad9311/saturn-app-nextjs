@@ -1,23 +1,20 @@
 'use client';
 
 import { getResource } from '@/fetch';
-import { useEffect, useState } from 'react';
-import { useSignOut } from '@/hooks';
-import BudgetPeriodPieChart from './BudgetPeriodPieChart';
+import Budget from '@/types/client/budget';
 import Cookie from 'js-cookie';
-import useBudgetPeriodStore from '@/stores/budget-period';
+import { useEffect, useState } from 'react';
+import HistoryChart from './HistoryChart';
+import { useSignOut } from '@/hooks';
 
 export default function ChartContainer() {
   const { signOut } = useSignOut();
-  const { budgetPeriod, setBudgetPeriod } = useBudgetPeriodStore(state => ({
-    budgetPeriod: state.budgetPeriod,
-    setBudgetPeriod: state.setBudgetPeriod,
-  }));
+  const [state, setState] = useState<Budget[]>([]);
 
-  async function fetchBudgetPeriods() {
+  async function fetchBudgets() {
     const authToken = Cookie.get('SATURN_APP_AUTH');
     const response = await getResource(
-      `${process.env.NEXT_PUBLIC_API}/api/budget_periods/1202405?include=expenses`,
+      `${process.env.NEXT_PUBLIC_API}/api/budget_periods?order=uid:desc&limit=4`,
       authToken as string
     );
 
@@ -31,20 +28,18 @@ export default function ChartContainer() {
     const json = await response.json();
 
     if (json.status === 'SUCCESS') {
-      setBudgetPeriod(json.data.budgetPeriod);
+      setState(json.data.budgetPeriods);
     }
   }
 
   useEffect(() => {
-    if (budgetPeriod === undefined) {
-      fetchBudgetPeriods();
-    }
+    fetchBudgets();
   }, []);
 
-  if (budgetPeriod) {
+  if (state.length) {
     return (
       <div>
-        <BudgetPeriodPieChart budgetPeriod={budgetPeriod} />
+        <HistoryChart budgets={state} />
       </div>
     );
   }

@@ -1,18 +1,18 @@
 import { PieChart } from 'react-chartkick';
 import 'chartkick/chart.js';
-import BudgetPeriod from '@/types/client/budget-period';
+import Budget from '@/types/client/budget';
 import {
   separateSummedExpensesAndColors,
   sumExpensesByCategory,
   summedExpensesToArray,
 } from '@/helpers/charts';
 
-export default function BudgetPeriodPieChart({
-  budgetPeriod,
+export default function BudgetPieChart({
+  budget,
 }: {
-  budgetPeriod: BudgetPeriod;
+  budget: Budget;
 }) {
-  const expenses = budgetPeriod.expenses;
+  const expenses = budget.expenses;
   const summedExpenses = sumExpensesByCategory(expenses || []);
   const arrayOfSummedExpenses = summedExpensesToArray(summedExpenses);
   const { data, colors } = separateSummedExpensesAndColors(
@@ -22,7 +22,7 @@ export default function BudgetPeriodPieChart({
   return (
     <div>
       <h3 className="text-center">
-        {budgetPeriod.month}-{budgetPeriod.year}
+        {budget.month}-{budget.year}
       </h3>
       <div className="xl:max-w-[30rem]">
         <PieChart data={data} colors={colors} />
