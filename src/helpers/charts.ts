@@ -11,10 +11,7 @@ type SummedExpenses = {
 type ArrayOfSummedExpense = [string, number, string];
 
 export function balanceChartData(budgets: Budget[]) {
-  const datasetData = budgets.map(bg => [
-    `${bg.month}/${bg.year}`,
-    bg.balance,
-  ]);
+  const datasetData = budgets.map(bg => [`${bg.month}/${bg.year}`, bg.balance]);
 
   return datasetData;
 }

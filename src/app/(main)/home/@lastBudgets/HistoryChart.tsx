@@ -7,11 +7,7 @@ import {
   incomeChartData,
 } from '@/helpers/charts';
 
-export default function HistoryChart({
-  budgets,
-}: {
-  budgets: Budget[];
-}) {
+export default function HistoryChart({ budgets }: { budgets: Budget[] }) {
   const reverseData = budgets.toReversed();
 
   const data = [

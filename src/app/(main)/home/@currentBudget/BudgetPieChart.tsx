@@ -7,11 +7,7 @@ import {
   summedExpensesToArray,
 } from '@/helpers/charts';
 
-export default function BudgetPieChart({
-  budget,
-}: {
-  budget: Budget;
-}) {
+export default function BudgetPieChart({ budget }: { budget: Budget }) {
   const expenses = budget.expenses;
   const summedExpenses = sumExpensesByCategory(expenses || []);
   const arrayOfSummedExpenses = summedExpensesToArray(summedExpenses);
