@@ -1,5 +1,3 @@
 export default function BudgetPeriodPage() {
-  return (
-    <div>Budget period</div>
-  )
+  return <div>Budget period</div>;
 }

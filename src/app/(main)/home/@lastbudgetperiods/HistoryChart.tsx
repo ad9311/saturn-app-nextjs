@@ -1,6 +1,6 @@
 import { LineChart } from 'react-chartkick';
 import 'chartkick/chart.js';
-import { BudgetPeriod } from '@/types/client/budget-period';
+import BudgetPeriod from '@/types/client/budget-period';
 import {
   balanceChartData,
   expensesChartData,

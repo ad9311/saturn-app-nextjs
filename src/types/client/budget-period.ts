@@ -1,6 +1,6 @@
 import { ExpenseTransaction, IncomeTransaction } from './transaction';
 
-export type BudgetPeriod = {
+type BudgetPeriod = {
   uid: string;
   year: number;
   month: number;
@@ -13,3 +13,14 @@ export type BudgetPeriod = {
   expenses?: ExpenseTransaction[];
   income?: IncomeTransaction[];
 };
+
+export type BudgetPeriodStoreValues = {
+  budgetPeriod: BudgetPeriod | undefined;
+};
+
+export type BudgetPeriodStoreActions = {
+  setBudgetPeriod: (budgetPeriod: BudgetPeriod) => void;
+  clearBudgetPeriod: () => void;
+};
+
+export default BudgetPeriod;

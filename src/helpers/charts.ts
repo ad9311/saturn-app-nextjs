@@ -1,4 +1,4 @@
-import { BudgetPeriod } from '@/types/client/budget-period';
+import BudgetPeriod from '@/types/client/budget-period';
 import { ExpenseTransaction } from '@/types/client/transaction';
 
 type SummedExpenses = {

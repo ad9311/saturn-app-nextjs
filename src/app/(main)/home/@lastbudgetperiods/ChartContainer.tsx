@@ -1,7 +1,7 @@
 'use client';
 
 import { getResource } from '@/fetch';
-import { BudgetPeriod } from '@/types/client/budget-period';
+import BudgetPeriod from '@/types/client/budget-period';
 import Cookie from 'js-cookie';
 import { useEffect, useState } from 'react';
 import HistoryChart from './HistoryChart';
