@@ -1,5 +1,5 @@
 import Budget from '@/types/client/budget';
-import { ExpenseTransaction } from '@/types/client/transaction';
+import { Expense } from '@/types/client/transaction';
 
 type SummedExpenses = {
   [categoryName: string]: {
@@ -34,10 +34,8 @@ export function expensesChartData(budgets: Budget[]) {
   return datasetData;
 }
 
-export function sumExpensesByCategory(
-  expenses: ExpenseTransaction[]
-): SummedExpenses {
-  return expenses.reduce((obj: SummedExpenses, expense: ExpenseTransaction) => {
+export function sumExpensesByCategory(expenses: Expense[]): SummedExpenses {
+  return expenses.reduce((obj: SummedExpenses, expense: Expense) => {
     const categoryName = expense.category.name;
     const categoryColor = expense.category.color;
 

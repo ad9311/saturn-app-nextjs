@@ -1,12 +1,12 @@
 'use client';
 
-import { getResource } from "@/fetch";
-import { useSignOut } from "@/hooks";
-import useBudgetStore from "@/stores/budget"
-import Cookie from 'js-cookie'
-import { notFound } from "next/navigation";
-import { useEffect } from "react";
-import BudgetInfo from "./BudgetInfo";
+import { getResource } from '@/fetch';
+import { useSignOut } from '@/hooks';
+import useBudgetStore from '@/stores/budget';
+import Cookie from 'js-cookie';
+import { notFound } from 'next/navigation';
+import { useEffect } from 'react';
+import BudgetInfo from './BudgetInfo';
 
 export default function InfoContainer({ uid }: { uid: string }) {
   const { signOut } = useSignOut();
@@ -54,5 +54,5 @@ export default function InfoContainer({ uid }: { uid: string }) {
     );
   }
 
-  return <p>Loading...</p>
+  return <p>Loading...</p>;
 }

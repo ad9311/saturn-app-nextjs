@@ -1,4 +1,4 @@
-import { ExpenseTransaction, IncomeTransaction } from './transaction';
+import { Expense, Income } from './transaction';
 
 type Budget = {
   uid: number;
@@ -10,8 +10,8 @@ type Budget = {
   transactionCount: number;
   expenseCount: number;
   incomeCount: number;
-  expenses?: ExpenseTransaction[];
-  income?: IncomeTransaction[];
+  expenses?: Expense[];
+  income?: Income[];
 };
 
 export type BudgetStoreValues = {

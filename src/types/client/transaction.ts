@@ -9,7 +9,7 @@ export type ExpenseCategory = {
   color: string;
 };
 
-export type IncomeTransaction = Transaction;
-export type ExpenseTransaction = Transaction & {
+export type Income = Transaction;
+export type Expense = Transaction & {
   category: ExpenseCategory;
 };
