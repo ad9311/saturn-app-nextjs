@@ -1,14 +1,14 @@
 'use client';
 
-import { getResource } from '@/fetch';
-import { useEffect } from 'react';
-import { useSignOut } from '@/hooks';
-import BudgetPieChart from './BudgetPieChart';
-import Cookie from 'js-cookie';
-import useBudgetStore from '@/stores/budget';
-import Link from 'next/link';
+import { getResource } from "@/fetch";
+import { useSignOut } from "@/hooks";
+import useBudgetStore from "@/stores/budget"
+import Cookie from 'js-cookie'
+import { notFound } from "next/navigation";
+import { useEffect } from "react";
+import BudgetInfo from "./BudgetInfo";
 
-export default function ChartContainer() {
+export default function InfoContainer({ uid }: { uid: string }) {
   const { signOut } = useSignOut();
   const { budget, setBudget } = useBudgetStore(state => ({
     budget: state.budget,
@@ -18,7 +18,7 @@ export default function ChartContainer() {
   async function fetchBudget() {
     const authToken = Cookie.get('SATURN_APP_AUTH');
     const response = await getResource(
-      `${process.env.NEXT_PUBLIC_API}/api/budget_periods/last?include=expenses`,
+      `${process.env.NEXT_PUBLIC_API}/api/budget_periods/${uid}?include=expenses`,
       authToken as string
     );
 
@@ -26,6 +26,10 @@ export default function ChartContainer() {
       // TODO
       if (response.status === 401) {
         return signOut();
+      }
+
+      if (response.status === 404) {
+        notFound();
       }
     }
 
@@ -37,7 +41,7 @@ export default function ChartContainer() {
   }
 
   useEffect(() => {
-    if (budget === undefined) {
+    if (budget === undefined || budget.uid !== Number(uid)) {
       fetchBudget();
     }
   }, []);
@@ -45,11 +49,10 @@ export default function ChartContainer() {
   if (budget) {
     return (
       <div>
-        <Link href={`/budgets/${budget.uid}`}>See more</Link>
-        <BudgetPieChart budget={budget} />
+        <BudgetInfo budget={budget} />
       </div>
     );
   }
 
-  return <p>Loading...</p>;
+  return <p>Loading...</p>
 }

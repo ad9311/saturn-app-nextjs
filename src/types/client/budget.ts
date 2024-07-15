@@ -1,7 +1,7 @@
 import { ExpenseTransaction, IncomeTransaction } from './transaction';
 
 type Budget = {
-  uid: string;
+  uid: number;
   year: number;
   month: number;
   balance: number;
