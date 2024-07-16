@@ -6,17 +6,17 @@ export async function middleware(request: NextRequest) {
   const validatedJWTToken = await verifyJWTToken(authToken as string);
 
   if (authToken && validatedJWTToken) {
-    if (request.nextUrl.pathname.startsWith('/sign_in')) {
+    if (request.nextUrl.pathname.startsWith('/sign-in')) {
       return NextResponse.redirect(new URL('/', request.url));
     }
 
     return NextResponse.next();
   } else {
-    if (request.nextUrl.pathname.startsWith('/sign_in')) {
+    if (request.nextUrl.pathname.startsWith('/sign-in')) {
       return NextResponse.next();
     }
 
-    return NextResponse.redirect(new URL('/sign_in', request.url));
+    return NextResponse.redirect(new URL('/sign-in', request.url));
   }
 }
 

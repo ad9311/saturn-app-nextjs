@@ -13,7 +13,7 @@ export default function MainNavbar(
           <Link href="/profile">Profile</Link>
         </li>
         <li>
-          <Link href="/sign_out">Sign out</Link>
+          <Link href="/sign-out">Sign out</Link>
         </li>
       </ul>
     </div>

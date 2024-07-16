@@ -19,7 +19,7 @@ export default function SignOutUser() {
 
     if (response.ok || response.status === 401) {
       Cookie.remove('SATURN_APP_AUTH');
-      router.push('/sign_in');
+      router.push('/sign-in');
       clearUser();
     } else {
       // TODO

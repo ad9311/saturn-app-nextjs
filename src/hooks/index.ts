@@ -6,7 +6,7 @@ export function useSignOut() {
   const router = useRouter();
 
   const signOut = () => {
-    router.push('/sign_out?session=expired');
+    router.push('/sign-out?session=expired');
   };
 
   return { signOut };
