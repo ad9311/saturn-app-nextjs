@@ -1,32 +1,22 @@
-'use client';
+import { Expense } from "@/types/client/transaction";
 
-import useBudgetStore from "@/stores/budget"
-
-export default function ExpensesList(props: React.HTMLAttributes<HTMLDivElement>) {
-  const { budget } = useBudgetStore(state => ({ budget: state.budget }));
-
-  if (budget && budget.expenses && budget.expenses.length > 0) {
-    const mappedExpenses = budget.expenses.map(expense => (
-      <li key={expense.id}>
-        {expense.description}-{expense.amount}
-      </li>
-    ));
-
-    return (
-      <div {...props}>
-        <section>
-          <h2>Expenses List</h2>
-          <ul>
-            {mappedExpenses}
-          </ul>
-        </section>
-      </div>
-    );
+export default function ExpensesList({ expenses }: { expenses: Expense[] }) {
+  if (expenses.length === 0) {
+    return <section>No expenses yet</section>
   }
 
-  if (budget && budget.expenses && budget.expenses.length === 0) {
-    return <div>No expenses yet</div>;
-  }
+  const mappedExpenses = expenses.map(expense => (
+    <li key={expense.id}>
+      {expense.description}-{expense.amount}
+    </li>
+  ));
 
-  return <div>Loading...</div>;
+  return (
+    <section>
+      <h2>Expenses List</h2>
+      <ul>
+        {mappedExpenses}
+      </ul>
+    </section>
+  );
 }

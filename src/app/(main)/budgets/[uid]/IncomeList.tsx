@@ -1,32 +1,22 @@
-'use client';
+import { Income } from "@/types/client/transaction";
 
-import useBudgetStore from "@/stores/budget"
-
-export default function IncomeList(props: React.HTMLAttributes<HTMLDivElement>) {
-  const { budget } = useBudgetStore(state => ({ budget: state.budget }));
-
-  if (budget && budget.income && budget.income.length > 0) {
-    const mappedIncome = budget.income.map(income => (
-      <li key={income.id}>
-        {income.description}-{income.amount}
-      </li>
-    ));
-
-    return (
-      <div {...props}>
-        <section>
-          <h2>Income List</h2>
-          <ul>
-            {mappedIncome}
-          </ul>
-        </section>
-      </div>
-    );
+export default function IncomeList({ income }: { income: Income[] }) {
+  if (income.length === 0) {
+    return <section>No income yet</section>
   }
 
-  if (budget && budget.income && budget.income.length === 0) {
-    return <div>No income yet</div>;
-  }
+  const mappedIncome = income.map(inc => (
+    <li key={inc.id}>
+      {inc.description}-{inc.amount}
+    </li>
+  ));
 
-  return <div>Loading...</div>;
+  return (
+    <section>
+    <h2>Income List</h2>
+      <ul>
+        {mappedIncome}
+      </ul>
+    </section>
+  );
 }

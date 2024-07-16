@@ -58,5 +58,5 @@ export default function InfoContainer({ uid, ...props }: InfoContainerProps) {
     );
   }
 
-  return <p>Loading...</p>;
+  return <div {...props}>Loading...</div>;
 }
