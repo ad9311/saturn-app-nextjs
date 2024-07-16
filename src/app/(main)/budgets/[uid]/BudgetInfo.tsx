@@ -6,15 +6,15 @@ export default function BudgetInfo({ budget }: { budget: Budget }) {
       <h2>
         {budget.month}/{budget.year}
       </h2>
-      <p>{budget.balance}</p>
+      <p>Balance: {budget.balance}</p>
       <div className="flex items-center gap-2">
-        <p>{budget.totalIncome}</p>
-        <p>{budget.totalExpenses}</p>
+        <p>Total income: {budget.totalIncome}</p>
+        <p>Total expenses: {budget.totalExpenses}</p>
       </div>
       <div className="flex items-center gap-2">
-        <p>{budget.transactionCount}</p>
-        <p>{budget.incomeCount}</p>
-        <p>{budget.expenseCount}</p>
+        <p>Transaction count:{budget.transactionCount}</p>
+        <p>Income count: {budget.incomeCount}</p>
+        <p>Expense count: {budget.expenseCount}</p>
       </div>
     </section>
   );
