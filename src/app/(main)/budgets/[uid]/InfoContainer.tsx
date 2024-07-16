@@ -22,7 +22,7 @@ export default function InfoContainer({ uid, ...props }: InfoContainerProps) {
   async function fetchBudget() {
     const authToken = Cookie.get('SATURN_APP_AUTH');
     const response = await getResource(
-      `${process.env.NEXT_PUBLIC_API}/api/budget_periods/${uid}?include=expenses:income`,
+      `${process.env.NEXT_PUBLIC_API}/api/budgets/${uid}?include=expenses:income`,
       authToken as string
     );
 
@@ -40,7 +40,7 @@ export default function InfoContainer({ uid, ...props }: InfoContainerProps) {
     const json = await response.json();
 
     if (json.status === 'SUCCESS') {
-      setBudget(json.data.budgetPeriod);
+      setBudget(json.data.budget);
     }
   }
 
