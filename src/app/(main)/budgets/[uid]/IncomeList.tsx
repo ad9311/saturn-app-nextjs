@@ -1,4 +1,4 @@
-import { Income } from "@/types/client/transaction";
+import { Income } from '@/types/client/transaction';
 
 export default function IncomeList({ income }: { income: Income[] }) {
   const mappedIncome = income.map(inc => (
@@ -9,10 +9,8 @@ export default function IncomeList({ income }: { income: Income[] }) {
 
   return (
     <section>
-    <h2>Income List</h2>
-      <ul>
-        {mappedIncome}
-      </ul>
+      <h2>Income List</h2>
+      <ul>{mappedIncome}</ul>
     </section>
   );
 }

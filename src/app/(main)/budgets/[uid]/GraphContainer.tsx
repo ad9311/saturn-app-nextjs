@@ -1,21 +1,21 @@
 'use client';
 
 import useBudgetStore from '@/stores/budget';
-import IncomeList from './IncomeList';
+import ExpensesPieChart from './ExpensesPieChart';
 
-export default function IncomeContainer(
+export default function GraphContainer(
   props: React.HTMLAttributes<HTMLDivElement>
 ) {
   const { budget } = useBudgetStore(state => ({ budget: state.budget }));
 
-  if (budget && budget.income) {
-    if (budget.income.length === 0) {
-      return <div {...props}>No income yet</div>;
+  if (budget && budget.expenses) {
+    if (budget.expenses.length === 0) {
+      return <div {...props}>No data</div>;
     }
 
     return (
       <div {...props}>
-        <IncomeList income={budget.income} />
+        <ExpensesPieChart expenses={budget.expenses} />
       </div>
     );
   }

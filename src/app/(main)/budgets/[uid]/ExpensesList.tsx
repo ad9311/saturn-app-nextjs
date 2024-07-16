@@ -1,4 +1,4 @@
-import { Expense } from "@/types/client/transaction";
+import { Expense } from '@/types/client/transaction';
 
 export default function ExpensesList({ expenses }: { expenses: Expense[] }) {
   const mappedExpenses = expenses.map(expense => (
@@ -10,9 +10,7 @@ export default function ExpensesList({ expenses }: { expenses: Expense[] }) {
   return (
     <section>
       <h2>Expenses List</h2>
-      <ul>
-        {mappedExpenses}
-      </ul>
+      <ul>{mappedExpenses}</ul>
     </section>
   );
 }

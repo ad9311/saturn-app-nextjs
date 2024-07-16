@@ -9,8 +9,8 @@ import { useEffect } from 'react';
 import BudgetInfo from './BudgetInfo';
 
 interface InfoContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  uid: string
-};
+  uid: string;
+}
 
 export default function InfoContainer({ uid, ...props }: InfoContainerProps) {
   const { signOut } = useSignOut();
