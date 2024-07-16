@@ -8,9 +8,11 @@ import { notFound } from 'next/navigation';
 import { useEffect } from 'react';
 import BudgetInfo from './BudgetInfo';
 
-type InfoContainerProps = { uid: string } & React.HTMLAttributes<HTMLDivElement>;
+interface InfoContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  uid: string
+};
 
-export default function InfoContainer(props: InfoContainerProps) {
+export default function InfoContainer({ uid, ...props }: InfoContainerProps) {
   const { signOut } = useSignOut();
   const { budget, setBudget } = useBudgetStore(state => ({
     budget: state.budget,
@@ -20,7 +22,7 @@ export default function InfoContainer(props: InfoContainerProps) {
   async function fetchBudget() {
     const authToken = Cookie.get('SATURN_APP_AUTH');
     const response = await getResource(
-      `${process.env.NEXT_PUBLIC_API}/api/budget_periods/${props.uid}?include=expenses:income`,
+      `${process.env.NEXT_PUBLIC_API}/api/budget_periods/${uid}?include=expenses:income`,
       authToken as string
     );
 
@@ -43,7 +45,7 @@ export default function InfoContainer(props: InfoContainerProps) {
   }
 
   useEffect(() => {
-    if (budget === undefined || budget.uid !== Number(props.uid)) {
+    if (budget === undefined || budget.uid !== Number(uid)) {
       fetchBudget();
     }
   }, []);
