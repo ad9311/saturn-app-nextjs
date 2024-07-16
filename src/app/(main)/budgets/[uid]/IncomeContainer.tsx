@@ -7,6 +7,10 @@ export default function IncomeContainer(props: React.HTMLAttributes<HTMLDivEleme
   const { budget } = useBudgetStore(state => ({ budget: state.budget }));
 
   if (budget && budget.income) {
+    if (budget.income.length === 0) {
+      return <div {...props}>No income yet</div>
+    }
+
     return (
       <div {...props}>
         <IncomeList income={budget.income} />

@@ -7,6 +7,10 @@ export default function ExpensesContainer(props: React.HTMLAttributes<HTMLDivEle
   const { budget } = useBudgetStore(state => ({ budget: state.budget }));
 
   if (budget && budget.expenses) {
+    if (budget.expenses.length === 0) {
+      return <div {...props}>No expenses yet</div>
+    }
+
     return (
       <div {...props}>
         <ExpensesList expenses={budget.expenses} />

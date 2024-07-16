@@ -1,10 +1,6 @@
 import { Income } from "@/types/client/transaction";
 
 export default function IncomeList({ income }: { income: Income[] }) {
-  if (income.length === 0) {
-    return <section>No income yet</section>
-  }
-
   const mappedIncome = income.map(inc => (
     <li key={inc.id}>
       {inc.description}-{inc.amount}
