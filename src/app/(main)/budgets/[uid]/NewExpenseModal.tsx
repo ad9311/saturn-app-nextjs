@@ -3,12 +3,12 @@ import useModalStore from '@/stores/modal';
 import NewExpenseForm from './NewExpenseForm';
 
 export default function NewExpenseModal({ modalId }: { modalId: string }) {
-  const { clearModalId } = useModalStore(state => ({
-    clearModalId: state.clearModalId,
+  const { clearId } = useModalStore(state => ({
+    clearId: state.clearId,
   }));
 
   function handleCloseExpenseForm() {
-    clearModalId(modalId);
+    clearId();
   }
 
   return (

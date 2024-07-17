@@ -3,12 +3,12 @@ import useModalStore from '@/stores/modal';
 import NewIncomeForm from './NewIncomeForm';
 
 export default function NewIncomeModal({ modalId }: { modalId: string }) {
-  const { clearModalId } = useModalStore(state => ({
-    clearModalId: state.clearModalId,
+  const { clearId } = useModalStore(state => ({
+    clearId: state.clearId,
   }));
 
   function handleCloseIncomeForm() {
-    clearModalId(modalId);
+    clearId();
   }
 
   return (

@@ -48,7 +48,9 @@ export default function NewExpenseForm() {
   }, []);
 
   const mappedExpenseCategories = expenseCategories.map(expenseCategory => (
-    <option value={expenseCategory.id}>{expenseCategory.name}</option>
+    <option key={expenseCategory.id} value={expenseCategory.id}>
+      {expenseCategory.name}
+    </option>
   ));
 
   return (

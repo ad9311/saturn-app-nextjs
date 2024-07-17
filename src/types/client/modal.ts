@@ -1,9 +1,8 @@
 export type ModalStoreValues = {
-  modalsIds: string[];
+  id: string;
 };
 
 export type ModalStoreActions = {
-  setModalId: (id: string) => void;
-  clearModalId: (id: string) => void;
-  clearModalsIds: () => void;
+  setId: (id: string) => void;
+  clearId: () => void;
 };

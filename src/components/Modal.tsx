@@ -6,15 +6,15 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function Modal({ id, children, ...props }: ModalProps) {
-  const { modalsIds } = useModalStore(state => ({
-    modalsIds: state.modalsIds,
+  const state = useModalStore(state => ({
+    id: state.id,
   }));
 
-  if (!modalsIds.includes(id)) return null;
+  if (state.id !== id) return null;
 
   return (
     <div
-      id={id}
+      id={state.id}
       className="fixed top-0 left-0 right-0 h-full bg-neutral-700/40">
       <div className="mt-52">
         <div {...props}>{children}</div>

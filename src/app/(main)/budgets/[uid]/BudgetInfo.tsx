@@ -8,16 +8,16 @@ const incomeModalId = 'new-income-form';
 const expenseModalId = 'new-expense-form';
 
 export default function BudgetInfo({ budget }: { budget: Budget }) {
-  const { setModalId } = useModalStore(state => ({
-    setModalId: state.setModalId,
+  const { setId } = useModalStore(state => ({
+    setId: state.setId,
   }));
 
   function handleOpenIncomeForm() {
-    setModalId(incomeModalId);
+    setId(incomeModalId);
   }
 
   function handleOpenExpenseForm() {
-    setModalId(expenseModalId);
+    setId(expenseModalId);
   }
 
   return (
