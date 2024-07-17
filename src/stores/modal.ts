@@ -3,7 +3,11 @@ import { create } from 'zustand';
 
 const useModalStore = create<ModalStoreValues & ModalStoreActions>(set => ({
   modalsIds: [],
-  setModalId: id => set(state => ({ modalsIds: [...state.modalsIds, id] })),
+  setModalId: id =>
+    set(state => {
+      if (state.modalsIds.includes(id)) return { modalsIds: state.modalsIds };
+      return { modalsIds: [...state.modalsIds, id] };
+    }),
   clearModalId: id =>
     set(state => {
       const modalsIds = state.modalsIds.filter(i => i !== id);
