@@ -1,18 +1,17 @@
-import Modal from '@/components/Modal';
 import useModalStore from '@/stores/modal';
 import NewIncomeForm from './NewIncomeForm';
 
-export default function NewIncomeModal({ modalId }: { modalId: string }) {
-  const { clearId } = useModalStore(state => ({
-    clearId: state.clearId,
+export default function NewIncomeModal() {
+  const { clearChildren } = useModalStore(state => ({
+    clearChildren: state.clearChildren,
   }));
 
   function handleCloseIncomeForm() {
-    clearId();
+    clearChildren();
   }
 
   return (
-    <Modal id={modalId} className="card modal">
+    <div className="card modal">
       <div className="flex items-center justify-between">
         <h3>New Income</h3>
         <button type="button" onClick={handleCloseIncomeForm}>
@@ -20,6 +19,6 @@ export default function NewIncomeModal({ modalId }: { modalId: string }) {
         </button>
       </div>
       <NewIncomeForm />
-    </Modal>
+    </div>
   );
 }

@@ -1,8 +1,8 @@
 export type ModalStoreValues = {
-  id: string;
+  children: React.ReactNode;
 };
 
 export type ModalStoreActions = {
-  setId: (id: string) => void;
-  clearId: () => void;
+  setChildren: (children: React.ReactNode) => void;
+  clearChildren: () => void;
 };

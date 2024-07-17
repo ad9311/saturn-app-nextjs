@@ -1,24 +1,17 @@
+'use client';
+
 import useModalStore from '@/stores/modal';
 
-interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
-  id: string;
-  children?: React.ReactNode;
-}
-
-export default function Modal({ id, children, ...props }: ModalProps) {
-  const state = useModalStore(state => ({
-    id: state.id,
+export default function Modal() {
+  const { children } = useModalStore(state => ({
+    children: state.children,
   }));
 
-  if (state.id !== id) return null;
+  if (children === null) return null;
 
   return (
-    <div
-      id={state.id}
-      className="fixed top-0 left-0 right-0 h-full bg-neutral-700/40">
-      <div className="mt-52">
-        <div {...props}>{children}</div>
-      </div>
+    <div className="fixed top-0 left-0 right-0 h-full bg-neutral-700/40">
+      <div className="mt-52">{children}</div>
     </div>
   );
 }

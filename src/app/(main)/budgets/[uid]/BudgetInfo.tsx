@@ -1,23 +1,19 @@
-import Modal from '@/components/Modal';
 import useModalStore from '@/stores/modal';
 import Budget from '@/types/client/budget';
 import NewIncomeModal from './NewIncomeModal';
 import NewExpenseModal from './NewExpenseModal';
 
-const incomeModalId = 'new-income-form';
-const expenseModalId = 'new-expense-form';
-
 export default function BudgetInfo({ budget }: { budget: Budget }) {
-  const { setId } = useModalStore(state => ({
-    setId: state.setId,
+  const { setChildren } = useModalStore(state => ({
+    setChildren: state.setChildren,
   }));
 
   function handleOpenIncomeForm() {
-    setId(incomeModalId);
+    setChildren(<NewIncomeModal />);
   }
 
   function handleOpenExpenseForm() {
-    setId(expenseModalId);
+    setChildren(<NewExpenseModal />);
   }
 
   return (
@@ -47,8 +43,6 @@ export default function BudgetInfo({ budget }: { budget: Budget }) {
         <p>Income count: {budget.incomeCount}</p>
         <p>Expense count: {budget.expenseCount}</p>
       </div>
-      <NewIncomeModal modalId={incomeModalId} />
-      <NewExpenseModal modalId={expenseModalId} />
     </section>
   );
 }
