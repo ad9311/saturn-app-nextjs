@@ -1,6 +1,6 @@
 import Modal from '@/components/Modal';
 import useModalStore from '@/stores/modal';
-import NewIncomeForm from './NewIncomeForm';
+import NewExpenseForm from './NewExpenseForm';
 
 export default function NewExpenseModal({ modalId }: { modalId: string }) {
   const { clearModalId } = useModalStore(state => ({
@@ -19,7 +19,7 @@ export default function NewExpenseModal({ modalId }: { modalId: string }) {
           CLOSE
         </button>
       </div>
-      <NewIncomeForm />
+      <NewExpenseForm />
     </Modal>
   );
 }

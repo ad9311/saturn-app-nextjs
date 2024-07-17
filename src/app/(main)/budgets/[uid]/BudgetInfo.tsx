@@ -15,7 +15,7 @@ export default function BudgetInfo({ budget }: { budget: Budget }) {
   }
 
   function handleOpenExpenseForm() {
-    setModalId(incomeModalId);
+    setModalId(expenseModalId);
   }
 
   return (

@@ -27,6 +27,7 @@ export default function NewExpenseForm() {
     <form action={formAction}>
       <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
       <input type="hidden" name="auth_token" value={authToken} readOnly />
+      <input type="hidden" name="expense[expense_category_id]" value="2" readOnly />
       <label htmlFor="description">
         <textarea
           name="expense[description]"
