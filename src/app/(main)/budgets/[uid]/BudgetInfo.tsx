@@ -2,11 +2,30 @@ import Modal from '@/components/Modal';
 import useModalStore from '@/stores/modal';
 import Budget from '@/types/client/budget';
 
+const incomeFormId = 'new-income-form';
+const expenseFormId = 'new-expense-form';
+
 export default function BudgetInfo({ budget }: { budget: Budget }) {
   const { setModalId, clearModalId } = useModalStore(state => ({
     setModalId: state.setModalId,
     clearModalId: state.clearModalId,
   }));
+
+  function handleOpenIncomeForm() {
+    setModalId(incomeFormId);
+  }
+
+  function handleCloseIncomeForm() {
+    clearModalId(expenseFormId);
+  }
+
+  function handleOpenExpenseForm() {
+    setModalId(incomeFormId);
+  }
+
+  function handleCloseExpenseForm() {
+    clearModalId(expenseFormId);
+  }
 
   return (
     <section>
@@ -15,12 +34,12 @@ export default function BudgetInfo({ budget }: { budget: Budget }) {
       </h2>
       <ul>
         <li>
-          <button type="button" onClick={() => setModalId('new-income-form')}>
+          <button type="button" onClick={handleOpenIncomeForm}>
             New income
           </button>
         </li>
         <li>
-          <button type="button" onClick={() => setModalId('new-expense-form')}>
+          <button type="button" onClick={handleOpenExpenseForm}>
             New expense
           </button>
         </li>
@@ -36,12 +55,12 @@ export default function BudgetInfo({ budget }: { budget: Budget }) {
         <p>Expense count: {budget.expenseCount}</p>
       </div>
       <Modal id="new-income-form">
-        <button type="button" onClick={() => clearModalId('new-income-form')}>
+        <button type="button" onClick={handleCloseIncomeForm}>
           CLOSE
         </button>
       </Modal>
       <Modal id="new-expense-form">
-        <button type="button" onClick={() => clearModalId('new-expense-form')}>
+        <button type="button" onClick={handleCloseExpenseForm}>
           CLOSE
         </button>
       </Modal>
