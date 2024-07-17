@@ -12,7 +12,7 @@ const initialState: ResponseCreateTransaction = {
 export default function NewExpenseForm() {
   const { budget, updateBudget } = useBudgetStore(state => ({
     budget: state.budget,
-    updateBudget: state.updateBudget
+    updateBudget: state.updateBudget,
   }));
   const [formState, formAction] = useFormState(createExpense, initialState);
   const authToken = Cookie.get('SATURN_APP_AUTH');
@@ -27,7 +27,12 @@ export default function NewExpenseForm() {
     <form action={formAction}>
       <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
       <input type="hidden" name="auth_token" value={authToken} readOnly />
-      <input type="hidden" name="expense[expense_category_id]" value="2" readOnly />
+      <input
+        type="hidden"
+        name="expense[expense_category_id]"
+        value="2"
+        readOnly
+      />
       <label htmlFor="description">
         <textarea
           name="expense[description]"

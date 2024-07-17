@@ -11,7 +11,7 @@ const useBudgetStore = create<BudgetStoreValues & BudgetStoreActions>(set => ({
   setBudgets: (budgets: Budget[]) => set({ budgets }),
   clearBudget: () => set({ budget: undefined }),
   clearBudgets: () => set({ budgets: [] }),
-  updateBudget: (budget) => set({ budget })
+  updateBudget: budget => set({ budget }),
 }));
 
 export default useBudgetStore;

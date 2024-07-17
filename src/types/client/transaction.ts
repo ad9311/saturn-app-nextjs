@@ -1,4 +1,4 @@
-import Budget from "./budget";
+import Budget from './budget';
 
 export type Transaction = {
   id: number;
@@ -18,4 +18,4 @@ export type Expense = Transaction & {
 
 export type ResponseCreateTransaction = {
   budget: Budget | undefined;
-}
+};

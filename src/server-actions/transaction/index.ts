@@ -42,7 +42,7 @@ export async function createExpense(
     expense: {
       amount: formData.get('expense[amount]'),
       description: formData.get('expense[description]'),
-      expense_category_id: formData.get('expense[expense_category_id]')
+      expense_category_id: formData.get('expense[expense_category_id]'),
     },
   });
 
