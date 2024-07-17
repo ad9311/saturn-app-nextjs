@@ -1,14 +1,10 @@
 import Budget from './budget';
+import ExpenseCategory from './expense-category';
 
 export type Transaction = {
   id: number;
   description: number;
   amount: number;
-};
-
-export type ExpenseCategory = {
-  name: string;
-  color: string;
 };
 
 export type Income = Transaction;
