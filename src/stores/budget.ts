@@ -22,6 +22,17 @@ const useBudgetStore = create<BudgetStoreValues & BudgetStoreActions>(set => ({
 
       return state;
     }),
+  addExpense: expense =>
+    set(state => {
+      if (state.budget && state.budget.expenses) {
+        const expenses = [expense, ...state.budget.expenses];
+        const budget = state.budget;
+        budget.expenses = expenses;
+        return { budget };
+      }
+
+      return state;
+    }),
 }));
 
 export default useBudgetStore;

@@ -2,26 +2,20 @@ import Modal from '@/components/Modal';
 import useModalStore from '@/stores/modal';
 import Budget from '@/types/client/budget';
 import NewIncomeModal from './NewIncomeModal';
+import NewExpenseModal from './NewExpenseModal';
 
-const incomeFormId = 'new-income-form';
-const expenseFormId = 'new-expense-form';
+const incomeModalId = 'new-income-form';
+const expenseModalId = 'new-expense-form';
 
 export default function BudgetInfo({ budget }: { budget: Budget }) {
-  const { setModalId, clearModalId } = useModalStore(state => ({
-    setModalId: state.setModalId,
-    clearModalId: state.clearModalId,
-  }));
+  const { setModalId } = useModalStore(state => ({ setModalId: state.setModalId }));
 
   function handleOpenIncomeForm() {
-    setModalId(incomeFormId);
+    setModalId(incomeModalId);
   }
 
   function handleOpenExpenseForm() {
-    setModalId(incomeFormId);
-  }
-
-  function handleCloseExpenseForm() {
-    clearModalId(expenseFormId);
+    setModalId(incomeModalId);
   }
 
   return (
@@ -51,12 +45,8 @@ export default function BudgetInfo({ budget }: { budget: Budget }) {
         <p>Income count: {budget.incomeCount}</p>
         <p>Expense count: {budget.expenseCount}</p>
       </div>
-      <NewIncomeModal modalId={incomeFormId} />
-      <Modal id="new-expense-form">
-        <button type="button" onClick={handleCloseExpenseForm}>
-          CLOSE
-        </button>
-      </Modal>
+      <NewIncomeModal modalId={incomeModalId} />
+      <NewExpenseModal modalId={expenseModalId} />
     </section>
   );
 }
