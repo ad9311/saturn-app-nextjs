@@ -51,7 +51,7 @@ export default function BudgetInfo({ budget }: { budget: Budget }) {
         <p>Income count: {budget.incomeCount}</p>
         <p>Expense count: {budget.expenseCount}</p>
       </div>
-      <NewIncomeModal BudgetUid={budget.uid} modalId={incomeFormId} />
+      <NewIncomeModal budgetUid={budget.uid} modalId={incomeFormId} />
       <Modal id="new-expense-form">
         <button type="button" onClick={handleCloseExpenseForm}>
           CLOSE

@@ -13,3 +13,11 @@ export type Income = Transaction;
 export type Expense = Transaction & {
   category: ExpenseCategory;
 };
+
+export type ResponseCreateIncome = {
+  income: Income | undefined
+};
+
+export type ResponseCreateExpense = {
+  expense: Expense | undefined
+};

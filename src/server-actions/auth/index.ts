@@ -4,7 +4,7 @@ import {
   postCreateSession,
   deleteSession as deleteSession,
 } from '@/fetch/auth';
-import { ResponseCreateSessionData, ResponseDeleteSessionData } from './types';
+import { ResponseCreateSessionData, ResponseDeleteSessionData } from '@/types/client/user';
 
 export async function createSession(
   prevState: ResponseCreateSessionData,

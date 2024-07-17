@@ -1,7 +1,8 @@
 import Modal from "@/components/Modal";
 import useModalStore from "@/stores/modal";
+import NewIncomeForm from "./NewIncomeForm";
 
-export default function NewIncomeModal({ BudgetUid, modalId }: { BudgetUid: number, modalId: string }) {
+export default function NewIncomeModal({ budgetUid, modalId }: { budgetUid: number, modalId: string }) {
   const { clearModalId } = useModalStore(state => ({ clearModalId: state.clearModalId }));
 
   function handleCloseIncomeForm() {
@@ -14,7 +15,7 @@ export default function NewIncomeModal({ BudgetUid, modalId }: { BudgetUid: numb
         <h3>New Income</h3>
         <button type="button" onClick={handleCloseIncomeForm}>CLOSE</button>
       </div>
-      {/* <NewIncomeForm /> */}
+      <NewIncomeForm budgetUid={budgetUid} />
     </Modal>
   )
 }

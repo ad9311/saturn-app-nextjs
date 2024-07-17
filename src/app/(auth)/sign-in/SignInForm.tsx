@@ -1,7 +1,7 @@
 'use client';
 
 import { createSession } from '@/server-actions/auth';
-import { ResponseCreateSessionData } from '@/server-actions/auth/types';
+import { ResponseCreateSessionData } from '@/types/client/user';
 import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { setJWTCookie } from '@/services/client-auth';

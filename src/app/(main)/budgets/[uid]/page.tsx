@@ -8,7 +8,7 @@ export default function BudgetPage({ params }: { params: { uid: string } }) {
     <div className="grid grid-flow-row gap-3">
       <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
         <InfoContainer
-          uid={params.uid}
+          budgetUid={Number(params.uid)}
           className="p-3 bg-neutral-200 rounded-sm lg:col-span-5"
         />
         <IncomeContainer className="p-3 bg-neutral-200 rounded-sm lg:col-span-7" />

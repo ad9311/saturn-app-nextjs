@@ -14,4 +14,14 @@ export type UserStoreActions = {
   clearUser: () => void;
 };
 
+export type ResponseCreateSessionData = {
+  authToken: string | null;
+  user: User | undefined;
+};
+
+export type ResponseDeleteSessionData = {
+  signedOutSuccessfully: boolean;
+};
+
+
 export default User;
