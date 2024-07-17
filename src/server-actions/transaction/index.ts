@@ -1,7 +1,7 @@
 'use server';
 
-import { postResource } from "@/fetch";
-import { ResponseCreateIncome } from "@/types/client/transaction";
+import { postResource } from '@/fetch';
+import { ResponseCreateIncome } from '@/types/client/transaction';
 
 export async function createIncome(
   prevState: ResponseCreateIncome,

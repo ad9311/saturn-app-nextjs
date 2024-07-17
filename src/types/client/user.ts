@@ -23,5 +23,4 @@ export type ResponseDeleteSessionData = {
   signedOutSuccessfully: boolean;
 };
 
-
 export default User;

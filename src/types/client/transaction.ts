@@ -15,9 +15,9 @@ export type Expense = Transaction & {
 };
 
 export type ResponseCreateIncome = {
-  income: Income | undefined
+  income: Income | undefined;
 };
 
 export type ResponseCreateExpense = {
-  expense: Expense | undefined
+  expense: Expense | undefined;
 };

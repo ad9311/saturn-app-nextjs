@@ -8,14 +8,14 @@ export default function IncomeContainer(
 ) {
   const { budget } = useBudgetStore(state => ({ budget: state.budget }));
 
-  if (budget && budget.income) {
-    if (budget.income.length === 0) {
+  if (budget && budget.incomeList) {
+    if (budget.incomeList.length === 0) {
       return <div {...props}>No income yet</div>;
     }
 
     return (
       <div {...props}>
-        <IncomeList income={budget.income} />
+        <IncomeList incomeList={budget.incomeList} />
       </div>
     );
   }

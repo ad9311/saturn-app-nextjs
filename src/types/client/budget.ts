@@ -11,7 +11,7 @@ type Budget = {
   expenseCount: number;
   incomeCount: number;
   expenses?: Expense[];
-  income?: Income[];
+  incomeList?: Income[];
 };
 
 export type BudgetStoreValues = {
@@ -24,6 +24,7 @@ export type BudgetStoreActions = {
   setBudgets: (budgets: Budget[]) => void;
   clearBudget: () => void;
   clearBudgets: () => void;
+  addIncome: (income: Income) => void;
 };
 
 export default Budget;

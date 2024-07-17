@@ -12,7 +12,10 @@ interface InfoContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   budgetUid: number;
 }
 
-export default function InfoContainer({ budgetUid, ...props }: InfoContainerProps) {
+export default function InfoContainer({
+  budgetUid,
+  ...props
+}: InfoContainerProps) {
   const { signOut } = useSignOut();
   const { budget, setBudget } = useBudgetStore(state => ({
     budget: state.budget,

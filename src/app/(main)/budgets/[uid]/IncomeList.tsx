@@ -1,9 +1,9 @@
 import { Income } from '@/types/client/transaction';
 
-export default function IncomeList({ income }: { income: Income[] }) {
-  const mappedIncome = income.map(inc => (
-    <li key={inc.id}>
-      {inc.description}-{inc.amount}
+export default function IncomeList({ incomeList }: { incomeList: Income[] }) {
+  const mappedIncome = incomeList.map(income => (
+    <li key={income.id}>
+      {income.description}-{income.amount}
     </li>
   ));
 

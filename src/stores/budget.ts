@@ -11,6 +11,17 @@ const useBudgetStore = create<BudgetStoreValues & BudgetStoreActions>(set => ({
   setBudgets: (budgets: Budget[]) => set({ budgets }),
   clearBudget: () => set({ budget: undefined }),
   clearBudgets: () => set({ budgets: [] }),
+  addIncome: income =>
+    set(state => {
+      if (state.budget && state.budget.incomeList) {
+        const incomeList = [income, ...state.budget.incomeList];
+        const budget = state.budget;
+        budget.incomeList = incomeList;
+        return { budget };
+      }
+
+      return state;
+    }),
 }));
 
 export default useBudgetStore;
