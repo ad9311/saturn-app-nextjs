@@ -5,7 +5,7 @@ import {
   separateSummedExpensesAndColors,
   sumExpensesByCategory,
   summedExpensesToArray,
-} from '@/helpers/charts';
+} from '@/helpers/chart';
 
 export default function BudgetPieChart({ budget }: { budget: Budget }) {
   const expenses = budget.expenses;

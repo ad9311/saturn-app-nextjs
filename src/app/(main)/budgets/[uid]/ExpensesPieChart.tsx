@@ -2,7 +2,7 @@ import {
   separateSummedExpensesAndColors,
   sumExpensesByCategory,
   summedExpensesToArray,
-} from '@/helpers/charts';
+} from '@/helpers/chart';
 import { Expense } from '@/types/client/transaction';
 import { PieChart } from 'react-chartkick';
 import 'chartkick/chart.js';
