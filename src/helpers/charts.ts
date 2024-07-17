@@ -36,8 +36,8 @@ export function expensesChartData(budgets: Budget[]) {
 
 export function sumExpensesByCategory(expenses: Expense[]): SummedExpenses {
   return expenses.reduce((obj: SummedExpenses, expense: Expense) => {
-    const categoryName = expense.category.name;
-    const categoryColor = expense.category.color;
+    const categoryName = expense.expenseCategory.name;
+    const categoryColor = expense.expenseCategory.color;
 
     if (!obj[categoryName]) {
       obj[categoryName] = {

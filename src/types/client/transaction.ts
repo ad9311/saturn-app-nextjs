@@ -9,7 +9,7 @@ export type Transaction = {
 
 export type Income = Transaction;
 export type Expense = Transaction & {
-  category: ExpenseCategory;
+  expenseCategory: ExpenseCategory;
 };
 
 export type ResponseCreateTransaction = {
