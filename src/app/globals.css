@@ -8,3 +8,13 @@
     @apply h-full;
   }
 }
+
+@layer utilities {
+  .card {
+    @apply bg-neutral-200 rounded-sm p-3 border border-neutral-300;
+  }
+
+  .modal {
+    @apply max-w-[34rem] mx-auto;
+  }
+}

@@ -1,12 +1,11 @@
 import useModalStore from '@/stores/modal';
 
-export default function Modal({
-  id,
-  children,
-}: {
+interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   id: string;
   children?: React.ReactNode;
-}) {
+}
+
+export default function Modal({ id, children, ...props }: ModalProps) {
   const { modalsIds } = useModalStore(state => ({
     modalsIds: state.modalsIds,
   }));
@@ -16,8 +15,10 @@ export default function Modal({
   return (
     <div
       id={id}
-      className="fixed top-0 left-0 right-0 h-full bg-neutral-200/40">
-      <div className="container mx-aut0 mt-60">{children}</div>
+      className="fixed top-0 left-0 right-0 h-full bg-neutral-700/40">
+      <div className="mt-52">
+        <div {...props}>{children}</div>
+      </div>
     </div>
   );
 }
