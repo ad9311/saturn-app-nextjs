@@ -24,8 +24,7 @@ export type BudgetStoreActions = {
   setBudgets: (budgets: Budget[]) => void;
   clearBudget: () => void;
   clearBudgets: () => void;
-  addIncome: (income: Income) => void;
-  addExpense: (expense: Expense) => void;
+  updateBudget: (budget: Budget) => void;
 };
 
 export default Budget;

@@ -1,3 +1,5 @@
+import Budget from "./budget";
+
 export type Transaction = {
   id: number;
   description: number;
@@ -14,10 +16,6 @@ export type Expense = Transaction & {
   category: ExpenseCategory;
 };
 
-export type ResponseCreateIncome = {
-  income: Income | undefined;
-};
-
-export type ResponseCreateExpense = {
-  expense: Expense | undefined;
-};
+export type ResponseCreateTransaction = {
+  budget: Budget | undefined;
+}

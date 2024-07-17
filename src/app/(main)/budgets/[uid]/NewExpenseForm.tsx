@@ -1,33 +1,31 @@
 import { createExpense } from '@/server-actions/transaction';
-import { ResponseCreateExpense } from '@/types/client/transaction';
+import { ResponseCreateTransaction } from '@/types/client/transaction';
 import { useFormState } from 'react-dom';
 import Cookie from 'js-cookie';
 import useBudgetStore from '@/stores/budget';
 import { useEffect } from 'react';
 
-const initialState: ResponseCreateExpense = {
-  expense: undefined,
+const initialState: ResponseCreateTransaction = {
+  budget: undefined,
 };
 
 export default function NewExpenseForm() {
-  const { budget, addExpense } = useBudgetStore(state => ({
+  const { budget, updateBudget } = useBudgetStore(state => ({
     budget: state.budget,
-    addExpense: state.addExpense,
+    updateBudget: state.updateBudget
   }));
   const [formState, formAction] = useFormState(createExpense, initialState);
   const authToken = Cookie.get('SATURN_APP_AUTH');
 
   useEffect(() => {
-    if (formState.expense) {
-      addExpense(formState.expense);
+    if (formState.budget) {
+      updateBudget(formState.budget);
     }
   }, [formState]);
 
-  if (!budget) return null;
-
   return (
     <form action={formAction}>
-      <input type="hidden" name="budget[uid]" value={budget.uid} readOnly />
+      <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
       <input type="hidden" name="auth_token" value={authToken} readOnly />
       <label htmlFor="description">
         <textarea

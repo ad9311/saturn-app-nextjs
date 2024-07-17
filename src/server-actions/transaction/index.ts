@@ -1,16 +1,16 @@
 'use server';
 
 import { postResource } from '@/fetch';
-import { ResponseCreateExpense, ResponseCreateIncome } from '@/types/client/transaction';
+import { ResponseCreateTransaction } from '@/types/client/transaction';
 
 export async function createIncome(
-  prevState: ResponseCreateIncome,
+  prevState: ResponseCreateTransaction,
   formData: FormData
-): Promise<ResponseCreateIncome> {
+): Promise<ResponseCreateTransaction> {
   const body = JSON.stringify({
     income: {
-      amount: formData.get('expense[amount]'),
-      description: formData.get('expense[description]'),
+      amount: formData.get('income[amount]'),
+      description: formData.get('income[description]'),
     },
   });
 
@@ -27,7 +27,7 @@ export async function createIncome(
   if (json.status === 'SUCCESS') {
     console.log(json);
     return {
-      income: json.data.income,
+      budget: json.data.budget,
     };
   }
 
@@ -35,9 +35,9 @@ export async function createIncome(
 }
 
 export async function createExpense(
-  prevState: ResponseCreateExpense,
+  prevState: ResponseCreateTransaction,
   formData: FormData
-): Promise<ResponseCreateExpense> {
+): Promise<ResponseCreateTransaction> {
   const body = JSON.stringify({
     expense: {
       amount: formData.get('expense[amount]'),
@@ -59,7 +59,7 @@ export async function createExpense(
   if (json.status === 'SUCCESS') {
     console.log(json);
     return {
-      expense: json.data.expense,
+      budget: json.data.budget,
     };
   }
 
