@@ -16,15 +16,11 @@ type Budget = {
 
 export type BudgetStoreValues = {
   budget: Budget | undefined;
-  budgets: Budget[];
 };
 
 export type BudgetStoreActions = {
   setBudget: (budget: Budget) => void;
-  setBudgets: (budgets: Budget[]) => void;
   clearBudget: () => void;
-  clearBudgets: () => void;
-  updateBudget: (budget: Budget) => void;
 };
 
 export default Budget;

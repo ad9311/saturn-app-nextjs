@@ -3,17 +3,13 @@
 import { getResource } from '@/fetch';
 import Budget from '@/types/client/budget';
 import Cookie from 'js-cookie';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import HistoryChart from './HistoryChart';
 import { useSignOut } from '@/hooks';
-import useBudgetStore from '@/stores/budget';
 
 export default function ChartContainer() {
   const { signOut } = useSignOut();
-  const { budgets, setBudgets } = useBudgetStore(state => ({
-    budgets: state.budgets,
-    setBudgets: state.setBudgets,
-  }));
+  const [budgets, setBudgets] = useState<Budget[]>([]);
 
   async function fetchBudgets() {
     const authToken = Cookie.get('SATURN_APP_AUTH');

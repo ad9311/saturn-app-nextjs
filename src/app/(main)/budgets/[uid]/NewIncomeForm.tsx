@@ -10,16 +10,16 @@ const initialState: ResponseCreateTransaction = {
 };
 
 export default function NewIncomeForm() {
-  const { budget, updateBudget } = useBudgetStore(state => ({
+  const { budget, setBudget } = useBudgetStore(state => ({
     budget: state.budget,
-    updateBudget: state.updateBudget,
+    setBudget: state.setBudget,
   }));
   const [formState, formAction] = useFormState(createIncome, initialState);
   const authToken = Cookie.get('SATURN_APP_AUTH');
 
   useEffect(() => {
     if (formState.budget) {
-      updateBudget(formState.budget);
+      setBudget(formState.budget);
     }
   }, [formState]);
 

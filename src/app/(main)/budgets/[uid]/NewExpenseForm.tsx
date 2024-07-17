@@ -12,9 +12,9 @@ const initialState: ResponseCreateTransaction = {
 };
 
 export default function NewExpenseForm() {
-  const { budget, updateBudget } = useBudgetStore(state => ({
+  const { budget, setBudget } = useBudgetStore(state => ({
     budget: state.budget,
-    updateBudget: state.updateBudget,
+    setBudget: state.setBudget,
   }));
   const { expenseCategories, setExpenseCategories } = useExpenseCategoryStore(
     state => ({
@@ -39,7 +39,7 @@ export default function NewExpenseForm() {
 
   useEffect(() => {
     if (formState.budget) {
-      updateBudget(formState.budget);
+      setBudget(formState.budget);
     }
   }, [formState]);
 
