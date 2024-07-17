@@ -7,6 +7,7 @@ import BudgetPieChart from './BudgetPieChart';
 import Cookie from 'js-cookie';
 import useBudgetStore from '@/stores/budget';
 import Link from 'next/link';
+import { compareMonthYear } from '@/helpers/date';
 
 export default function ChartContainer() {
   const { signOut } = useSignOut();
@@ -18,7 +19,7 @@ export default function ChartContainer() {
   async function fetchBudget() {
     const authToken = Cookie.get('SATURN_APP_AUTH');
     const response = await getResource(
-      `${process.env.NEXT_PUBLIC_API}/api/budgets/last?include=expenses`,
+      `${process.env.NEXT_PUBLIC_API}/api/budgets/last?include=expenses:income_list`,
       authToken as string
     );
 
@@ -39,6 +40,13 @@ export default function ChartContainer() {
   useEffect(() => {
     if (budget === undefined) {
       fetchBudget();
+      return;
+    }
+
+    const isCurrentBudget = compareMonthYear(budget.month, budget.year);
+    if (!isCurrentBudget) {
+      fetchBudget();
+      return;
     }
   }, []);
 
