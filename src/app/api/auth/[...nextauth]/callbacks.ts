@@ -1,7 +1,16 @@
 import { createUser, getUserByAccountId } from '@/db/users';
 import { User } from '@/types/user';
 
-export async function signInCallback(data: any) {
+export type CallbackData = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    image: string;
+  };
+};
+
+export async function signInCallback(data: CallbackData) {
   const existingUser = await getUserByAccountId(data.user.id);
 
   if (existingUser) {
@@ -24,7 +33,7 @@ export async function signInCallback(data: any) {
   return false;
 }
 
-export async function restrictUsersCallback(data: any) {
+export async function restrictUsersCallback(data: CallbackData) {
   const emailsString = process.env.ALLOWED_EMAILS;
   const emails = (emailsString as string).split(',');
   if (emails.includes(data.user.email)) {

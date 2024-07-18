@@ -1,6 +1,10 @@
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
-import { restrictUsersCallback, signInCallback } from './callbacks';
+import {
+  CallbackData,
+  restrictUsersCallback,
+  signInCallback,
+} from './callbacks';
 
 const handler = NextAuth({
   providers: [
@@ -14,12 +18,12 @@ const handler = NextAuth({
   },
   callbacks: {
     async signIn(data) {
-      const restrict = await restrictUsersCallback(data);
+      const restrict = await restrictUsersCallback(data as CallbackData);
       if (restrict) {
         return false;
       }
 
-      return await signInCallback(data);
+      return await signInCallback(data as CallbackData);
     },
   },
 });
