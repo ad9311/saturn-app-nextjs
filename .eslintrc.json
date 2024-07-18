@@ -9,6 +9,9 @@
   "rules": {
     "prettier/prettier": "error",
     "react-hooks/exhaustive-deps": "off",
-    "no-unused-vars": "error"
+    "no-unused-vars": "error",
+    "no-else-return": "error",
+    "eqeqeq": "error",
+    "no-console": "warn"
   }
 }
