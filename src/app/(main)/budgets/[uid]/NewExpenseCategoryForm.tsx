@@ -20,7 +20,11 @@ function SubmitFormButton() {
   );
 }
 
-export default function NewExpenseCategoryForm() {
+export default function NewExpenseCategoryForm({
+  returnToNewExpense,
+}: {
+  returnToNewExpense?: boolean;
+}) {
   const { setExpenseCategories } = useExpenseCategoryStore(state => ({
     setExpenseCategories: state.setExpenseCategories,
   }));
@@ -31,17 +35,21 @@ export default function NewExpenseCategoryForm() {
     createExpenseCategory,
     initialState
   );
+  const ref = useRef<HTMLFormElement>(null);
   const authToken = Cookies.get('SATURN_APP_AUTH');
 
   useEffect(() => {
     if (formState.expenseCategories.length > 0) {
       setExpenseCategories(formState.expenseCategories);
-      setChildren(<NewExpenseModal />);
+      ref.current?.reset();
+      if (returnToNewExpense) {
+        setChildren(<NewExpenseModal />);
+      }
     }
   }, [formState]);
 
   return (
-    <form action={formAction}>
+    <form action={formAction} ref={ref}>
       <input type="hidden" name="auth_token" value={authToken} readOnly />
       <label htmlFor="name">
         <input
