@@ -25,7 +25,7 @@ export default function NewExpenseCategoryForm() {
   const authToken = Cookies.get('SATURN_APP_AUTH');
 
   useEffect(() => {
-    if (formState.expenseCategories) {
+    if (formState.expenseCategories.length > 0) {
       setExpenseCategories(formState.expenseCategories);
       setChildren(<NewExpenseModal />);
     }

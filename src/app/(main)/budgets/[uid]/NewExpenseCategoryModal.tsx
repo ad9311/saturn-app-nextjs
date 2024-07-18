@@ -14,7 +14,7 @@ export default function NewExpenseCategoryModal({
 
   function handleCloseIncomeForm() {
     if (returnToNewExpense) {
-      setChildren(<NewExpenseModal />);
+      return setChildren(<NewExpenseModal />);
     }
 
     clearChildren();

@@ -26,6 +26,7 @@ export default function NewExpenseForm() {
   );
   const { setChildren } = useModalStore(state => ({
     setChildren: state.setChildren,
+    clearChildren: state.clearChildren,
   }));
   const [formState, formAction] = useFormState(createExpense, initialState);
   const authToken = Cookies.get('SATURN_APP_AUTH');

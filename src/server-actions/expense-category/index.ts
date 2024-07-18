@@ -1,3 +1,5 @@
+'use server';
+
 import { postResource } from '@/fetch';
 import { ResponseCreateExpenseCategory } from '@/types/client/expense-category';
 
