@@ -2,7 +2,7 @@
 
 import { createSession } from '@/server-actions/auth';
 import { ResponseCreateSessionData } from '@/types/client/user';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { setJWTCookie } from '@/services/client-auth';
 import { useEffect } from 'react';
@@ -12,6 +12,15 @@ const initialState: ResponseCreateSessionData = {
   authToken: null,
   user: undefined,
 };
+
+function SubmitFormButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? 'Submitting...' : 'Submit'}
+    </button>
+  );
+}
 
 export default function SignInForm() {
   const route = useRouter();
@@ -46,9 +55,7 @@ export default function SignInForm() {
           autoComplete="current-password"
         />
       </label>
-      <button type="submit" name="submit">
-        Sign In
-      </button>
+      <SubmitFormButton />
     </form>
   );
 }

@@ -1,13 +1,22 @@
 import { createIncome } from '@/server-actions/transaction';
 import { ResponseCreateTransaction } from '@/types/client/transaction';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import Cookie from 'js-cookie';
 import useBudgetStore from '@/stores/budget';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 const initialState: ResponseCreateTransaction = {
   budget: undefined,
 };
+
+function SubmitFormButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? 'Submitting...' : 'Submit'}
+    </button>
+  );
+}
 
 export default function NewIncomeForm() {
   const { budget, setBudget } = useBudgetStore(state => ({
@@ -15,16 +24,18 @@ export default function NewIncomeForm() {
     setBudget: state.setBudget,
   }));
   const [formState, formAction] = useFormState(createIncome, initialState);
+  const ref = useRef<HTMLFormElement>(null);
   const authToken = Cookie.get('SATURN_APP_AUTH');
 
   useEffect(() => {
     if (formState.budget) {
       setBudget(formState.budget);
+      ref.current?.reset();
     }
   }, [formState]);
 
   return (
-    <form action={formAction}>
+    <form action={formAction} ref={ref}>
       <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
       <input type="hidden" name="auth_token" value={authToken} readOnly />
       <label htmlFor="description">
@@ -41,9 +52,7 @@ export default function NewIncomeForm() {
           placeholder="Amount"
         />
       </label>
-      <button type="submit" name="submit">
-        Submit
-      </button>
+      <SubmitFormButton />
     </form>
   );
 }

@@ -1,9 +1,9 @@
 import { createExpense } from '@/server-actions/transaction';
 import { ResponseCreateTransaction } from '@/types/client/transaction';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import Cookies from 'js-cookie';
 import useBudgetStore from '@/stores/budget';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import useExpenseCategoryStore from '@/stores/expense-category';
 import { getResource } from '@/fetch';
 import useModalStore from '@/stores/modal';
@@ -12,6 +12,15 @@ import NewExpenseCategoryModal from './NewExpenseCategoryModal';
 const initialState: ResponseCreateTransaction = {
   budget: undefined,
 };
+
+function SubmitFormButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? 'Submitting...' : 'Submit'}
+    </button>
+  );
+}
 
 export default function NewExpenseForm() {
   const { budget, setBudget } = useBudgetStore(state => ({
@@ -29,6 +38,7 @@ export default function NewExpenseForm() {
     clearChildren: state.clearChildren,
   }));
   const [formState, formAction] = useFormState(createExpense, initialState);
+  const ref = useRef<HTMLFormElement>(null);
   const authToken = Cookies.get('SATURN_APP_AUTH');
 
   async function getExpenseCategories() {
@@ -50,6 +60,7 @@ export default function NewExpenseForm() {
   useEffect(() => {
     if (formState.budget) {
       setBudget(formState.budget);
+      ref.current?.reset();
     }
   }, [formState]);
 
@@ -66,7 +77,7 @@ export default function NewExpenseForm() {
   ));
 
   return (
-    <form action={formAction}>
+    <form action={formAction} ref={ref}>
       <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
       <input type="hidden" name="auth_token" value={authToken} readOnly />
       <label htmlFor="description">
@@ -93,9 +104,7 @@ export default function NewExpenseForm() {
           placeholder="Amount"
         />
       </label>
-      <button type="submit" name="submit">
-        Submit
-      </button>
+      <SubmitFormButton />
     </form>
   );
 }

@@ -1,15 +1,24 @@
 import { createExpenseCategory } from '@/server-actions/expense-category';
 import { ResponseCreateExpenseCategory } from '@/types/client/expense-category';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import Cookies from 'js-cookie';
 import useExpenseCategoryStore from '@/stores/expense-category';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import useModalStore from '@/stores/modal';
 import NewExpenseModal from './NewExpenseModal';
 
 const initialState: ResponseCreateExpenseCategory = {
   expenseCategories: [],
 };
+
+function SubmitFormButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? 'Submitting...' : 'Submit'}
+    </button>
+  );
+}
 
 export default function NewExpenseCategoryForm() {
   const { setExpenseCategories } = useExpenseCategoryStore(state => ({
@@ -50,9 +59,7 @@ export default function NewExpenseCategoryForm() {
           placeholder="Name"
         />
       </label>
-      <button type="submit" name="submit">
-        Submit
-      </button>
+      <SubmitFormButton />
     </form>
   );
 }
