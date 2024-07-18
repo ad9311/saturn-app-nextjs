@@ -42,7 +42,7 @@ export default function NewIncomeForm() {
         <textarea
           name="income[description]"
           id="description"
-          placeholder="Description"></textarea>
+          placeholder="Description" />
       </label>
       <label htmlFor="amount">
         <input
