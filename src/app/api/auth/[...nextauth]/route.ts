@@ -14,7 +14,7 @@ const handler = NextAuth({
   },
   callbacks: {
     async signIn(data) {
-      const restrict = await restrictUsersCallback(data)
+      const restrict = await restrictUsersCallback(data);
       if (restrict) {
         return false;
       }
