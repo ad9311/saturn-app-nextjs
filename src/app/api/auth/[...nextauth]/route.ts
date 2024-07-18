@@ -1,5 +1,8 @@
+import { createUser, getUserByAccountId } from "@/db/users"
+import { User } from "@/types/user";
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
+import { signInCallback } from "./callbacks";
 
 const handler = NextAuth({
   providers: [
@@ -10,6 +13,11 @@ const handler = NextAuth({
   ],
   pages: {
     signIn: '/auth/sign-in',
+  },
+  callbacks: {
+    async signIn(data) {
+      return await signInCallback(data);
+    }
   }
 })
 
