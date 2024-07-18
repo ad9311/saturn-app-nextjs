@@ -1,11 +1,13 @@
 import { createExpense } from '@/server-actions/transaction';
 import { ResponseCreateTransaction } from '@/types/client/transaction';
 import { useFormState } from 'react-dom';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 import useBudgetStore from '@/stores/budget';
 import { useEffect } from 'react';
 import useExpenseCategoryStore from '@/stores/expense-category';
 import { getResource } from '@/fetch';
+import useModalStore from '@/stores/modal';
+import NewExpenseCategoryModal from './NewExpenseCategoryModal';
 
 const initialState: ResponseCreateTransaction = {
   budget: undefined,
@@ -22,8 +24,11 @@ export default function NewExpenseForm() {
       setExpenseCategories: state.setExpenseCategories,
     })
   );
+  const { setChildren } = useModalStore(state => ({
+    setChildren: state.setChildren,
+  }));
   const [formState, formAction] = useFormState(createExpense, initialState);
-  const authToken = Cookie.get('SATURN_APP_AUTH');
+  const authToken = Cookies.get('SATURN_APP_AUTH');
 
   async function getExpenseCategories() {
     const response = await getResource(
@@ -37,6 +42,10 @@ export default function NewExpenseForm() {
     }
   }
 
+  function handleNewCategory() {
+    setChildren(<NewExpenseCategoryModal returnToNewExpense />);
+  }
+
   useEffect(() => {
     if (formState.budget) {
       setBudget(formState.budget);
@@ -44,7 +53,9 @@ export default function NewExpenseForm() {
   }, [formState]);
 
   useEffect(() => {
-    getExpenseCategories();
+    if (expenseCategories.length === 0) {
+      getExpenseCategories();
+    }
   }, []);
 
   const mappedExpenseCategories = expenseCategories.map(expenseCategory => (
@@ -64,8 +75,13 @@ export default function NewExpenseForm() {
           placeholder="Description"></textarea>
       </label>
       <label htmlFor="expense_categories">
+        <button type="button" onClick={handleNewCategory}>
+          New category
+        </button>
         <select name="expense[expense_category_id]" id="expense_categories">
-          {mappedExpenseCategories}
+          {mappedExpenseCategories.length === 0
+            ? 'Loading...'
+            : mappedExpenseCategories}
         </select>
       </label>
       <label htmlFor="amount">

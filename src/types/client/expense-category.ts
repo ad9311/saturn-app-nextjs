@@ -13,4 +13,8 @@ export type ExpenseCategoryStoreActions = {
   clearExpenseCategories: () => void;
 };
 
+export type ResponseCreateExpenseCategory = {
+  expenseCategories: ExpenseCategory[];
+};
+
 export default ExpenseCategory;

@@ -1,7 +1,4 @@
-import {
-  BudgetStoreActions,
-  BudgetStoreValues,
-} from '@/types/client/budget';
+import { BudgetStoreActions, BudgetStoreValues } from '@/types/client/budget';
 import { create } from 'zustand';
 
 const useBudgetStore = create<BudgetStoreValues & BudgetStoreActions>(set => ({

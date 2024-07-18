@@ -25,7 +25,6 @@ export async function createIncome(
   const json = await response.json();
 
   if (json.status === 'SUCCESS') {
-    console.log(json);
     return {
       budget: json.data.budget,
     };
@@ -57,7 +56,6 @@ export async function createExpense(
   const json = await response.json();
 
   if (json.status === 'SUCCESS') {
-    console.log(json);
     return {
       budget: json.data.budget,
     };
