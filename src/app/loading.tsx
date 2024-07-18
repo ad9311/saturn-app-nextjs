@@ -1,3 +1,3 @@
 export default function Loading() {
-  return <h1 className="text-2xl">LOADING...</h1>;
+  return <h1>LOADING...</h1>
 }

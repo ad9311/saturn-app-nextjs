@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation';
-
 export default function RootPage() {
-  redirect('/home');
+  return <h1>ROOT PAGE</h1>
 }
