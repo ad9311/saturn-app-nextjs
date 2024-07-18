@@ -1,3 +1,10 @@
-export default function RootPage() {
-  return <h1>ROOT PAGE</h1>
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation";
+
+export default async function RootPage() {
+  const session = await getServerSession();
+
+  if (session) redirect('/home');
+
+  redirect('/auth/sign-in');
 }
