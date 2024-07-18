@@ -1,8 +1,6 @@
-import { createUser, getUserByAccountId } from '@/db/users';
-import { User } from '@/types/user';
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
-import { signInCallback } from './callbacks';
+import { restrictUsersCallback, signInCallback } from './callbacks';
 
 const handler = NextAuth({
   providers: [
@@ -16,6 +14,11 @@ const handler = NextAuth({
   },
   callbacks: {
     async signIn(data) {
+      const restrict = await restrictUsersCallback(data)
+      if (restrict) {
+        return false;
+      }
+
       return await signInCallback(data);
     },
   },

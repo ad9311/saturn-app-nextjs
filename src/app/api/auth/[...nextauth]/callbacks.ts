@@ -23,3 +23,13 @@ export async function signInCallback(data: any) {
 
   return false;
 }
+
+export async function restrictUsersCallback(data: any) {
+  const emailsString = process.env.ALLOWED_EMAILS;
+  const emails = (emailsString as string).split(',');
+  if (emails.includes(data.user.email)) {
+    return false;
+  }
+
+  return true;
+}
