@@ -1,4 +1,4 @@
-import SignInButton from "./SignInButton";
+import SignInButton from './SignInButton';
 
 export default function SignInPage() {
   return (
@@ -6,5 +6,5 @@ export default function SignInPage() {
       <h1>Sign In</h1>
       <SignInButton />
     </div>
-  )
+  );
 }

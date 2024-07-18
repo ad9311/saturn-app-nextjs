@@ -1,4 +1,4 @@
-import SignOutButton from "../auth/sign-out/SignOutButton";
+import SignOutButton from '../auth/sign-out/SignOutButton';
 
 export default function HomePage() {
   return (
@@ -6,5 +6,5 @@ export default function HomePage() {
       HomePage
       <SignOutButton />
     </div>
-  )
+  );
 }

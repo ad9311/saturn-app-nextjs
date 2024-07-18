@@ -1,6 +1,6 @@
 'use client';
 
-import { signOut } from "next-auth/react";
+import { signOut } from 'next-auth/react';
 
 export default function SignOutButton() {
   async function handleSignOutFlow() {
@@ -8,6 +8,8 @@ export default function SignOutButton() {
   }
 
   return (
-    <button type="button" onClick={handleSignOutFlow}>Click to sign out</button>
-  )
+    <button type="button" onClick={handleSignOutFlow}>
+      Click to sign out
+    </button>
+  );
 }
