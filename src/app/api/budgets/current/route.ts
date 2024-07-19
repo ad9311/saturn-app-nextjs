@@ -14,11 +14,11 @@ export async function GET() {
       }
 
       const budget = await findCurrentBudget(user.accountId);
-      return Response.json({ data: budget });
+      return Response.json({ budget });
     } catch (error) {
       return Response.json({ error }, { status: 500 });
     }
   }
 
-  return Response.json({ data: 'unauthorized' }, { status: 401 });
+  return Response.json({ error: 'unauthorized' }, { status: 401 });
 }

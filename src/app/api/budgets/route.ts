@@ -22,7 +22,7 @@ export async function POST(request: Request) {
         return Response.json({ error: 'forbidden' }, { status: 403 });
       }
       const budget = await createBudget(user.accountId, body);
-      return Response.json({ data: { budget } }, { status: 201 });
+      return Response.json({ budget }, { status: 201 });
     } catch (error) {
       return Response.json({ error }, { status: 500 });
     }
