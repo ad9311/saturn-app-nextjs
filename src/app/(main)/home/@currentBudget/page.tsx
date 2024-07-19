@@ -1,7 +1,3 @@
-import { createBudget, findCurrentBudget } from "@/db/budgets";
-import { findUserByEmail } from "@/db/users";
-import { getServerSession } from "next-auth";
-
 export default async function CurrentBudget() {
   // const session = await getServerSession();
   // const user = await findUserByEmail(session?.user?.email as string);
@@ -25,5 +21,5 @@ export default async function CurrentBudget() {
   //   );
   // }
 
-  return <p>loading...</p>
+  return <p>Current budget</p>;
 }
