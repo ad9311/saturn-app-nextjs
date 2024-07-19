@@ -1,7 +1,15 @@
-import { getServerSession, NextAuthOptions } from "next-auth";
+import { getServerSession, NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
-import { CallbackData, restrictUsersCallback, signInCallback } from "./callbacks";
-import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
+import {
+  CallbackData,
+  restrictUsersCallback,
+  signInCallback,
+} from './callbacks';
+import {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
 
 export const authOptions = {
   debug: true,
@@ -28,13 +36,13 @@ export const authOptions = {
       return await signInCallback(data as CallbackData);
     },
   },
-} satisfies NextAuthOptions
+} satisfies NextAuthOptions;
 
 export function auth(
   ...args:
-    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']]
     | [NextApiRequest, NextApiResponse]
     | []
 ) {
-  return getServerSession(...args, authOptions)
+  return getServerSession(...args, authOptions);
 }
