@@ -1,6 +1,6 @@
+import { auth } from '@/auth';
 import { createBudget } from '@/db/budgets';
 import { findUserByEmail } from '@/db/users';
-import { getServerSession } from 'next-auth';
 
 type BudgetBody = {
   month: number;
@@ -12,7 +12,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const session = await getServerSession();
+  const session = await auth();
 
   if (session && session.user) {
     try {

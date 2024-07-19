@@ -1,10 +1,10 @@
-import { getServerSession } from 'next-auth';
 import SignOutButton from '../auth/sign-out/SignOutButton';
+import { auth } from '@/auth';
 
 export default async function Sidebar(
   props: React.HTMLAttributes<HTMLDivElement>
 ) {
-  const session = await getServerSession();
+  const session = await auth();
 
   if (!session?.user) return <div {...props} />;
 

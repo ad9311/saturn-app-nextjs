@@ -1,9 +1,9 @@
+import { auth } from '@/auth';
 import { findCurrentBudget } from '@/db/budgets';
 import { findUserByEmail } from '@/db/users';
-import { getServerSession } from 'next-auth';
 
 export async function GET() {
-  const session = await getServerSession();
+  const session = await auth();
 
   if (session && session.user) {
     try {

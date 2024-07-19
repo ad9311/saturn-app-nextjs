@@ -1,5 +1,5 @@
-import { createUser, findUserByAccountId } from '@/db/users';
-import { UserDB } from '@/types/user';
+import { createUser, findUserByAccountId } from "@/db/users";
+import { UserDB } from "@/types/user";
 
 export type CallbackData = {
   user: {
