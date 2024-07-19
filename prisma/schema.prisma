@@ -20,8 +20,30 @@ model User {
   email     String @unique
   image     String
 
+  budgets Budget[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+model Budget {
+  id               String  @id @default(cuid())
+  month            Int
+  year             Int
+  balance          Decimal @default(0.0)
+  totalIncome      Decimal @default(0.0) @map("total_income")
+  totalExpenses    Decimal @default(0.0) @map("total_expenses")
+  transactionCount Int     @default(0) @map("transaction_count")
+  incomeCount      Int     @default(0) @map("income_count")
+  expenseCount     Int     @default(0) @map("expense_count")
+
+  user   User @relation(fields: [userId], references: [accountId])
+  userId Int @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("budgets")
 }
