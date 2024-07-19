@@ -1,5 +1,5 @@
-import { createUser, getUserByAccountId } from '@/db/users';
-import { User } from '@/types/user';
+import { createUser, findUserByAccountId } from '@/db/users';
+import { UserDB } from '@/types/user';
 
 export type CallbackData = {
   user: {
@@ -11,13 +11,13 @@ export type CallbackData = {
 };
 
 export async function signInCallback(data: CallbackData) {
-  const existingUser = await getUserByAccountId(data.user.id);
+  const existingUser = await findUserByAccountId(data.user.id);
 
   if (existingUser) {
     return true;
   }
 
-  const newUser: User = {
+  const newUser: UserDB = {
     name: data.user.name as string,
     email: data.user.email as string,
     accountId: Number(data.user.id),

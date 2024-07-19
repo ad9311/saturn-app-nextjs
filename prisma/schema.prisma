@@ -39,8 +39,8 @@ model Budget {
   incomeCount      Int     @default(0) @map("income_count")
   expenseCount     Int     @default(0) @map("expense_count")
 
-  user   User @relation(fields: [userId], references: [accountId])
-  userId Int @map("user_id")
+  user   User @relation(fields: [userAccountId], references: [accountId])
+  userAccountId Int @map("user_acount_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
