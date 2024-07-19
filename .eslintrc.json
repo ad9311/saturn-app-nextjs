@@ -12,6 +12,7 @@
     "no-unused-vars": "error",
     "no-else-return": "error",
     "eqeqeq": "error",
-    "no-console": "warn"
+    "no-console": "warn",
+    "@typescript-eslint/no-unused-vars": "off"
   }
 }

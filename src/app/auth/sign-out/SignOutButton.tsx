@@ -8,8 +8,11 @@ export default function SignOutButton() {
   }
 
   return (
-    <button type="button" onClick={handleSignOutFlow}>
-      Click to sign out
+    <button
+      type="button"
+      onClick={handleSignOutFlow}
+      className="text-red-800 text-sm hover:underline">
+      Sign out
     </button>
   );
 }
