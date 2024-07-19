@@ -13,3 +13,8 @@ export type BudgetStoreActions = {
   setBudget: (budget: Budget) => void;
   clearBudget: () => void;
 };
+
+export type CreateBudgetState = {
+  budget: Budget | undefined | null;
+  error: string | null;
+}

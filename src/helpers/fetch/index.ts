@@ -2,7 +2,8 @@ export async function getResource(url: string) {
   const response = await fetch(url, {
     headers: { Accept: 'application/json' },
   });
-  return await response.json();
+  const data = await response.json();
+  return { response, data }
 }
 
 export async function postResource(url: string, body?: BodyInit) {
@@ -11,7 +12,8 @@ export async function postResource(url: string, body?: BodyInit) {
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body,
   });
-  return await response.json();
+  const data = await response.json();
+  return { response, data }
 }
 
 export async function patchResource(url: string, body?: BodyInit) {
@@ -20,7 +22,8 @@ export async function patchResource(url: string, body?: BodyInit) {
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body,
   });
-  return await response.json();
+  const data = await response.json();
+  return { response, data }
 }
 
 export async function putResource(url: string, body?: BodyInit) {
@@ -29,7 +32,8 @@ export async function putResource(url: string, body?: BodyInit) {
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body,
   });
-  return await response.json();
+  const data = await response.json();
+  return { response, data }
 }
 
 export async function deleteResource(url: string) {
@@ -37,5 +41,6 @@ export async function deleteResource(url: string) {
     method: 'DELETE',
     headers: { Accept: 'application/json' },
   });
-  return await response.json();
+  const data = await response.json();
+  return { response, data }
 }

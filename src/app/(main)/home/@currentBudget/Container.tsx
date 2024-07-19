@@ -1,25 +1,25 @@
 'use client';
 
-import { getResource, postResource } from '@/helpers/fetch';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { getResource } from '@/helpers/fetch';
+import { useQuery } from '@tanstack/react-query';
 import BudgetPieChart from './BudgetPieChart';
 import useBudgetStore from '@/stores/budget';
+import { useFormState } from 'react-dom';
+import { createBudget } from '@/server-actions/budget';
+import { useEffect } from 'react';
 
-type NewBudgetData = {
-  month: number;
-  year: number;
-};
-
-async function getBudget() {
-  return getResource(`${process.env.NEXT_PUBLIC_URL}/api/budgets/current`);
+const initialState = {
+  budget: undefined,
+  error: null,
 }
 
-async function postBudget(newBudgetData: NewBudgetData) {
-  const body = JSON.stringify(newBudgetData);
-  return postResource(`${process.env.NEXT_PUBLIC_URL}/api/budgets`, body);
+async function getBudget() {
+  const { data } = await getResource(`${process.env.NEXT_PUBLIC_URL}/api/budgets/current`);
+  return data;
 }
 
 export default function Container() {
+  const [state, formAction] = useFormState(createBudget, initialState);
   const { budget, setBudget } = useBudgetStore(state => ({
     budget: state.budget,
     setBudget: state.setBudget,
@@ -28,35 +28,28 @@ export default function Container() {
     queryKey: ['currentBudget'],
     queryFn: getBudget,
   });
-  const mutation = useMutation({
-    mutationFn: postBudget,
-    mutationKey: ['budget'],
-    onSuccess: data => {
-      setBudget(data.budget);
-    },
-  });
 
-  function handleCreate() {
-    const now = new Date();
-    const month = now.getMonth() + 1;
-    const year = now.getFullYear();
-    mutation.mutate({ month, year });
-  }
+  useEffect(() => {
+    if (state.budget) {
+      setBudget(state.budget);
+    }
+  }, [state]);
 
-  if (isLoading || mutation.isPending) return 'Loading...';
+  if (isLoading) return 'Loading...';
 
-  if (error || mutation.error)
-    return (
-      'An error has occurred: ' + (error?.message || mutation.error?.message)
-    );
+  if (error) return 'An error has occurred: ' + error.message;
+
+  if (state.error) return 'An error has occurred: ' + state.error;
 
   if (data.budget || budget) {
     return <BudgetPieChart budget={data.budget || budget} />;
   }
 
   return (
-    <button type="button" onClick={handleCreate}>
-      CREATE!
-    </button>
+    <form action={formAction}>
+      <input type="hidden" name="budget[month]" value={new Date().getMonth() + 1} />
+      <input type="hidden" name="budget[year]" value={new Date().getFullYear()} />
+      <button type="submit" name="submit">Create new budget!</button>
+    </form>
   );
 }
