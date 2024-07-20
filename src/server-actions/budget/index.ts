@@ -4,24 +4,29 @@ import { auth } from '@/auth';
 import { createBudget } from '@/db/budgets';
 import { findUserByEmail } from '@/db/users';
 import { CreateBudgetState } from '@/types/budget';
+import { revalidatePath } from 'next/cache';
 
-export async function createBudgetAction(
-  prevState: CreateBudgetState,
-  formData: FormData
-): Promise<CreateBudgetState> {
+export async function createBudgetAction(): Promise<CreateBudgetState> {
   const session = await auth();
-  if (!session || !session.user) return prevState;
+  if (!session || !session.user) return {
+    budget: null,
+    error: 'Session error, user not authenticated.'
+  };
 
-  const body = {
-    month: Number(formData.get('budget[month]')),
-    year: Number(formData.get('budget[year]')),
+  const budgetDb = {
+    month: 1,
+    year: 2
   };
 
   const user = await findUserByEmail(session.user.email as string);
 
-  if (!user) return prevState;
+  if (!user) return {
+    budget: null,
+    error: 'DB error, user not found.'
+  };
 
-  const budget = await createBudget(user.accountId, body);
+  const budget = await createBudget(user.accountId, budgetDb);
+  revalidatePath('/');
 
   return {
     budget,
