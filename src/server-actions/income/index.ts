@@ -7,7 +7,7 @@ import { createIncome } from '@/db/income';
 import { revalidatePath } from 'next/cache';
 
 export async function createIncomeAction(
-  initState: CreateIncomeState,
+  _initState: CreateIncomeState,
   formData: FormData
 ): Promise<CreateIncomeState> {
   const { user, error } = await checkAuth();
@@ -19,31 +19,36 @@ export async function createIncomeAction(
     };
   }
 
-  const budget = await findBudgetByUid(
-    user,
-    formData.get('budget[uid]') as string
-  );
+  try {
+    const budget = await findBudgetByUid(
+      user,
+      formData.get('budget[uid]') as string
+    );
 
-  if (!budget) {
-    return {
-      income: null,
-      error: {
-        message: 'budget not found',
-      },
+    if (!budget) {
+      return {
+        income: null,
+        error: {
+          message: 'budget not found',
+        },
+      };
+    }
+
+    const incomeData: IncomeTemplate = {
+      description: formData.get('income[description]') as string,
+      amount: Number(formData.get('income[amount]')),
     };
+
+    const income = await createIncome(budget, incomeData);
+    await aggregateBudgetOnCreateIncome(budget, income);
+
+    revalidatePath(`/budgets/${budget.uid}`);
+
+    return {
+      income,
+      error: null,
+    };
+  } catch (error) {
+    return { income: null, error: { message: error as string } };
   }
-
-  const incomeData: IncomeTemplate = {
-    description: formData.get('income[description]') as string,
-    amount: Number(formData.get('income[amount]')),
-  };
-  const income = await createIncome(budget, incomeData);
-  await aggregateBudgetOnCreateIncome(budget, income);
-
-  revalidatePath(`/budgets/${budget.uid}`);
-
-  return {
-    income,
-    error: null,
-  };
 }

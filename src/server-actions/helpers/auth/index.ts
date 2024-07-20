@@ -12,27 +12,31 @@ type AuthState = {
 };
 
 export async function checkAuth(): Promise<AuthState> {
-  const session = await auth();
+  try {
+    const session = await auth();
 
-  if (!session || !session.user) {
-    return {
-      user: null,
-      error: {
-        message: 'user not authenticated',
-      },
-    };
+    if (!session || !session.user) {
+      return {
+        user: null,
+        error: {
+          message: 'user not authenticated',
+        },
+      };
+    }
+
+    const user = await findUserByEmail(session.user.email as string);
+
+    if (!user) {
+      return {
+        user: null,
+        error: {
+          message: 'user not found',
+        },
+      };
+    }
+
+    return { user, error: null };
+  } catch (error) {
+    return { user: null, error: { message: error as string } };
   }
-
-  const user = await findUserByEmail(session.user.email as string);
-
-  if (!user) {
-    return {
-      user: null,
-      error: {
-        message: 'user not found',
-      },
-    };
-  }
-
-  return { user, error: null };
 }

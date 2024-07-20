@@ -15,28 +15,32 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
     };
   }
 
-  const now = new Date();
-  const month = now.getMonth() + 1;
-  const year = now.getFullYear();
+  try {
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear();
+    const budgetDb = { month, year };
 
-  const existingBudget = await findBudgetByMonthYear(user, month, year);
+    const existingBudget = await findBudgetByMonthYear(user, month, year);
 
-  if (existingBudget) {
+    if (existingBudget) {
+      return {
+        budget: null,
+        error: {
+          message: 'duplicated budget',
+        },
+      };
+    }
+
+    const budget = await createBudget(user, budgetDb);
+
+    revalidatePath('/');
+
     return {
-      budget: null,
-      error: {
-        message: 'duplicated budget',
-      },
+      budget,
+      error: null,
     };
+  } catch (error) {
+    return { budget: null, error: { message: error as string } };
   }
-
-  const budgetDb = { month, year };
-
-  const budget = await createBudget(user, budgetDb);
-  revalidatePath('/');
-
-  return {
-    budget,
-    error: null,
-  };
 }
