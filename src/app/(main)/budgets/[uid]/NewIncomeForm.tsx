@@ -1,3 +1,4 @@
+import SubmitFormButton from '@/components/SubmitFormButton';
 import { createIncomeAction } from '@/server-actions/income';
 import { CreateIncomeState } from '@/types/transaction';
 import { useRef } from 'react';
@@ -7,15 +8,6 @@ const initState: CreateIncomeState = {
   income: null,
   error: null,
 };
-
-function SubmitFormButton() {
-  const { pending } = useFormStatus();
-  return (
-    <button type="submit" disabled={pending}>
-      {pending ? 'Submitting...' : 'Submit'}
-    </button>
-  );
-}
 
 export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
   const [formState, formAction] = useFormState(createIncomeAction, initState);
