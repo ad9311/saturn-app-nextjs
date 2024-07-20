@@ -5,6 +5,7 @@ import { checkAuth } from '../helpers/auth';
 import { aggregateBudgetOnCreateIncome, findBudgetByUid } from '@/db/budgets';
 import { createIncome } from '@/db/income';
 import { revalidatePath } from 'next/cache';
+import { NewIncomeValidation } from '@/db/income/validations';
 
 export async function createIncomeAction(
   _initState: CreateIncomeState,
@@ -20,6 +21,21 @@ export async function createIncomeAction(
   }
 
   try {
+    const incomeData: IncomeTemplate = {
+      description: formData.get('income[description]') as string,
+      amount: Number(formData.get('income[amount]')),
+    };
+    const result = NewIncomeValidation.safeParse(incomeData);
+
+    if (!result.success) {
+      return {
+        income: null,
+        error: {
+          message: 'form has invalid values',
+        }
+      }
+    }
+
     const budget = await findBudgetByUid(
       user,
       formData.get('budget[uid]') as string
@@ -33,11 +49,6 @@ export async function createIncomeAction(
         },
       };
     }
-
-    const incomeData: IncomeTemplate = {
-      description: formData.get('income[description]') as string,
-      amount: Number(formData.get('income[amount]')),
-    };
 
     const income = await createIncome(budget, incomeData);
     await aggregateBudgetOnCreateIncome(budget, income);

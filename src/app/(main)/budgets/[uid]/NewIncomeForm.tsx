@@ -14,34 +14,35 @@ export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
   const ref = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (formState.income) {
+    if (formState.income && !formState.error) {
       ref.current?.reset();
     }
   }, [formState]);
 
-  if (formState.error) return <p>{formState.error.message}</p>;
-
   return (
-    <form action={formAction} ref={ref}>
-      <input type="hidden" name="budget[uid]" value={budgetUid} readOnly />
-      <label htmlFor="description">
-        <textarea
-          name="income[description]"
-          id="description"
-          placeholder="Description"
-        />
-      </label>
-      <label htmlFor="amount">
-        <input
-          type="number"
-          name="income[amount]"
-          id="amount"
-          placeholder="Amount"
-          min={1}
-          step={0.01}
-        />
-      </label>
-      <SubmitFormButton />
-    </form>
+    <>
+      {formState.error && <p>Error: {formState.error.message}!</p>}
+      <form action={formAction} ref={ref}>
+        <input type="hidden" name="budget[uid]" value={budgetUid} readOnly />
+        <label htmlFor="description">
+          <textarea
+            name="income[description]"
+            id="description"
+            placeholder="Description"
+          />
+        </label>
+        <label htmlFor="amount">
+          <input
+            type="number"
+            name="income[amount]"
+            id="amount"
+            placeholder="Amount"
+            min={1}
+            step={0.01}
+          />
+        </label>
+        <SubmitFormButton />
+      </form>
+    </>
   );
 }
