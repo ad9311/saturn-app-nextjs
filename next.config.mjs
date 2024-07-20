@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.githubusercontent.com/**',
+        hostname: 'avatars.githubusercontent.com',
         port: '',
       },
     ],
