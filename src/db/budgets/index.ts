@@ -3,9 +3,11 @@ import { BudgetDB } from '@/types/budget';
 import { startOfMonth, endOfMonth } from 'date-fns';
 
 export async function createBudget(accountId: number, budget: BudgetDB) {
+  const uid = `${budget.year}-${budget.month}-${accountId}`
   return await prisma.budget.create({
     data: {
       ...budget,
+      uid,
       user: { connect: { accountId } },
     },
   });

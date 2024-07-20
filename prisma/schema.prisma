@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id        String @id @default(cuid())
+  id        Int    @id @default(autoincrement())
   accountId Int    @unique @map("account_id")
   name      String
   email     String @unique
@@ -25,11 +25,13 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  @@index([accountId])
   @@map("users")
 }
 
 model Budget {
-  id               String  @id @default(cuid())
+  id               Int     @id @default(autoincrement())
+  uid              String  @unique
   month            Int
   year             Int
   balance          Decimal @default(0.0)
@@ -39,11 +41,12 @@ model Budget {
   incomeCount      Int     @default(0) @map("income_count")
   expenseCount     Int     @default(0) @map("expense_count")
 
-  user   User @relation(fields: [userAccountId], references: [accountId])
-  userAccountId Int @map("user_acount_id")
+  user          User @relation(fields: [userAccountId], references: [accountId])
+  userAccountId Int  @map("user_acount_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  @@index([uid])
   @@map("budgets")
 }

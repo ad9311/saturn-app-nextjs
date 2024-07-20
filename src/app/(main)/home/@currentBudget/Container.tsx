@@ -28,12 +28,19 @@ export default function Container() {
   }));
   const { isLoading, error, data } = useQuery({
     queryKey: ['currentBudget'],
-    queryFn: getBudget,
+    queryFn: () => {
+      if (budget) return budget;
+      return getBudget();
+    },
   });
 
   useEffect(() => {
     if (state.budget) {
       setBudget(state.budget);
+    }
+
+    if (data?.budget) {
+      setBudget(data.budget);
     }
   }, [state]);
 
