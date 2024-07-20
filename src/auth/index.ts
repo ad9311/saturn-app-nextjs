@@ -27,13 +27,12 @@ export const authOptions = {
       return !!auth
     },
     async signIn(data) {
-      // const restrict = await restrictUsersCallback(data as CallbackData);
-      // if (restrict) {
-      //   return false;
-      // }
+      const restrict = await restrictUsersCallback(data as CallbackData);
+      if (restrict) {
+        return false;
+      }
 
-      // return await signInCallback(data as CallbackData);
-      return true;
+      return await signInCallback(data as CallbackData);
     },
   },
 } satisfies NextAuthConfig;

@@ -3,15 +3,17 @@ import { UserDB } from '@/types/user';
 
 export type CallbackData = {
   user: {
-    id: string;
     name: string;
     email: string;
     image: string;
   };
+  account?: {
+    providerAccountId: string;
+  }
 };
 
 export async function signInCallback(data: CallbackData) {
-  const existingUser = await findUserByAccountId(data.user.id);
+  const existingUser = await findUserByAccountId(data.account?.providerAccountId as string);
 
   if (existingUser) {
     return true;
@@ -20,7 +22,7 @@ export async function signInCallback(data: CallbackData) {
   const newUser: UserDB = {
     name: data.user.name as string,
     email: data.user.email as string,
-    accountId: Number(data.user.id),
+    accountId: Number(data.account?.providerAccountId),
     image: data.user.image as string,
   };
 
