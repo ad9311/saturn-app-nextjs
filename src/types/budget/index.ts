@@ -15,3 +15,12 @@ export type CreateBudgetState = {
     message: string;
   } | null;
 };
+
+export type BudgetStoreValues = {
+  budget: BudgetDb | null;
+}
+
+export type BudgetStoreActions = {
+  setBudget: (budget: BudgetDb) => void;
+  clearBudget: () => void;
+}

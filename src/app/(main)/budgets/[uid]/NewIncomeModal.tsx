@@ -1,7 +1,9 @@
 import { useModalStore } from '@/stores/modal';
 import NewIncomeForm from './NewIncomeForm';
+import { useBudgetStore } from '@/stores/budget';
 
 export default function NewIncomeModal() {
+  const { budget } = useBudgetStore(state => ({ budget: state.budget }));
   const { clearChildren } = useModalStore(state => ({
     clearChildren: state.clearChildren,
   }));
@@ -18,7 +20,7 @@ export default function NewIncomeModal() {
           X
         </button>
       </div>
-      <NewIncomeForm budgetUid="" />
+      <NewIncomeForm budgetUid={budget?.uid as string} />
     </div>
   );
 }

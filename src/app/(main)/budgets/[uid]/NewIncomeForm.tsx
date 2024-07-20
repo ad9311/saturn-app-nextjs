@@ -22,7 +22,7 @@ export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
   const ref = useRef<HTMLFormElement>(null);
 
   return (
-    <form ref={ref}>
+    <form action={formAction} ref={ref}>
       <input type="hidden" name="budget[uid]" value={budgetUid} readOnly />
       <label htmlFor="description">
         <textarea

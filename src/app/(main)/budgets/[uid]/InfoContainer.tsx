@@ -1,4 +1,5 @@
 import { BudgetDb } from '@/types/budget';
+import SaveBudgetToStore from './SaveBudgetToStore';
 
 type InfoContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;
@@ -10,6 +11,7 @@ export default function InfoContainer({
 }: InfoContainerProps) {
   return (
     <div {...props}>
+      <SaveBudgetToStore budget={budget} />
       <section>
         <h2>
           {budget.month}/{budget.year}
