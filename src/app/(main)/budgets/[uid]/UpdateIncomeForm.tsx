@@ -3,7 +3,6 @@ import SubmitFormButton from '@/components/SubmitFormButton';
 import { updateIncomeAction } from '@/server-actions/income';
 import { BudgetDb } from '@/types/budget';
 import { IncomeDb, IncomeFormState } from '@/types/transaction';
-import { useEffect, useRef } from 'react';
 import { useFormState } from 'react-dom';
 
 const initState: IncomeFormState = {
@@ -19,18 +18,13 @@ export default function UpdateIncomeForm({
   income: IncomeDb;
 }) {
   const [formState, formAction] = useFormState(updateIncomeAction, initState);
-  const ref = useRef<HTMLFormElement>(null);
 
-  useEffect(() => {
-    if (formState.income && !formState.errorMessages) {
-      ref.current?.reset();
-    }
-  }, [formState]);
+  if(formState.income && !formState.errorMessages) return <p>Income updated successfully</p>;
 
   return (
     <>
       <ErrorList errorMessages={formState.errorMessages} />
-      <form action={formAction} ref={ref}>
+      <form action={formAction}>
         <input type="hidden" name="budget[uid]" value={budget.uid} readOnly />
         <input type="hidden" name="income[id]" value={income.id} readOnly />
         <label htmlFor="description">

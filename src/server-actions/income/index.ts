@@ -106,23 +106,23 @@ export async function updateIncomeAction(
       };
     }
 
-    const income = await findIncomeById(Number(formData.get('income[id]')));
+    const oldIncome = await findIncomeById(Number(formData.get('income[id]')));
 
-    if (!income) {
+    if (!oldIncome) {
       return {
         income: null,
         errorMessages: ['income not found'],
       };
     }
 
-    await updateIncome(income, incomeData);
-    await resetAggBudgetOnUpdateIncome(budget, income);
-    await aggregateBudgetOnUpdateIncome(budget, income);
+    const newIncome = await updateIncome(oldIncome, incomeData);
+    await resetAggBudgetOnUpdateIncome(budget, oldIncome);
+    await aggregateBudgetOnUpdateIncome(budget, newIncome);
 
     revalidatePath(`/budgets/${budget.uid}`);
 
     return {
-      income: null,
+      income: newIncome,
       errorMessages: null,
     };
   } catch (error) {
