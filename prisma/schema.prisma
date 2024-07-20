@@ -44,9 +44,23 @@ model Budget {
   user          User @relation(fields: [userAccountId], references: [accountId])
   userAccountId Int  @unique @map("user_account_id")
 
+  incomeList Income[]
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@index([uid, userAccountId])
   @@map("budgets")
+}
+
+model Income {
+  id               Int     @id @default(autoincrement())
+
+  description String
+  amount Decimal
+
+  budget          Budget @relation(fields: [budetId], references: [id])
+  budetId Int  @unique @map("budget_id")
+
+  @@map("incomes")
 }

@@ -29,7 +29,10 @@ export default async function BudgetPages({
           budget={budget}
           className="p-3 bg-neutral-200 rounded-sm lg:col-span-5"
         />
-        <IncomeContainer className="p-3 bg-neutral-200 rounded-sm lg:col-span-7" />
+        <IncomeContainer
+          budget={budget}
+          className="p-3 bg-neutral-200 rounded-sm lg:col-span-7"
+        />
       </div>
       <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
         <ExpensesContainer className="p-3 bg-neutral-200 rounded-sm lg:col-span-8" />

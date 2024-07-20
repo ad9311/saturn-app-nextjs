@@ -33,7 +33,11 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
   const month = now.getMonth() + 1;
   const year = now.getFullYear();
 
-  const existingBudget = await findBudgetByMonthYear(user.accountId, month, year);
+  const existingBudget = await findBudgetByMonthYear(
+    user.accountId,
+    month,
+    year
+  );
 
   if (existingBudget) {
     return {

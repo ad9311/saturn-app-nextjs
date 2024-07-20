@@ -3,7 +3,10 @@ import { BudgetDb, BudgetTemplate } from '@/types/budget';
 import { Budget } from '@prisma/client';
 import { startOfMonth, endOfMonth } from 'date-fns';
 
-export async function createBudget(accountId: number, budget: BudgetTemplate): Promise<Budget | null> {
+export async function createBudget(
+  accountId: number,
+  budget: BudgetTemplate
+): Promise<Budget | null> {
   const uid = `${budget.year}-${budget.month}-${accountId}`;
   return await prisma.budget.create({
     data: {
@@ -14,7 +17,9 @@ export async function createBudget(accountId: number, budget: BudgetTemplate): P
   });
 }
 
-export async function findCurrentBudget(userAccountId: number): Promise<BudgetDb | null> {
+export async function findCurrentBudget(
+  userAccountId: number
+): Promise<BudgetDb | null> {
   const now = new Date();
   const firstDayOfMonth = startOfMonth(now);
   const lastDayOfMonth = endOfMonth(now);
@@ -32,14 +37,27 @@ export async function findCurrentBudget(userAccountId: number): Promise<BudgetDb
     },
     include: {
       incomeList: true,
-    }
+    },
   });
 }
 
-export async function findBudgetByUid(userAccountId: number, uid: string): Promise<BudgetDb | null> {
-  return await prisma.budget.findUnique({ where: { uid, userAccountId }, include: { incomeList: true } });
+export async function findBudgetByUid(
+  userAccountId: number,
+  uid: string
+): Promise<BudgetDb | null> {
+  return await prisma.budget.findUnique({
+    where: { uid, userAccountId },
+    include: { incomeList: true },
+  });
 }
 
-export async function findBudgetByMonthYear(userAccountId: number, month: number, year: number): Promise<BudgetDb | null> {
-  return await prisma.budget.findUnique({ where: { userAccountId, month, year }, include: { incomeList: true } });
+export async function findBudgetByMonthYear(
+  userAccountId: number,
+  month: number,
+  year: number
+): Promise<BudgetDb | null> {
+  return await prisma.budget.findUnique({
+    where: { userAccountId, month, year },
+    include: { incomeList: true },
+  });
 }

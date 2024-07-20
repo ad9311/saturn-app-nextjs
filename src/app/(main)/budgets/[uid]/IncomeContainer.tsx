@@ -1,11 +1,29 @@
-import { BudgetDb } from "@/types/budget"
+import { BudgetDb } from '@/types/budget';
+import NewIncomeButton from './NewIncomeButton';
 
 type BudgetContainerProps = React.HTMLAttributes<HTMLDivElement> & {
-  budget: BudgetDb
-}
+  budget: BudgetDb;
+};
 
-export default function IncomeContainer({ budget, ...props }: BudgetContainerProps) {
+export default function IncomeContainer({
+  budget,
+  ...props
+}: BudgetContainerProps) {
+  const mappedIncomeList = budget.incomeList.map(income => (
+    <li key={income.id}>
+      {income.description}-{income.amount.toFixed(2)}
+    </li>
+  ));
+
   return (
-    <div {...props}>IncomeContainer</div>
-  )
+    <div {...props}>
+      <section>
+        <div className="flex items-center gap-3">
+          <h2>Income List</h2>
+          <NewIncomeButton />
+        </div>
+        <ul>{mappedIncomeList}</ul>
+      </section>
+    </div>
+  );
 }

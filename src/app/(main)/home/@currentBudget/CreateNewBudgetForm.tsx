@@ -1,12 +1,21 @@
 'use client';
 
 import { createBudgetAction } from '@/server-actions/budget';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 
 const initState = {
   budget: null,
   error: null,
 };
+
+function SubmitFormButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? 'Submitting...' : 'Submit'}
+    </button>
+  );
+}
 
 export default function CreateNewBudgetForm() {
   const [state, formAction] = useFormState(createBudgetAction, initState);
@@ -15,9 +24,7 @@ export default function CreateNewBudgetForm() {
 
   return (
     <form action={formAction}>
-      <button type="submit" name="submit">
-        Create new budget!
-      </button>
+      <SubmitFormButton />
     </form>
   );
 }

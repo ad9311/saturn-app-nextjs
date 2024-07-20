@@ -1,10 +1,13 @@
-import { BudgetDb } from "@/types/budget"
+import { BudgetDb } from '@/types/budget';
 
 type BudgetContainerProps = React.HTMLAttributes<HTMLDivElement> & {
-  budget: BudgetDb
-}
+  budget: BudgetDb;
+};
 
-export default function BudgetContainer({ budget, ...props}: BudgetContainerProps) {
+export default function BudgetContainer({
+  budget,
+  ...props
+}: BudgetContainerProps) {
   return (
     <div {...props}>
       <section>
@@ -23,5 +26,5 @@ export default function BudgetContainer({ budget, ...props}: BudgetContainerProp
         </div>
       </section>
     </div>
-  )
+  );
 }
