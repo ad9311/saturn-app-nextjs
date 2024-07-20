@@ -1,0 +1,27 @@
+import { Budget } from "@prisma/client"
+
+interface InfoContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  budget: Budget
+}
+
+export default function InfoContainer({ budget, ...props}: InfoContainerProps) {
+  return (
+    <div {...props}>
+      <section>
+        <h2>
+          {budget.month}/{budget.year}
+        </h2>
+        <p>Balance: {budget.balance.toFixed(2)}</p>
+        <div className="flex items-center gap-2">
+          <p>Total income: {budget.totalIncome.toFixed(2)}</p>
+          <p>Total expenses: {budget.totalExpenses.toFixed(2)}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <p>Transaction count:{budget.transactionCount}</p>
+          <p>Income count: {budget.incomeCount}</p>
+          <p>Expense count: {budget.expenseCount}</p>
+        </div>
+      </section>
+    </div>
+  )
+}

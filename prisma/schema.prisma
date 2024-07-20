@@ -25,7 +25,7 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@index([accountId])
+  @@index([accountId, email])
   @@map("users")
 }
 
@@ -42,11 +42,11 @@ model Budget {
   expenseCount     Int     @default(0) @map("expense_count")
 
   user          User @relation(fields: [userAccountId], references: [accountId])
-  userAccountId Int  @map("user_account_id")
+  userAccountId Int  @unique @map("user_account_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@index([uid])
+  @@index([uid, userAccountId])
   @@map("budgets")
 }

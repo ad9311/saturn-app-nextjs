@@ -16,5 +16,7 @@ export type BudgetStoreActions = {
 
 export type CreateBudgetState = {
   budget: Budget | null;
-  error: string | null;
+  error: {
+    message: string;
+  } | null;
 };
