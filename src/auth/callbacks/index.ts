@@ -38,7 +38,7 @@ export async function signInCallback(data: CallbackData) {
 }
 
 export async function restrictUsersCallback(data: CallbackData) {
-  const emailsString = process.env.ALLOWED_EMAILS;
+  const emailsString = process.env.AUTH_ALLOWED_EMAILS;
   const emails = (emailsString as string).split(',');
   if (emails.includes(data.user.email)) {
     return false;
