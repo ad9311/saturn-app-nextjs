@@ -11,10 +11,12 @@ import { useEffect } from 'react';
 const initialState = {
   budget: undefined,
   error: null,
-}
+};
 
 async function getBudget() {
-  const { data } = await getResource(`${process.env.NEXT_PUBLIC_URL}/api/budgets/current`);
+  const { data } = await getResource(
+    `${process.env.NEXT_PUBLIC_URL}/api/budgets/current`
+  );
   return data;
 }
 
@@ -47,9 +49,19 @@ export default function Container() {
 
   return (
     <form action={formAction}>
-      <input type="hidden" name="budget[month]" value={new Date().getMonth() + 1} />
-      <input type="hidden" name="budget[year]" value={new Date().getFullYear()} />
-      <button type="submit" name="submit">Create new budget!</button>
+      <input
+        type="hidden"
+        name="budget[month]"
+        value={new Date().getMonth() + 1}
+      />
+      <input
+        type="hidden"
+        name="budget[year]"
+        value={new Date().getFullYear()}
+      />
+      <button type="submit" name="submit">
+        Create new budget!
+      </button>
     </form>
   );
 }

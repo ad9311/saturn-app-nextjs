@@ -12,7 +12,11 @@ type NewBudgetData = {
 
 async function postBudget(newBudgetData: NewBudgetData) {
   const body = JSON.stringify(newBudgetData);
-  return postResource(`${process.env.NEXT_PUBLIC_URL}/api/budgets`, body);
+  const { data } = await postResource(
+    `${process.env.NEXT_PUBLIC_URL}/api/budgets`,
+    body
+  );
+  return data;
 }
 
 export default function ContainerCreateBudget() {
@@ -23,10 +27,7 @@ export default function ContainerCreateBudget() {
   const { mutate } = useMutation({
     mutationFn: postBudget,
     mutationKey: ['budget'],
-    onSuccess: data => {
-      console.log(data.budget);
-      setBudget(data.budget);
-    },
+    onSuccess: data => setBudget(data.budget),
   });
 
   function handleCreate() {

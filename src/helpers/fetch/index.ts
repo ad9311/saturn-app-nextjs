@@ -3,7 +3,7 @@ export async function getResource(url: string) {
     headers: { Accept: 'application/json' },
   });
   const data = await response.json();
-  return { response, data }
+  return { response, data };
 }
 
 export async function postResource(url: string, body?: BodyInit) {
@@ -13,7 +13,7 @@ export async function postResource(url: string, body?: BodyInit) {
     body,
   });
   const data = await response.json();
-  return { response, data }
+  return { response, data };
 }
 
 export async function patchResource(url: string, body?: BodyInit) {
@@ -23,7 +23,7 @@ export async function patchResource(url: string, body?: BodyInit) {
     body,
   });
   const data = await response.json();
-  return { response, data }
+  return { response, data };
 }
 
 export async function putResource(url: string, body?: BodyInit) {
@@ -33,7 +33,7 @@ export async function putResource(url: string, body?: BodyInit) {
     body,
   });
   const data = await response.json();
-  return { response, data }
+  return { response, data };
 }
 
 export async function deleteResource(url: string) {
@@ -42,5 +42,5 @@ export async function deleteResource(url: string) {
     headers: { Accept: 'application/json' },
   });
   const data = await response.json();
-  return { response, data }
+  return { response, data };
 }

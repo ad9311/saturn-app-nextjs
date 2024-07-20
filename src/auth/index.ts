@@ -1,5 +1,5 @@
 import { NextAuthConfig } from 'next-auth';
-import GitHub from "next-auth/providers/github"
+import GitHub from 'next-auth/providers/github';
 import {
   CallbackData,
   restrictUsersCallback,
@@ -23,6 +23,9 @@ export const authOptions = {
     signIn: '/auth/sign-in',
   },
   callbacks: {
+    authorized: async ({ auth }) => {
+      return !!auth
+    },
     async signIn(data) {
       // const restrict = await restrictUsersCallback(data as CallbackData);
       // if (restrict) {

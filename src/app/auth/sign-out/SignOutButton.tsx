@@ -9,7 +9,9 @@ export default function SignOutButton() {
 
   return (
     <form action={handleSignOutFlow}>
-      <button type="submit" className="text-red-700 hover:underline">Sign Out!</button>
+      <button type="submit" className="text-red-700 hover:underline">
+        Sign Out!
+      </button>
     </form>
   );
 }
