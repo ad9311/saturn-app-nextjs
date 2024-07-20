@@ -1,8 +1,9 @@
-import { auth } from "@/auth";
-import { findCurrentBudget } from "@/db/budgets";
-import { findUserByEmail } from "@/db/users";
-import CreateNewBudgetForm from "./CreateNewBudgetForm";
-import BudgetPieChart from "./BudgetPieChart";
+import { auth } from '@/auth';
+import { findCurrentBudget } from '@/db/budgets';
+import { findUserByEmail } from '@/db/users';
+import CreateNewBudgetForm from './CreateNewBudgetForm';
+import BudgetPieChart from './BudgetPieChart';
+import Link from 'next/link';
 
 export default async function Container() {
   const session = await auth();
@@ -15,5 +16,10 @@ export default async function Container() {
   const budget = await findCurrentBudget(user.accountId);
   if (!budget) return <CreateNewBudgetForm />;
 
-  return <BudgetPieChart budget={budget} />
+  return (
+    <>
+      <Link href={`/budgets/${budget.uid}`}>Go to budget</Link>
+      <BudgetPieChart budget={budget} />
+    </>
+  );
 }

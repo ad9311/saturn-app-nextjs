@@ -32,6 +32,6 @@ export async function findCurrentBudget(userAccountId: number) {
   });
 }
 
-export async function findBudgetByUid(uid: string) {
-  return await prisma.budget.findUnique({ where: { uid } });
+export async function findBudgetByUid(userAccountId: number, uid: string) {
+  return await prisma.budget.findUnique({ where: { uid, userAccountId } });
 }

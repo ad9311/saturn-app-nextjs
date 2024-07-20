@@ -8,10 +8,11 @@ import { revalidatePath } from 'next/cache';
 
 export async function createBudgetAction(): Promise<CreateBudgetState> {
   const session = await auth();
-  if (!session || !session.user) return {
-    budget: null,
-    error: 'Session error, user not authenticated.'
-  };
+  if (!session || !session.user)
+    return {
+      budget: null,
+      error: 'Session error, user not authenticated.',
+    };
 
   const now = new Date();
   const month = now.getMonth() + 1;
@@ -21,10 +22,11 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
 
   const user = await findUserByEmail(session.user.email as string);
 
-  if (!user) return {
-    budget: null,
-    error: 'DB error, user not found.'
-  };
+  if (!user)
+    return {
+      budget: null,
+      error: 'DB error, user not found.',
+    };
 
   const budget = await createBudget(user.accountId, budgetDb);
   revalidatePath('/');
