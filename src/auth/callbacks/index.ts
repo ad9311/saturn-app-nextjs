@@ -9,11 +9,13 @@ export type CallbackData = {
   };
   account?: {
     providerAccountId: string;
-  }
+  };
 };
 
 export async function signInCallback(data: CallbackData) {
-  const existingUser = await findUserByAccountId(data.account?.providerAccountId as string);
+  const existingUser = await findUserByAccountId(
+    data.account?.providerAccountId as string
+  );
 
   if (existingUser) {
     return true;

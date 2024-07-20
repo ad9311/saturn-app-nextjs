@@ -24,7 +24,7 @@ export const authOptions = {
   },
   callbacks: {
     authorized: async ({ auth }) => {
-      return !!auth
+      return !!auth;
     },
     async signIn(data) {
       const restrict = await restrictUsersCallback(data as CallbackData);

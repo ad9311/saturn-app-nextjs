@@ -9,10 +9,10 @@
   "rules": {
     "prettier/prettier": "error",
     "react-hooks/exhaustive-deps": "off",
-    "no-unused-vars": "error",
+    "no-unused-vars": "off",
     "no-else-return": "error",
     "eqeqeq": "error",
     "no-console": "warn",
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }

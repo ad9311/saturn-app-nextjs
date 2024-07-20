@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import BudgetPieChart from './BudgetPieChart';
 import useBudgetStore from '@/stores/budget';
 import { useFormState } from 'react-dom';
-import { createBudget } from '@/server-actions/budget';
+import { createBudgetAction } from '@/server-actions/budget';
 import { useEffect } from 'react';
 
 const initialState = {
@@ -21,7 +21,7 @@ async function getBudget() {
 }
 
 export default function Container() {
-  const [state, formAction] = useFormState(createBudget, initialState);
+  const [state, formAction] = useFormState(createBudgetAction, initialState);
   const { budget, setBudget } = useBudgetStore(state => ({
     budget: state.budget,
     setBudget: state.setBudget,

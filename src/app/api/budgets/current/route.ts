@@ -24,4 +24,4 @@ export const GET = auth(async function GET(request) {
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
-})
+});

@@ -1,31 +1,30 @@
 'use server';
 
-import { postResource } from '@/helpers/fetch';
+import { auth } from '@/auth';
+import { createBudget } from '@/db/budgets';
+import { findUserByEmail } from '@/db/users';
 import { CreateBudgetState } from '@/types/budget';
 
-export async function createBudget(
+export async function createBudgetAction(
   prevState: CreateBudgetState,
   formData: FormData
 ): Promise<CreateBudgetState> {
-  const body = JSON.stringify({
-    month: formData.get('budget[month]'),
-    year: formData.get('budget[year]'),
-  });
+  const session = await auth();
+  if (!session || !session.user) return prevState;
 
-  const { data, response } = await postResource(
-    `${process.env.NEXT_PUBLIC_URL}/api/budgets`,
-    body
-  );
+  const body = {
+    month: Number(formData.get('budget[month]')),
+    year: Number(formData.get('budget[year]')),
+  };
 
-  if (response.ok) {
-    return {
-      budget: data.budget,
-      error: null,
-    };
-  }
+  const user = await findUserByEmail(session.user.email as string);
+
+  if (!user) return prevState;
+
+  const budget = await createBudget(user.accountId, body);
 
   return {
-    budget: prevState.budget,
-    error: data.error,
+    budget,
+    error: null,
   };
 }
