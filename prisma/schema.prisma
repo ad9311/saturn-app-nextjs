@@ -42,7 +42,7 @@ model Budget {
   expenseCount     Int     @default(0) @map("expense_count")
 
   user          User @relation(fields: [userAccountId], references: [accountId])
-  userAccountId Int  @unique @map("user_account_id")
+  userAccountId Int  @map("user_account_id")
 
   incomeList Income[]
 
@@ -59,8 +59,8 @@ model Income {
   description String
   amount      Decimal
 
-  budget  Budget @relation(fields: [budetId], references: [id])
-  budetId Int    @unique @map("budget_id")
+  budget  Budget @relation(fields: [budgetId], references: [id])
+  budgetId Int   @map("budget_id")
 
   @@map("incomes")
 }

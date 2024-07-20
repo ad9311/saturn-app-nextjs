@@ -1,31 +1,17 @@
 'use server';
 
-import { auth } from '@/auth';
 import { createBudget, findBudgetByMonthYear } from '@/db/budgets';
-import { findUserByEmail } from '@/db/users';
 import { CreateBudgetState } from '@/types/budget';
 import { revalidatePath } from 'next/cache';
+import { checkAuth } from '../helpers/auth';
 
 export async function createBudgetAction(): Promise<CreateBudgetState> {
-  const session = await auth();
-
-  if (!session || !session.user) {
-    return {
-      budget: null,
-      error: {
-        message: 'user not authenticated',
-      },
-    };
-  }
-
-  const user = await findUserByEmail(session.user.email as string);
+  const { user, error } = await checkAuth();
 
   if (!user) {
     return {
       budget: null,
-      error: {
-        message: 'user not found',
-      },
+      error,
     };
   }
 
