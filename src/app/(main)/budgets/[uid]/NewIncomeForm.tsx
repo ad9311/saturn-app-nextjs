@@ -1,7 +1,7 @@
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { createIncomeAction } from '@/server-actions/income';
 import { CreateIncomeState } from '@/types/transaction';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 
 const initState: CreateIncomeState = {
@@ -12,6 +12,12 @@ const initState: CreateIncomeState = {
 export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
   const [formState, formAction] = useFormState(createIncomeAction, initState);
   const ref = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (formState.income) {
+      ref.current?.reset();
+    }
+  }, [formState]);
 
   if (formState.error) return <p>{formState.error.message}</p>;
 

@@ -10,9 +10,9 @@ const initState = {
 };
 
 export default function CreateNewBudgetForm() {
-  const [state, formAction] = useFormState(createBudgetAction, initState);
+  const [formState, formAction] = useFormState(createBudgetAction, initState);
 
-  if (state.error) return <p>Error: {state.error.message}!</p>;
+  if (formState.error) return <p>Error: {formState.error.message}!</p>;
 
   return (
     <form action={formAction}>
