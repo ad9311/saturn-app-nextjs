@@ -1,18 +1,15 @@
-'use client';
-
-import { signOut } from 'next-auth/react';
+import { signOut } from '@/auth';
 
 export default function SignOutButton() {
   async function handleSignOutFlow() {
-    await signOut();
+    'use server';
+
+    await signOut({ redirect: true, redirectTo: '/' });
   }
 
   return (
-    <button
-      type="button"
-      onClick={handleSignOutFlow}
-      className="text-red-800 text-sm hover:underline">
-      Sign out
-    </button>
+    <form action={handleSignOutFlow}>
+      <button type="submit" className="text-red-700 hover:underline">Sign Out!</button>
+    </form>
   );
 }

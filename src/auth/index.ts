@@ -1,15 +1,11 @@
-import { getServerSession, NextAuthOptions } from 'next-auth';
-import GithubProvider from 'next-auth/providers/github';
+import { NextAuthConfig } from 'next-auth';
+import GitHub from "next-auth/providers/github"
 import {
   CallbackData,
   restrictUsersCallback,
   signInCallback,
 } from './callbacks';
-import {
-  GetServerSidePropsContext,
-  NextApiRequest,
-  NextApiResponse,
-} from 'next';
+import NextAuth from 'next-auth';
 
 export const authOptions = {
   debug: true,
@@ -18,9 +14,9 @@ export const authOptions = {
     updateAge: 24 * 60 * 60,
   },
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
+    GitHub({
+      clientId: process.env.AUTH_GITHUB_ID as string,
+      clientSecret: process.env.AUTH_GITHUB_SECRET as string,
     }),
   ],
   pages: {
@@ -28,21 +24,15 @@ export const authOptions = {
   },
   callbacks: {
     async signIn(data) {
-      const restrict = await restrictUsersCallback(data as CallbackData);
-      if (restrict) {
-        return false;
-      }
+      // const restrict = await restrictUsersCallback(data as CallbackData);
+      // if (restrict) {
+      //   return false;
+      // }
 
-      return await signInCallback(data as CallbackData);
+      // return await signInCallback(data as CallbackData);
+      return true;
     },
   },
-} satisfies NextAuthOptions;
+} satisfies NextAuthConfig;
 
-export function auth(
-  ...args:
-    | [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']]
-    | [NextApiRequest, NextApiResponse]
-    | []
-) {
-  return getServerSession(...args, authOptions);
-}
+export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);

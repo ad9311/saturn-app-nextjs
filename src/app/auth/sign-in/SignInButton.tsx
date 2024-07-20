@@ -1,15 +1,16 @@
-'use client';
-
-import { signIn } from 'next-auth/react';
+import { signIn } from '@/auth';
 
 export default function SignInButton() {
   async function handleSignInFlow() {
-    await signIn('github', { callbackUrl: '/home', redirect: false });
+    'use server';
+
+    await signIn('github', { redirect: true, redirectTo: '/' });
   }
 
+
   return (
-    <button type="button" onClick={handleSignInFlow}>
-      Click to sign in
-    </button>
+    <form action={handleSignInFlow}>
+      <button type="submit" className="text-blue-700 hover:underline">Sign In!</button>
+    </form>
   );
 }

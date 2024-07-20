@@ -1,5 +1,5 @@
-import SignOutButton from '../auth/sign-out/SignOutButton';
 import { auth } from '@/auth';
+import SignOutButton from '../auth/sign-out/SignOutButton';
 
 export default async function Sidebar(
   props: React.HTMLAttributes<HTMLDivElement>
