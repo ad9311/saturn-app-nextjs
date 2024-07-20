@@ -34,9 +34,9 @@ model Budget {
   uid              String  @unique
   month            Int
   year             Int
-  balance          Decimal @default(0.0)
-  totalIncome      Decimal @default(0.0) @map("total_income")
-  totalExpenses    Decimal @default(0.0) @map("total_expenses")
+  balance          Float @default(0.0)
+  totalIncome      Float @default(0.0) @map("total_income")
+  totalExpenses    Float @default(0.0) @map("total_expenses")
   transactionCount Int     @default(0) @map("transaction_count")
   incomeCount      Int     @default(0) @map("income_count")
   expenseCount     Int     @default(0) @map("expense_count")
@@ -57,7 +57,7 @@ model Income {
   id Int @id @default(autoincrement())
 
   description String
-  amount      Decimal
+  amount      Float
 
   budget  Budget @relation(fields: [budgetId], references: [id])
   budgetId Int   @map("budget_id")
