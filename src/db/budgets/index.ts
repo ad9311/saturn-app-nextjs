@@ -5,12 +5,12 @@ import { startOfMonth, endOfMonth } from 'date-fns';
 
 export async function createBudget(
   user: User,
-  budget: BudgetTemplate
+  budgetData: BudgetTemplate
 ): Promise<Budget | null> {
-  const uid = `${budget.year}-${budget.month}-${user.accountId}`;
+  const uid = `${budgetData.year}-${budgetData.month}-${user.accountId}`;
   return await prisma.budget.create({
     data: {
-      ...budget,
+      ...budgetData,
       uid,
       user: { connect: { accountId: user.accountId } },
     },

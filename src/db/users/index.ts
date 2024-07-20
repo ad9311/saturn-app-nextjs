@@ -2,8 +2,8 @@ import { User } from '@prisma/client';
 import prisma from '..';
 import { UserTemplate } from '@/types/user';
 
-export async function createUser(user: UserTemplate): Promise<User | null> {
-  return await prisma.user.create({ data: user });
+export async function createUser(userData: UserTemplate): Promise<User | null> {
+  return await prisma.user.create({ data: userData });
 }
 
 export async function findUserByAccountId(
