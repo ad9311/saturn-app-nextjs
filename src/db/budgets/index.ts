@@ -3,7 +3,7 @@ import { BudgetDB } from '@/types/budget';
 import { startOfMonth, endOfMonth } from 'date-fns';
 
 export async function createBudget(accountId: number, budget: BudgetDB) {
-  const uid = `${budget.year}-${budget.month}-${accountId}`
+  const uid = `${budget.year}-${budget.month}-${accountId}`;
   return await prisma.budget.create({
     data: {
       ...budget,
@@ -30,4 +30,8 @@ export async function findCurrentBudget(userAccountId: number) {
       createdAt: 'asc',
     },
   });
+}
+
+export async function findBudgetByUid(uid: string) {
+  return await prisma.budget.findUnique({ where: { uid } });
 }

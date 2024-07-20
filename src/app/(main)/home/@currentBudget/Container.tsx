@@ -42,7 +42,7 @@ export default function Container() {
     if (data?.budget) {
       setBudget(data.budget);
     }
-  }, [state]);
+  }, [state, data]);
 
   if (isLoading) return 'Loading...';
 
