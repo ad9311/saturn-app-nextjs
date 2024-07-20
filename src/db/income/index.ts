@@ -1,8 +1,9 @@
-import { IncomeTemplate } from '@/types/transaction';
 import prisma from '..';
+import { IncomeTemplate } from '@/types/transaction';
+import { BudgetDb } from '@/types/budget';
 
 export async function createIncome(
-  budgetId: number,
+  budget: BudgetDb,
   incomeData: IncomeTemplate
 ) {
   return await prisma.income.create({
@@ -10,7 +11,7 @@ export async function createIncome(
       ...incomeData,
       budget: {
         connect: {
-          id: budgetId,
+          id: budget.id,
         },
       },
     },

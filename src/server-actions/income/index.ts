@@ -37,7 +37,7 @@ export async function createIncomeAction(
     description: formData.get('income[description]') as string,
     amount: Number(formData.get('income[amount]')),
   };
-  const income = await createIncome(budget.id, incomeData);
+  const income = await createIncome(budget, incomeData);
   revalidatePath(`/budgets/${budget.uid}`);
 
   return {
