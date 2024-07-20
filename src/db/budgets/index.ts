@@ -61,9 +61,9 @@ export async function findBudgetByMonthYear(
 }
 
 export async function aggregateBudgetOnCreateIncome(
-  budget: Budget,
+  budget: BudgetDb,
   income: Income
-) {
+): Promise<Budget> {
   return prisma.budget.update({
     where: {
       id: budget.id,
@@ -80,6 +80,44 @@ export async function aggregateBudgetOnCreateIncome(
       },
       incomeCount: {
         increment: 1,
+      },
+    },
+  });
+}
+
+export async function resetAggBudgetOnUpdateIncome(
+  budget: BudgetDb,
+  income: Income
+) {
+  return prisma.budget.update({
+    where: {
+      id: budget.id,
+    },
+    data: {
+      balance: {
+        decrement: income.amount,
+      },
+      totalIncome: {
+        decrement: income.amount,
+      },
+    },
+  });
+}
+
+export async function aggregateBudgetOnUpdateIncome(
+  budget: BudgetDb,
+  income: Income
+) {
+  return prisma.budget.update({
+    where: {
+      id: budget.id,
+    },
+    data: {
+      balance: {
+        increment: income.amount,
+      },
+      totalIncome: {
+        increment: income.amount,
       },
     },
   });

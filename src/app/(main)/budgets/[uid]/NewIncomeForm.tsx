@@ -1,11 +1,11 @@
 import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { createIncomeAction } from '@/server-actions/income';
-import { CreateIncomeState } from '@/types/transaction';
+import { IncomeFormState } from '@/types/transaction';
 import { useEffect, useRef } from 'react';
 import { useFormState } from 'react-dom';
 
-const initState: CreateIncomeState = {
+const initState: IncomeFormState = {
   income: null,
   errorMessages: null,
 };

@@ -8,6 +8,6 @@ export type IncomeTemplate = {
   description: string;
 };
 
-export type CreateIncomeState = FormErrors & {
+export type IncomeFormState = FormErrors & {
   income: Income | null;
 };

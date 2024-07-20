@@ -1,17 +1,29 @@
 'use server';
 
-import { CreateIncomeState, IncomeTemplate } from '@/types/transaction';
+import { IncomeFormState, IncomeTemplate } from '@/types/transaction';
 import { checkAuth } from '../helpers/auth';
-import { aggregateBudgetOnCreateIncome, findBudgetByUid } from '@/db/budgets';
-import { createIncome } from '@/db/income';
+import {
+  aggregateBudgetOnCreateIncome,
+  aggregateBudgetOnUpdateIncome,
+  findBudgetByUid,
+  resetAggBudgetOnUpdateIncome,
+} from '@/db/budgets';
+import { createIncome, findIncomeById, updateIncome } from '@/db/income';
 import { revalidatePath } from 'next/cache';
 import { NewIncomeValidation } from '@/db/income/validations';
 import { formatZodErrors } from '@/helpers/format';
 
+function getIncomeFormData(formData: FormData): IncomeTemplate {
+  return {
+    description: formData.get('income[description]') as string,
+    amount: Number(formData.get('income[amount]')),
+  };
+}
+
 export async function createIncomeAction(
-  _initState: CreateIncomeState,
+  _initState: IncomeFormState,
   formData: FormData
-): Promise<CreateIncomeState> {
+): Promise<IncomeFormState> {
   const { user, error } = await checkAuth();
 
   if (!user) {
@@ -21,10 +33,7 @@ export async function createIncomeAction(
     };
   }
 
-  const incomeData: IncomeTemplate = {
-    description: formData.get('income[description]') as string,
-    amount: Number(formData.get('income[amount]')),
-  };
+  const incomeData = getIncomeFormData(formData);
   const result = NewIncomeValidation.safeParse(incomeData);
 
   if (!result.success) {
@@ -54,6 +63,66 @@ export async function createIncomeAction(
 
     return {
       income,
+      errorMessages: null,
+    };
+  } catch (error) {
+    return { income: null, errorMessages: [error as string] };
+  }
+}
+
+export async function updateIncomeAction(
+  _initState: IncomeFormState,
+  formData: FormData
+): Promise<IncomeFormState> {
+  const { user, error } = await checkAuth();
+
+  if (!user) {
+    return {
+      income: null,
+      errorMessages: [error?.message as string],
+    };
+  }
+
+  const incomeData = getIncomeFormData(formData);
+  const result = NewIncomeValidation.safeParse(incomeData);
+
+  if (!result.success) {
+    return {
+      income: null,
+      errorMessages: formatZodErrors(result.error.issues),
+    };
+  }
+
+  try {
+    const budget = await findBudgetByUid(
+      user,
+      formData.get('budget[uid]') as string
+    );
+
+    if (!budget) {
+      return {
+        income: null,
+        errorMessages: ['budget not found'],
+      };
+    }
+
+    const income = await findIncomeById(Number(formData.get('income[id]')));
+
+    if (!income) {
+      return {
+        income: null,
+        errorMessages: ['income not found'],
+      };
+    }
+
+    await updateIncome(income, incomeData);
+    await resetAggBudgetOnUpdateIncome(budget, income);
+    await aggregateBudgetOnUpdateIncome(budget, income);
+
+    revalidatePath(`/budgets/${budget.uid}`);
+
+    return {
+      income: null,
       errorMessages: null,
     };
   } catch (error) {
