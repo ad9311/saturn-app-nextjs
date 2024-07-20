@@ -13,10 +13,11 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
     error: 'Session error, user not authenticated.'
   };
 
-  const budgetDb = {
-    month: 1,
-    year: 2
-  };
+  const now = new Date();
+  const month = now.getMonth() + 1;
+  const year = now.getFullYear();
+
+  const budgetDb = { month, year };
 
   const user = await findUserByEmail(session.user.email as string);
 
