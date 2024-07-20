@@ -27,6 +27,6 @@ export async function checkAuth(): Promise<AuthState> {
 
     return { user, error: null };
   } catch (error) {
-    return { user: null, error: (error as Error) };
+    return { user: null, error: error as Error };
   }
 }

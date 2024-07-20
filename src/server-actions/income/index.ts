@@ -16,7 +16,7 @@ export async function createIncomeAction(
   if (!user) {
     return {
       income: null,
-      error,
+      errorMessages: [error?.message as string],
     };
   }
 
@@ -30,10 +30,8 @@ export async function createIncomeAction(
     if (!result.success) {
       return {
         income: null,
-        error: {
-          message: 'form has invalid values',
-        }
-      }
+        errorMessages: ['form has invalid values'],
+      };
     }
 
     const budget = await findBudgetByUid(
@@ -44,9 +42,7 @@ export async function createIncomeAction(
     if (!budget) {
       return {
         income: null,
-        error: {
-          message: 'budget not found',
-        },
+        errorMessages: ['budget not found'],
       };
     }
 
@@ -57,9 +53,9 @@ export async function createIncomeAction(
 
     return {
       income,
-      error: null,
+      errorMessages: null,
     };
   } catch (error) {
-    return { income: null, error: { message: error as string } };
+    return { income: null, errorMessages: [error as string] };
   }
 }

@@ -1,4 +1,5 @@
 import { Income } from '@prisma/client';
+import { FormErrors } from '..';
 
 export type IncomeDb = Income;
 
@@ -7,9 +8,6 @@ export type IncomeTemplate = {
   description: string;
 };
 
-export type CreateIncomeState = {
+export type CreateIncomeState = FormErrors & {
   income: Income | null;
-  error: {
-    message: string;
-  } | null;
 };

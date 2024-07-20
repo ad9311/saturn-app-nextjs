@@ -2,7 +2,7 @@
 
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { createBudgetAction } from '@/server-actions/budget';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 
 const initState = {
   budget: null,

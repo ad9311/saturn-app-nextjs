@@ -2,11 +2,11 @@ import SubmitFormButton from '@/components/SubmitFormButton';
 import { createIncomeAction } from '@/server-actions/income';
 import { CreateIncomeState } from '@/types/transaction';
 import { useEffect, useRef } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 
 const initState: CreateIncomeState = {
   income: null,
-  error: null,
+  errorMessages: null,
 };
 
 export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
@@ -14,14 +14,13 @@ export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
   const ref = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (formState.income && !formState.error) {
+    if (formState.income && !formState.errorMessages) {
       ref.current?.reset();
     }
   }, [formState]);
 
   return (
     <>
-      {formState.error && <p>Error: {formState.error.message}!</p>}
       <form action={formAction} ref={ref}>
         <input type="hidden" name="budget[uid]" value={budgetUid} readOnly />
         <label htmlFor="description">
