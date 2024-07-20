@@ -11,7 +11,7 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
   if (!user) {
     return {
       budget: null,
-      error,
+      errorMessages: [error?.message as string],
     };
   }
 
@@ -26,9 +26,7 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
     if (existingBudget) {
       return {
         budget: null,
-        error: {
-          message: 'duplicated budget',
-        },
+        errorMessages: ['duplicated budget'],
       };
     }
 
@@ -38,9 +36,9 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
 
     return {
       budget,
-      error: null,
+      errorMessages: null,
     };
   } catch (error) {
-    return { budget: null, error: { message: error as string } };
+    return { budget: null, errorMessages: [error as string] };
   }
 }

@@ -1,18 +1,21 @@
 'use client';
 
+import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { createBudgetAction } from '@/server-actions/budget';
+import { CreateBudgetState } from '@/types/budget';
 import { useFormState } from 'react-dom';
 
-const initState = {
+const initState: CreateBudgetState = {
   budget: null,
-  error: null,
+  errorMessages: null,
 };
 
 export default function CreateNewBudgetForm() {
   const [formState, formAction] = useFormState(createBudgetAction, initState);
 
-  if (formState.error) return <p>Error: {formState.error.message}!</p>;
+  if (formState.errorMessages)
+    return <ErrorList errorMessages={formState.errorMessages} />;
 
   return (
     <form action={formAction}>

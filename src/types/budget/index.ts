@@ -1,4 +1,5 @@
 import { Budget, Income } from '@prisma/client';
+import { FormErrors } from '..';
 
 export type BudgetDb = Budget & {
   incomeList: Income[];
@@ -9,11 +10,8 @@ export type BudgetTemplate = {
   year: number;
 };
 
-export type CreateBudgetState = {
+export type CreateBudgetState = FormErrors & {
   budget: Budget | null;
-  error: {
-    message: string;
-  } | null;
 };
 
 export type BudgetStoreValues = {

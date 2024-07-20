@@ -1,3 +1,4 @@
+import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { createIncomeAction } from '@/server-actions/income';
 import { CreateIncomeState } from '@/types/transaction';
@@ -21,6 +22,7 @@ export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
 
   return (
     <>
+      <ErrorList errorMessages={formState.errorMessages} />
       <form action={formAction} ref={ref}>
         <input type="hidden" name="budget[uid]" value={budgetUid} readOnly />
         <label htmlFor="description">
