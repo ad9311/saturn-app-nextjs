@@ -1,5 +1,6 @@
 import { BudgetDb } from '@/types/budget';
 import NewIncomeButton from './NewIncomeButton';
+import UpdateIncomeButton from './UpdateIncomeButton';
 
 type BudgetContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;
@@ -10,8 +11,11 @@ export default function IncomeContainer({
   ...props
 }: BudgetContainerProps) {
   const mappedIncomeList = budget.incomeList.map(income => (
-    <li key={income.id}>
-      {income.description}-{income.amount.toFixed(2)}
+    <li key={income.id} className="flex items-center justify-between">
+      <p>
+        {income.description}-{income.amount.toFixed(2)}
+      </p>
+      <UpdateIncomeButton income={income} />
     </li>
   ));
 
