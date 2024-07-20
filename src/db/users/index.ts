@@ -1,17 +1,18 @@
+import { User } from '@prisma/client';
 import prisma from '..';
-import { UserDB } from '@/types/user';
+import { UserTemplate } from '@/types/user';
 
-export async function createUser(user: UserDB) {
+export async function createUser(user: UserTemplate): Promise<User | null> {
   return await prisma.user.create({ data: user });
 }
 
-export async function findUserByAccountId(accountId: number | string) {
+export async function findUserByAccountId(accountId: number | string): Promise<User | null> {
   return await prisma.user.findUnique({
     where: { accountId: Number(accountId) },
   });
 }
 
-export async function findUserByEmail(email: string) {
+export async function findUserByEmail(email: string): Promise<User | null> {
   return await prisma.user.findUnique({
     where: { email: email },
   });

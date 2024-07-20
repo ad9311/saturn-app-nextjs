@@ -1,18 +1,13 @@
-import { Budget } from '@prisma/client';
+import { Budget, Income } from '@prisma/client';
 
-export type BudgetDB = {
+export type BudgetDb = Budget & {
+  incomeList: Income[];
+}
+
+export type BudgetTemplate = {
   month: number;
   year: number;
-};
-
-export type BudgetStoreValues = {
-  budget: Budget | undefined;
-};
-
-export type BudgetStoreActions = {
-  setBudget: (budget: Budget) => void;
-  clearBudget: () => void;
-};
+}
 
 export type CreateBudgetState = {
   budget: Budget | null;

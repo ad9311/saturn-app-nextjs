@@ -1,3 +1,3 @@
 import { User } from '@prisma/client';
 
-export type UserDB = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
+export type UserTemplate = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
