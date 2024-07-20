@@ -39,6 +39,8 @@ export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
           name="income[amount]"
           id="amount"
           placeholder="Amount"
+          min={1}
+          step={0.01}
         />
       </label>
       <SubmitFormButton />

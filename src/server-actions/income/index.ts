@@ -2,7 +2,7 @@
 
 import { CreateIncomeState, IncomeTemplate } from '@/types/transaction';
 import { checkAuth } from '../helpers/auth';
-import { findBudgetByUid } from '@/db/budgets';
+import { aggregateBudgetOnCreateIncome, findBudgetByUid } from '@/db/budgets';
 import { createIncome } from '@/db/income';
 import { revalidatePath } from 'next/cache';
 
@@ -38,6 +38,8 @@ export async function createIncomeAction(
     amount: Number(formData.get('income[amount]')),
   };
   const income = await createIncome(budget, incomeData);
+  await aggregateBudgetOnCreateIncome(budget, income);
+
   revalidatePath(`/budgets/${budget.uid}`);
 
   return {

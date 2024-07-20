@@ -1,6 +1,6 @@
 import prisma from '..';
 import { BudgetDb, BudgetTemplate } from '@/types/budget';
-import { Budget, User } from '@prisma/client';
+import { Budget, Income, User } from '@prisma/client';
 import { startOfMonth, endOfMonth } from 'date-fns';
 
 export async function createBudget(
@@ -17,9 +17,7 @@ export async function createBudget(
   });
 }
 
-export async function findCurrentBudget(
-  user: User
-): Promise<BudgetDb | null> {
+export async function findCurrentBudget(user: User): Promise<BudgetDb | null> {
   const now = new Date();
   const firstDayOfMonth = startOfMonth(now);
   const lastDayOfMonth = endOfMonth(now);
@@ -59,5 +57,30 @@ export async function findBudgetByMonthYear(
   return await prisma.budget.findFirst({
     where: { userAccountId: user.accountId, month, year },
     include: { incomeList: true },
+  });
+}
+
+export async function aggregateBudgetOnCreateIncome(
+  budget: Budget,
+  income: Income
+) {
+  return prisma.budget.update({
+    where: {
+      id: budget.id,
+    },
+    data: {
+      balance: {
+        increment: income.amount,
+      },
+      totalIncome: {
+        increment: income.amount,
+      },
+      transactionCount: {
+        increment: 1,
+      },
+      incomeCount: {
+        increment: 1,
+      },
+    },
   });
 }
