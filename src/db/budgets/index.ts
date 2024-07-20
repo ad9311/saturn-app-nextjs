@@ -1,6 +1,6 @@
 import prisma from '..';
 import { BudgetDb, BudgetTemplate } from '@/types/budget';
-import { Budget } from '@prisma/client';
+import { Budget, Income } from '@prisma/client';
 import { startOfMonth, endOfMonth } from 'date-fns';
 
 export async function createBudget(
@@ -56,7 +56,7 @@ export async function findBudgetByMonthYear(
   month: number,
   year: number
 ): Promise<BudgetDb | null> {
-  return await prisma.budget.findUnique({
+  return await prisma.budget.findFirst({
     where: { userAccountId, month, year },
     include: { incomeList: true },
   });
