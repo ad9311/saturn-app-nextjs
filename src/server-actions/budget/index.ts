@@ -20,7 +20,7 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
   const year = now.getFullYear();
 
   const existingBudget = await findBudgetByMonthYear(
-    user.accountId,
+    user,
     month,
     year
   );
@@ -36,7 +36,7 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
 
   const budgetDb = { month, year };
 
-  const budget = await createBudget(user.accountId, budgetDb);
+  const budget = await createBudget(user, budgetDb);
   revalidatePath('/');
 
   return {

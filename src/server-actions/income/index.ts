@@ -20,7 +20,7 @@ export async function createIncomeAction(
   }
 
   const budget = await findBudgetByUid(
-    user.accountId,
+    user,
     formData.get('budget[uid]') as string
   );
 

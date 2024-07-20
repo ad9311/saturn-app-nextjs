@@ -19,7 +19,7 @@ export default async function BudgetPages({
   const user = await findUserByEmail(session.user.email as string);
   if (!user) return null;
 
-  const budget = await findBudgetByUid(user.accountId, params.uid);
+  const budget = await findBudgetByUid(user, params.uid);
   if (!budget) return <p>NOT FOUND</p>;
 
   return (

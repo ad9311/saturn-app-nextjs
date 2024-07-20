@@ -13,7 +13,7 @@ export default async function Container() {
   const user = await findUserByEmail(session.user.email as string);
   if (!user) return null;
 
-  const budget = await findCurrentBudget(user.accountId);
+  const budget = await findCurrentBudget(user);
   if (!budget) return <CreateNewBudgetForm />;
 
   return (
