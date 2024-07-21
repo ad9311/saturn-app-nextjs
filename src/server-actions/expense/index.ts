@@ -5,8 +5,13 @@ import { checkAuth } from '../helpers/auth';
 import { formatZodErrors } from '@/helpers/format';
 import { NewExpenseValidation } from '@/db/expenses/validations';
 import { revalidatePath } from 'next/cache';
-import { aggregateBudgetOnCreateExpense, findBudgetByUid } from '@/db/budgets';
-import { createExpense } from '@/db/expenses';
+import {
+  aggregateBudgetOnCreateExpense,
+  aggregateBudgetOnUpdateExpense,
+  findBudgetByUid,
+  resolveBudgetOnUpdateExpense,
+} from '@/db/budgets';
+import { createExpense, findExpenseById, updateExpense } from '@/db/expenses';
 
 function getExpenseFormData(formData: FormData): ExpenseTemplate {
   return {
@@ -17,7 +22,7 @@ function getExpenseFormData(formData: FormData): ExpenseTemplate {
 }
 
 export async function createExpenseAction(
-  initState: ExpenseFormState,
+  _initState: ExpenseFormState,
   formData: FormData
 ): Promise<ExpenseFormState> {
   const { user, error } = await checkAuth();
@@ -58,7 +63,68 @@ export async function createExpenseAction(
     revalidatePath(`/budgets/${budget.uid}`);
 
     return {
+      expense,
+      errorMessages: null,
+    };
+  } catch (error) {
+    return { expense: null, errorMessages: [(error as Error).message] };
+  }
+}
+
+export async function updateExpenseAction(
+  _initState: ExpenseFormState,
+  formData: FormData
+): Promise<ExpenseFormState> {
+  const { user, error } = await checkAuth();
+
+  if (!user) {
+    return {
       expense: null,
+      errorMessages: [error?.message as string],
+    };
+  }
+
+  const expenseData = getExpenseFormData(formData);
+  const result = NewExpenseValidation.safeParse(expenseData);
+
+  if (!result.success) {
+    return {
+      expense: null,
+      errorMessages: formatZodErrors(result.error.issues),
+    };
+  }
+
+  try {
+    const budget = await findBudgetByUid(
+      user,
+      formData.get('budget[uid]') as string
+    );
+
+    if (!budget) {
+      return {
+        expense: null,
+        errorMessages: ['budget not found'],
+      };
+    }
+
+    const oldExpense = await findExpenseById(
+      Number(formData.get('expense[id]'))
+    );
+    if (!oldExpense) {
+      return {
+        expense: null,
+        errorMessages: ['expense not found'],
+      };
+    }
+
+    const newExpense = await updateExpense(oldExpense, expenseData);
+    await resolveBudgetOnUpdateExpense(budget, oldExpense);
+    await aggregateBudgetOnUpdateExpense(budget, newExpense);
+
+    revalidatePath(`/budgets/${budget.uid}`);
+
+    return {
+      expense: newExpense,
       errorMessages: null,
     };
   } catch (error) {

@@ -1,6 +1,7 @@
 import prisma from '..';
 import { BudgetDb, BudgetTemplate } from '@/types/budget';
 import { BudgetRecordDb } from '@/types/budget-record';
+import { ExpenseDb } from '@/types/transaction';
 import { Budget, Expense, Income, User } from '@prisma/client';
 import { startOfMonth, endOfMonth } from 'date-fns';
 
@@ -171,6 +172,44 @@ export async function aggregateBudgetOnCreateExpense(
       },
       expenseCount: {
         increment: 1,
+      },
+    },
+  });
+}
+
+export async function resolveBudgetOnUpdateExpense(
+  budget: BudgetDb,
+  expense: ExpenseDb
+): Promise<Budget> {
+  return prisma.budget.update({
+    where: {
+      id: budget.id,
+    },
+    data: {
+      balance: {
+        increment: expense.amount,
+      },
+      totalExpenses: {
+        decrement: expense.amount,
+      },
+    },
+  });
+}
+
+export async function aggregateBudgetOnUpdateExpense(
+  budget: BudgetDb,
+  expense: ExpenseDb
+): Promise<Budget> {
+  return prisma.budget.update({
+    where: {
+      id: budget.id,
+    },
+    data: {
+      balance: {
+        decrement: expense.amount,
+      },
+      totalExpenses: {
+        increment: expense.amount,
       },
     },
   });

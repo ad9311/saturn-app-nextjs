@@ -24,3 +24,27 @@ export async function createExpense(
     include: { expenseCategory: true },
   });
 }
+
+export async function findExpenseById(id: number): Promise<ExpenseDb | null> {
+  return prisma.expense.findUnique({
+    where: {
+      id,
+    },
+    include: { expenseCategory: true },
+  });
+}
+
+export async function updateExpense(
+  expense: ExpenseDb,
+  expenseData: ExpenseTemplate
+): Promise<ExpenseDb> {
+  return await prisma.expense.update({
+    where: {
+      id: expense.id,
+    },
+    data: {
+      ...expenseData,
+    },
+    include: { expenseCategory: true },
+  });
+}
