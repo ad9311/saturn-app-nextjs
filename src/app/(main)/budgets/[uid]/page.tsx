@@ -11,7 +11,7 @@ export default async function BudgetPages({
   params: { uid: string };
 }) {
   const { user, error } = await checkAuth();
-  if (!user) return <p>{error?.message}</p>
+  if (!user) return <p>{error?.message}</p>;
 
   const budget = await findBudgetByUid(user, params.uid);
   if (!budget) return <p>NOT FOUND</p>;

@@ -6,8 +6,8 @@ import {
   aggregateBudgetOnCreateIncome,
   aggregateBudgetOnUpdateIncome,
   findBudgetByUid,
-  resetAggBudgetOnDeleteIncome,
-  resetAggBudgetOnUpdateIncome,
+  resolveBudgetOnDeleteIncome,
+  resolveBudgetOnUpdateIncome,
 } from '@/db/budgets';
 import {
   createIncome,
@@ -122,7 +122,7 @@ export async function updateIncomeAction(
     }
 
     const newIncome = await updateIncome(oldIncome, incomeData);
-    await resetAggBudgetOnUpdateIncome(budget, oldIncome);
+    await resolveBudgetOnUpdateIncome(budget, oldIncome);
     await aggregateBudgetOnUpdateIncome(budget, newIncome);
 
     revalidatePath(`/budgets/${budget.uid}`);
@@ -172,7 +172,7 @@ export async function deleteIncomeAction(
     }
 
     await deleteIncome(oldIncome);
-    await resetAggBudgetOnDeleteIncome(budget, oldIncome);
+    await resolveBudgetOnDeleteIncome(budget, oldIncome);
 
     revalidatePath(`/budgets/${budget.uid}`);
 

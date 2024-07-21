@@ -18,9 +18,7 @@ export async function createIncome(
   });
 }
 
-export async function findIncomeById(
-  id: number
-): Promise<IncomeDb | null> {
+export async function findIncomeById(id: number): Promise<IncomeDb | null> {
   return prisma.income.findUnique({
     where: {
       id,

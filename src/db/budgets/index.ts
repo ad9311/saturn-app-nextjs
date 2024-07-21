@@ -85,7 +85,7 @@ export async function aggregateBudgetOnCreateIncome(
   });
 }
 
-export async function resetAggBudgetOnUpdateIncome(
+export async function resolveBudgetOnUpdateIncome(
   budget: BudgetDb,
   income: Income
 ) {
@@ -123,7 +123,7 @@ export async function aggregateBudgetOnUpdateIncome(
   });
 }
 
-export async function resetAggBudgetOnDeleteIncome(
+export async function resolveBudgetOnDeleteIncome(
   budget: BudgetDb,
   income: Income
 ) {
