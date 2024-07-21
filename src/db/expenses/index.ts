@@ -48,3 +48,12 @@ export async function updateExpense(
     include: { expenseCategory: true },
   });
 }
+
+export async function deleteExpense(expense: ExpenseDb): Promise<ExpenseDb> {
+  return await prisma.expense.delete({
+    where: {
+      id: expense.id,
+    },
+    include: { expenseCategory: true },
+  });
+}

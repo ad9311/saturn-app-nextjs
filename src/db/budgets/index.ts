@@ -214,3 +214,28 @@ export async function aggregateBudgetOnUpdateExpense(
     },
   });
 }
+
+export async function resolveBudgetOnDeleteExpense(
+  budget: BudgetDb,
+  expense: ExpenseDb
+): Promise<Budget> {
+  return prisma.budget.update({
+    where: {
+      id: budget.id,
+    },
+    data: {
+      balance: {
+        increment: expense.amount,
+      },
+      totalExpenses: {
+        decrement: expense.amount,
+      },
+      transactionCount: {
+        decrement: 1,
+      },
+      expenseCount: {
+        decrement: 1,
+      },
+    },
+  });
+}

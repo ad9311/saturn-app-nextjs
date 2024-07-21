@@ -1,6 +1,7 @@
 import { BudgetDb } from '@/types/budget';
 import NewExpenseButton from './NewExpenseButton';
 import UpdateExpenseButton from './UpdateExpenseButton';
+import DeleteExpenseButton from './DeleteExpenseButton';
 
 type ExpenseContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;
@@ -17,7 +18,7 @@ export default function ExpenseList({
       </p>
       <div>
         <UpdateExpenseButton expense={expense} />
-        {/* <DeleteExpenseButton expense={expense} /> */}
+        <DeleteExpenseButton expense={expense} />
       </div>
     </li>
   ));

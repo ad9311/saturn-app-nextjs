@@ -112,17 +112,17 @@ export async function updateIncomeAction(
       };
     }
 
-    const oldIncome = await findIncomeById(Number(formData.get('income[id]')));
+    const income = await findIncomeById(Number(formData.get('income[id]')));
 
-    if (!oldIncome) {
+    if (!income) {
       return {
         income: null,
         errorMessages: ['income not found'],
       };
     }
 
-    const newIncome = await updateIncome(oldIncome, incomeData);
-    await resolveBudgetOnUpdateIncome(budget, oldIncome);
+    const newIncome = await updateIncome(income, incomeData);
+    await resolveBudgetOnUpdateIncome(budget, income);
     await aggregateBudgetOnUpdateIncome(budget, newIncome);
 
     revalidatePath(`/budgets/${budget.uid}`);
@@ -162,22 +162,22 @@ export async function deleteIncomeAction(
       };
     }
 
-    const oldIncome = await findIncomeById(Number(formData.get('income[id]')));
+    const income = await findIncomeById(Number(formData.get('income[id]')));
 
-    if (!oldIncome) {
+    if (!income) {
       return {
         income: null,
         errorMessages: ['income not found'],
       };
     }
 
-    await deleteIncome(oldIncome);
-    await resolveBudgetOnDeleteIncome(budget, oldIncome);
+    await deleteIncome(income);
+    await resolveBudgetOnDeleteIncome(budget, income);
 
     revalidatePath(`/budgets/${budget.uid}`);
 
     return {
-      income: oldIncome,
+      income,
       errorMessages: null,
     };
   } catch (error) {

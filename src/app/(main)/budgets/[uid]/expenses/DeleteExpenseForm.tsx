@@ -1,0 +1,31 @@
+import ErrorList from '@/components/ErrorList';
+import SubmitFormButton from '@/components/SubmitFormButton';
+import { deleteExpenseAction } from '@/server-actions/expense';
+import { useBudgetStore } from '@/stores/budget';
+import { ExpenseFormState } from '@/types/transaction';
+import { Expense } from '@prisma/client';
+import { useFormState } from 'react-dom';
+
+const initState: ExpenseFormState = {
+  expense: null,
+  errorMessages: null,
+};
+
+export default function DeleteExpenseForm({ expense }: { expense: Expense }) {
+  const { budget } = useBudgetStore(state => ({ budget: state.budget }));
+  const [formState, formAction] = useFormState(deleteExpenseAction, initState);
+
+  if (formState.expense && !formState.errorMessages)
+    return <p>Income deleted successfully</p>;
+
+  return (
+    <>
+      <ErrorList errorMessages={formState.errorMessages} />
+      <form action={formAction}>
+        <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
+        <input type="hidden" name="expense[id]" value={expense.id} readOnly />
+        <SubmitFormButton />
+      </form>
+    </>
+  );
+}

@@ -9,9 +9,15 @@ import {
   aggregateBudgetOnCreateExpense,
   aggregateBudgetOnUpdateExpense,
   findBudgetByUid,
+  resolveBudgetOnDeleteExpense,
   resolveBudgetOnUpdateExpense,
 } from '@/db/budgets';
-import { createExpense, findExpenseById, updateExpense } from '@/db/expenses';
+import {
+  createExpense,
+  deleteExpense,
+  findExpenseById,
+  updateExpense,
+} from '@/db/expenses';
 
 function getExpenseFormData(formData: FormData): ExpenseTemplate {
   return {
@@ -125,6 +131,55 @@ export async function updateExpenseAction(
 
     return {
       expense: newExpense,
+      errorMessages: null,
+    };
+  } catch (error) {
+    return { expense: null, errorMessages: [(error as Error).message] };
+  }
+}
+
+export async function deleteExpenseAction(
+  _initState: ExpenseFormState,
+  formData: FormData
+): Promise<ExpenseFormState> {
+  const { user, error } = await checkAuth();
+
+  if (!user) {
+    return {
+      expense: null,
+      errorMessages: [error?.message as string],
+    };
+  }
+
+  try {
+    const budget = await findBudgetByUid(
+      user,
+      formData.get('budget[uid]') as string
+    );
+
+    if (!budget) {
+      return {
+        expense: null,
+        errorMessages: ['budget not found'],
+      };
+    }
+
+    const expense = await findExpenseById(Number(formData.get('expense[id]')));
+
+    if (!expense) {
+      return {
+        expense: null,
+        errorMessages: ['expense not found'],
+      };
+    }
+
+    await deleteExpense(expense);
+    await resolveBudgetOnDeleteExpense(budget, expense);
+
+    revalidatePath(`/budgets/${budget.uid}`);
+
+    return {
+      expense,
       errorMessages: null,
     };
   } catch (error) {

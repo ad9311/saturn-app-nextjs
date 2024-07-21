@@ -6,7 +6,7 @@ export default function TransactionModal({
   children,
 }: {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   const { clearChildren } = useModalStore(state => ({
     clearChildren: state.clearChildren,
