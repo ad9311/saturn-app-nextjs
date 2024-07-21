@@ -20,4 +20,5 @@ export type ExpenseCategoriesStoreValues = {
 export type ExpenseCategoriesStoreActions = {
   setExpenseCategories: (expenseCategories: ExpenseCategoryDb[]) => void;
   clearExpenseCategories: () => void;
+  addExpenseCategory: (expenseCategory: ExpenseCategoryDb) => void;
 };
