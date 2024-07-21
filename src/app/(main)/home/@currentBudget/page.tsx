@@ -1,5 +1,4 @@
 import { checkAuth } from '@/server-actions/helpers/auth';
-import { findBudgetRecord } from '@/db/budget-records';
 import CreateNewBudgetForm from './CreateNewBudgetForm';
 import { findCurrentBudget } from '@/db/budgets';
 import Link from 'next/link';
@@ -9,10 +8,7 @@ export default async function CurrentBudget() {
   const { user } = await checkAuth();
   if (!user) return null;
 
-  const budgetRecord = await findBudgetRecord(user);
-  if (!budgetRecord) return <p>Not budget record yet!</p>;
-
-  const budget = await findCurrentBudget(budgetRecord);
+  const budget = await findCurrentBudget(user);
   if (!budget) return <CreateNewBudgetForm />;
 
   return (

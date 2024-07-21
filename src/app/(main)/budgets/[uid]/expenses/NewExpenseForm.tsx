@@ -1,9 +1,9 @@
 import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { createExpenseAction } from '@/server-actions/expense';
-import { BudgetDb } from '@/types/budget'
+import { BudgetDb } from '@/types/budget';
 import { ExpenseFormState } from '@/types/transaction';
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react';
 import { useFormState } from 'react-dom';
 
 const initState: ExpenseFormState = {

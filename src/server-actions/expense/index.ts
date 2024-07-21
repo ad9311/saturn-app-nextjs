@@ -1,5 +1,8 @@
-import { ExpenseFormState } from "@/types/transaction";
+import { ExpenseFormState } from '@/types/transaction';
 
-export async function createExpenseAction(initState: ExpenseFormState, formData: FormData) {
+export async function createExpenseAction(
+  initState: ExpenseFormState,
+  formData: FormData
+) {
   return initState;
 }

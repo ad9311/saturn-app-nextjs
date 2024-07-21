@@ -21,7 +21,7 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
     if (!budgetRecord) {
       return {
         budget: null,
-        errorMessages: ['duplicated budget'],
+        errorMessages: ['budget record not found'],
       };
     }
 

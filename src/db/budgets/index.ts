@@ -1,7 +1,7 @@
 import prisma from '..';
 import { BudgetDb, BudgetTemplate } from '@/types/budget';
 import { BudgetRecordDb } from '@/types/budget-record';
-import { Budget, Income } from '@prisma/client';
+import { Budget, Income, User } from '@prisma/client';
 import { startOfMonth, endOfMonth } from 'date-fns';
 
 export async function createBudget(
@@ -18,16 +18,16 @@ export async function createBudget(
   });
 }
 
-export async function findCurrentBudget(
-  budgetRecord: BudgetRecordDb
-): Promise<BudgetDb | null> {
+export async function findCurrentBudget(user: User): Promise<BudgetDb | null> {
   const now = new Date();
   const firstDayOfMonth = startOfMonth(now);
   const lastDayOfMonth = endOfMonth(now);
 
   return await prisma.budget.findFirst({
     where: {
-      budgetRercordId: budgetRecord.id,
+      budgetRecord: {
+        userId: user.id,
+      },
       createdAt: {
         gte: firstDayOfMonth,
         lte: lastDayOfMonth,
@@ -44,11 +44,11 @@ export async function findCurrentBudget(
 }
 
 export async function findBudgetByUid(
-  budgetRecord: BudgetRecordDb,
+  user: User,
   uid: string
 ): Promise<BudgetDb | null> {
   return await prisma.budget.findUnique({
-    where: { uid, budgetRercordId: budgetRecord.id },
+    where: { uid, budgetRecord: { userId: user.id } },
     include: { incomeList: true, expenses: true },
   });
 }
@@ -57,10 +57,9 @@ export async function findBudgetByMonthYear(
   budgetRecord: BudgetRecordDb,
   month: number,
   year: number
-): Promise<BudgetDb | null> {
+): Promise<Budget | null> {
   return await prisma.budget.findFirst({
     where: { budgetRercordId: budgetRecord.id, month, year },
-    include: { incomeList: true, expenses: true },
   });
 }
 
@@ -92,7 +91,7 @@ export async function aggregateBudgetOnCreateIncome(
 export async function resolveBudgetOnUpdateIncome(
   budget: BudgetDb,
   income: Income
-) {
+): Promise<Budget> {
   return prisma.budget.update({
     where: {
       id: budget.id,
@@ -111,7 +110,7 @@ export async function resolveBudgetOnUpdateIncome(
 export async function aggregateBudgetOnUpdateIncome(
   budget: BudgetDb,
   income: Income
-) {
+): Promise<Budget> {
   return prisma.budget.update({
     where: {
       id: budget.id,
@@ -130,7 +129,7 @@ export async function aggregateBudgetOnUpdateIncome(
 export async function resolveBudgetOnDeleteIncome(
   budget: BudgetDb,
   income: Income
-) {
+): Promise<Budget> {
   return prisma.budget.update({
     where: {
       id: budget.id,

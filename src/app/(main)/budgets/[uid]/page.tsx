@@ -4,20 +4,17 @@ import IncomeContainer from './income/IncomeContainer';
 import ExpensesContainer from './expenses/ExpensesContainer';
 import ChartContainer from './expenses/ChartContainer';
 import { checkAuth } from '@/server-actions/helpers/auth';
-import { findBudgetRecord } from '@/db/budget-records';
+import { redirect } from 'next/navigation';
 
 export default async function BudgetPages({
   params,
 }: {
   params: { uid: string };
 }) {
-  const { user, error } = await checkAuth();
-  if (!user) return <p>{error?.message}</p>;
+  const { user } = await checkAuth();
+  if (!user) return redirect('/auth/sign-in');
 
-  const budgetRecord = await findBudgetRecord(user);
-  if (!budgetRecord) return <p>NOT FOUND</p>;
-
-  const budget = await findBudgetByUid(budgetRecord, params.uid);
+  const budget = await findBudgetByUid(user, params.uid);
   if (!budget) return <p>NOT FOUND</p>;
 
   return (
@@ -33,7 +30,10 @@ export default async function BudgetPages({
         />
       </div>
       <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
-        <ExpensesContainer budget={budget} className="p-3 bg-neutral-200 rounded-sm lg:col-span-8" />
+        <ExpensesContainer
+          budget={budget}
+          className="p-3 bg-neutral-200 rounded-sm lg:col-span-8"
+        />
         <ChartContainer className="p-3 bg-neutral-200 rounded-sm lg:col-span-4" />
       </div>
     </div>

@@ -1,11 +1,14 @@
-import { BudgetDb } from "@/types/budget";
-import NewExpenseButton from "./NewExpenseButton";
+import { BudgetDb } from '@/types/budget';
+import NewExpenseButton from './NewExpenseButton';
 
 type ExpenseContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;
 };
 
-export default function ExpensesContainer({ budget, ...props }: ExpenseContainerProps) {
+export default function ExpensesContainer({
+  budget,
+  ...props
+}: ExpenseContainerProps) {
   const mappedExpenses = budget.expenses.map(expense => (
     <li key={expense.id} className="flex items-center justify-between">
       <p>

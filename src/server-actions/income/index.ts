@@ -18,7 +18,6 @@ import {
 import { revalidatePath } from 'next/cache';
 import { NewIncomeValidation } from '@/db/income/validations';
 import { formatZodErrors } from '@/helpers/format';
-import { findBudgetRecord } from '@/db/budget-records';
 
 function getIncomeFormData(formData: FormData): IncomeTemplate {
   return {
@@ -51,16 +50,8 @@ export async function createIncomeAction(
   }
 
   try {
-    const budgetRecord = await findBudgetRecord(user);
-    if (!budgetRecord) {
-      return {
-        income: null,
-        errorMessages: ['budget_record not found'],
-      };
-    }
-
     const budget = await findBudgetByUid(
-      budgetRecord,
+      user,
       formData.get('budget[uid]') as string
     );
 
@@ -109,16 +100,8 @@ export async function updateIncomeAction(
   }
 
   try {
-    const budgetRecord = await findBudgetRecord(user);
-    if (!budgetRecord) {
-      return {
-        income: null,
-        errorMessages: ['budget_record not found'],
-      };
-    }
-
     const budget = await findBudgetByUid(
-      budgetRecord,
+      user,
       formData.get('budget[uid]') as string
     );
 
@@ -154,7 +137,7 @@ export async function updateIncomeAction(
 }
 
 export async function deleteIncomeAction(
-  initState: IncomeFormState,
+  _initState: IncomeFormState,
   formData: FormData
 ): Promise<IncomeFormState> {
   const { user, error } = await checkAuth();
@@ -167,16 +150,8 @@ export async function deleteIncomeAction(
   }
 
   try {
-    const budgetRecord = await findBudgetRecord(user);
-    if (!budgetRecord) {
-      return {
-        income: null,
-        errorMessages: ['budget_record not found'],
-      };
-    }
-
     const budget = await findBudgetByUid(
-      budgetRecord,
+      user,
       formData.get('budget[uid]') as string
     );
 
