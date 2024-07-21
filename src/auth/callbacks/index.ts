@@ -44,7 +44,7 @@ export async function setupUser(data: CallbackData) {
   const user = await createUserOnFirstSignIn(data);
   if (!user) return false;
 
-  const budgetRecord = await createBudgetRecord(user)
+  const budgetRecord = await createBudgetRecord(user);
   if (!budgetRecord) return false;
 
   return true;

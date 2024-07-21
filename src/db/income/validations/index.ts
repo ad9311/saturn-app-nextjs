@@ -5,7 +5,14 @@ export const NewIncomeValidation = z.object({
   amount: z
     .number()
     .positive()
-    .refine(num => num.toString().split('.')[1].length <= 2, {
-      message: 'Max precision is 2 decimal places',
-    }),
+    .refine(
+      num => {
+        const split = num.toString().split('.')[1];
+        if (!split) return true;
+        return split.length <= 2;
+      },
+      {
+        message: 'Max precision is 2 decimal places',
+      }
+    ),
 });
