@@ -10,7 +10,7 @@ export type ExpenseCategoryTemplate = {
 };
 
 export type ExpenseCategoryFormState = FormErrors & {
-  expense: ExpenseCategoryDb | null;
+  expenseCategory: ExpenseCategoryDb | null;
 };
 
 export type ExpenseCategoriesStoreValues = {
