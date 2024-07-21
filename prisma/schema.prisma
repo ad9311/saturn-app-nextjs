@@ -30,21 +30,21 @@ model User {
 }
 
 model Budget {
-  id               Int     @id @default(autoincrement())
-  uid              String  @unique
+  id               Int    @id @default(autoincrement())
+  uid              String @unique
   month            Int
   year             Int
-  balance          Float @default(0.0)
-  totalIncome      Float @default(0.0) @map("total_income")
-  totalExpenses    Float @default(0.0) @map("total_expenses")
-  transactionCount Int     @default(0) @map("transaction_count")
-  incomeCount      Int     @default(0) @map("income_count")
-  expenseCount     Int     @default(0) @map("expense_count")
+  balance          Float  @default(0.0)
+  totalIncome      Float  @default(0.0) @map("total_income")
+  totalExpenses    Float  @default(0.0) @map("total_expenses")
+  transactionCount Int    @default(0) @map("transaction_count")
+  incomeCount      Int    @default(0) @map("income_count")
+  expenseCount     Int    @default(0) @map("expense_count")
+
+  incomeList Income[]
 
   user          User @relation(fields: [userAccountId], references: [accountId])
   userAccountId Int  @map("user_account_id")
-
-  incomeList Income[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -59,8 +59,8 @@ model Income {
   description String
   amount      Float
 
-  budget  Budget @relation(fields: [budgetId], references: [id])
-  budgetId Int   @map("budget_id")
+  budget   Budget @relation(fields: [budgetId], references: [id])
+  budgetId Int    @map("budget_id")
 
   @@map("incomes")
 }
