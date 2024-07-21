@@ -7,6 +7,8 @@ import {
 import { checkAuth } from '../helpers/auth';
 import { createExpenseCategory } from '@/db/expense-categories';
 import { findBudgetRecord } from '@/db/budget-records';
+import { NewExpenseCategoryValidation } from '@/db/expense-categories/validations';
+import { formatZodErrors } from '@/helpers/format';
 
 export async function createExpenseCategoryAction(
   _initState: ExpenseCategoryFormState,
@@ -30,12 +32,18 @@ export async function createExpenseCategoryAction(
       };
     }
 
-    // TODO ZOD VALIDATION
     const expenseCategoryData: ExpenseCategoryTemplate = {
       name: formData.get('expense_category[name]') as string,
       color: formData.get('expense_category[color]') as string,
       budgetRecordId: budgetRecord.id,
     };
+    const result = NewExpenseCategoryValidation.safeParse(expenseCategoryData);
+    if (!result.success) {
+      return {
+        expenseCategory: null,
+        errorMessages: formatZodErrors(result.error.issues),
+      };
+    }
 
     const expenseCategory = await createExpenseCategory(expenseCategoryData);
 
