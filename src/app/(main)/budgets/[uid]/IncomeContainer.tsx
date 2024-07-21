@@ -1,6 +1,7 @@
 import { BudgetDb } from '@/types/budget';
 import NewIncomeButton from './NewIncomeButton';
 import UpdateIncomeButton from './UpdateIncomeButton';
+import DeleteIncomeButton from './DeleteIncomeButton';
 
 type BudgetContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;
@@ -15,7 +16,10 @@ export default function IncomeContainer({
       <p>
         {income.description}-{income.amount.toFixed(2)}
       </p>
-      <UpdateIncomeButton income={income} />
+      <div>
+        <UpdateIncomeButton income={income} />
+        <DeleteIncomeButton income={income} />
+      </div>
     </li>
   ));
 

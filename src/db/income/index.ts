@@ -37,3 +37,11 @@ export async function updateIncome(
     data: { ...incomeData },
   });
 }
+
+export async function deleteIncome(income: IncomeDb): Promise<IncomeDb> {
+  return prisma.income.delete({
+    where: {
+      id: income.id,
+    },
+  });
+}

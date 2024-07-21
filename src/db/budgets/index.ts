@@ -122,3 +122,28 @@ export async function aggregateBudgetOnUpdateIncome(
     },
   });
 }
+
+export async function resetAggBudgetOnDeleteIncome(
+  budget: BudgetDb,
+  income: Income
+) {
+  return prisma.budget.update({
+    where: {
+      id: budget.id,
+    },
+    data: {
+      balance: {
+        decrement: income.amount,
+      },
+      totalIncome: {
+        decrement: income.amount,
+      },
+      transactionCount: {
+        decrement: 1,
+      },
+      incomeCount: {
+        decrement: 1,
+      },
+    },
+  });
+}
