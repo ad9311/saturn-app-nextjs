@@ -1,7 +1,6 @@
 import {
   ExpenseCategoriesStoreActions,
   ExpenseCategoriesStoreValues,
-  ExpenseCategoryDb,
 } from '@/types/expense-category';
 import { create } from 'zustand';
 
