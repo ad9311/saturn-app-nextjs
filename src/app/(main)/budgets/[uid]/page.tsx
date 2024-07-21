@@ -5,6 +5,8 @@ import ExpensesContainer from './expenses/ExpensesContainer';
 import ChartContainer from './expenses/ChartContainer';
 import { checkAuth } from '@/server-actions/helpers/auth';
 import { redirect } from 'next/navigation';
+import { findExpenseCategories } from '@/db/expense-categories';
+import SaveBudgetToStore from './SaveBudgetToStore';
 
 export default async function BudgetPages({
   params,
@@ -17,25 +19,30 @@ export default async function BudgetPages({
   const budget = await findBudgetByUid(user, params.uid);
   if (!budget) return <p>NOT FOUND</p>;
 
+  const expenseCategories = await findExpenseCategories(user);
+
   return (
-    <div className="grid grid-flow-row gap-3">
-      <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
-        <InfoContainer
-          budget={budget}
-          className="p-3 bg-neutral-200 rounded-sm lg:col-span-5"
-        />
-        <IncomeContainer
-          budget={budget}
-          className="p-3 bg-neutral-200 rounded-sm lg:col-span-7"
-        />
+    <>
+      <SaveBudgetToStore budget={budget} />
+      <div className="grid grid-flow-row gap-3">
+        <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
+          <InfoContainer
+            budget={budget}
+            className="p-3 bg-neutral-200 rounded-sm lg:col-span-5"
+          />
+          <IncomeContainer
+            budget={budget}
+            className="p-3 bg-neutral-200 rounded-sm lg:col-span-7"
+          />
+        </div>
+        <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
+          <ExpensesContainer
+            budget={budget}
+            className="p-3 bg-neutral-200 rounded-sm lg:col-span-8"
+          />
+          <ChartContainer className="p-3 bg-neutral-200 rounded-sm lg:col-span-4" />
+        </div>
       </div>
-      <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
-        <ExpensesContainer
-          budget={budget}
-          className="p-3 bg-neutral-200 rounded-sm lg:col-span-8"
-        />
-        <ChartContainer className="p-3 bg-neutral-200 rounded-sm lg:col-span-4" />
-      </div>
-    </div>
+    </>
   );
 }
