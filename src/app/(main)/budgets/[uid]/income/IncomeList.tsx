@@ -7,10 +7,7 @@ type IncomeContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;
 };
 
-export default function IncomeContainer({
-  budget,
-  ...props
-}: IncomeContainerProps) {
+export default function IncomeList({ budget, ...props }: IncomeContainerProps) {
   const mappedIncomeList = budget.incomeList.map(income => (
     <li key={income.id} className="flex items-center justify-between">
       <p>

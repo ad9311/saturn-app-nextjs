@@ -5,7 +5,7 @@ type ExpenseContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;
 };
 
-export default function ExpensesContainer({
+export default function ExpenseList({
   budget,
   ...props
 }: ExpenseContainerProps) {

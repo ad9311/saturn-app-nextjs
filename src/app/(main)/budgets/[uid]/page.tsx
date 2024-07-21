@@ -1,12 +1,12 @@
 import { findBudgetByUid } from '@/db/budgets';
-import InfoContainer from './InfoContainer';
-import IncomeContainer from './income/IncomeContainer';
-import ExpensesContainer from './expenses/ExpensesContainer';
-import ChartContainer from './expenses/ChartContainer';
+import IncomeList from './income/IncomeList';
+import ExpenseList from './expenses/ExpenseList';
+import ExpenseChart from './expenses/ExpenseChart';
 import { checkAuth } from '@/server-actions/helpers/auth';
 import { redirect } from 'next/navigation';
 import { findExpenseCategories } from '@/db/expense-categories';
 import SavePageDataToStore from './SavePageDataToStore';
+import BudgetInfo from './BudgetInfo';
 
 export default async function BudgetPages({
   params,
@@ -29,21 +29,21 @@ export default async function BudgetPages({
       />
       <div className="grid grid-flow-row gap-3">
         <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
-          <InfoContainer
+          <BudgetInfo
             budget={budget}
             className="p-3 bg-neutral-200 rounded-sm lg:col-span-5"
           />
-          <IncomeContainer
+          <IncomeList
             budget={budget}
             className="p-3 bg-neutral-200 rounded-sm lg:col-span-7"
           />
         </div>
         <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
-          <ExpensesContainer
+          <ExpenseList
             budget={budget}
             className="p-3 bg-neutral-200 rounded-sm lg:col-span-8"
           />
-          <ChartContainer className="p-3 bg-neutral-200 rounded-sm lg:col-span-4" />
+          <ExpenseChart className="p-3 bg-neutral-200 rounded-sm lg:col-span-4" />
         </div>
       </div>
     </>

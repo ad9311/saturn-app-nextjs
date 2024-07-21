@@ -1,7 +1,7 @@
 import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { deleteIncomeAction } from '@/server-actions/income';
-import { BudgetDb } from '@/types/budget';
+import { useBudgetStore } from '@/stores/budget';
 import { IncomeDb, IncomeFormState } from '@/types/transaction';
 import { useFormState } from 'react-dom';
 
@@ -10,13 +10,8 @@ const initState: IncomeFormState = {
   errorMessages: null,
 };
 
-export default function DeleteIncomeForm({
-  budget,
-  income,
-}: {
-  budget: BudgetDb;
-  income: IncomeDb;
-}) {
+export default function DeleteIncomeForm({ income }: { income: IncomeDb }) {
+  const { budget } = useBudgetStore(state => ({ budget: state.budget }));
   const [formState, formAction] = useFormState(deleteIncomeAction, initState);
 
   if (formState.income && !formState.errorMessages)
@@ -26,7 +21,7 @@ export default function DeleteIncomeForm({
     <>
       <ErrorList errorMessages={formState.errorMessages} />
       <form action={formAction}>
-        <input type="hidden" name="budget[uid]" value={budget.uid} readOnly />
+        <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
         <input type="hidden" name="income[id]" value={income.id} readOnly />
         <SubmitFormButton />
       </form>
