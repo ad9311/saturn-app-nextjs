@@ -1,3 +1,4 @@
+import { createBudgetRecord } from '@/db/budget-records';
 import { createUser, findUserByAccountId } from '@/db/users';
 import { UserTemplate } from '@/types/user';
 
@@ -12,14 +13,21 @@ export type CallbackData = {
   };
 };
 
-export async function signInCallback(data: CallbackData) {
+export async function restrictUsersCallback(data: CallbackData) {
+  const emailsString = process.env.AUTH_ALLOWED_EMAILS;
+  const emails = (emailsString as string).split(',');
+  if (emails.includes(data.user.email)) {
+    return false;
+  }
+
+  return true;
+}
+
+async function createUserOnFirstSignIn(data: CallbackData) {
   const existingUser = await findUserByAccountId(
     data.account?.providerAccountId as string
   );
-
-  if (existingUser) {
-    return true;
-  }
+  if (existingUser) return existingUser;
 
   const newUser: UserTemplate = {
     name: data.user.name as string,
@@ -29,20 +37,15 @@ export async function signInCallback(data: CallbackData) {
   };
 
   const user = await createUser(newUser);
-
-  if (user) {
-    return true;
-  }
-
-  return false;
+  return user;
 }
 
-export async function restrictUsersCallback(data: CallbackData) {
-  const emailsString = process.env.AUTH_ALLOWED_EMAILS;
-  const emails = (emailsString as string).split(',');
-  if (emails.includes(data.user.email)) {
-    return false;
-  }
+export async function setupUser(data: CallbackData) {
+  const user = await createUserOnFirstSignIn(data);
+  if (!user) return false;
+
+  const budgetRecord = await createBudgetRecord(user)
+  if (!budgetRecord) return false;
 
   return true;
 }

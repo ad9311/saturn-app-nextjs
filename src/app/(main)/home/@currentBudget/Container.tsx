@@ -10,7 +10,7 @@ export default async function Container() {
   if (!user) return null;
 
   const budgetRecord = await findBudgetRecord(user);
-  if (!budgetRecord) return null;
+  if (!budgetRecord) return <p>Not budget record yet!</p>;
 
   const budget = await findCurrentBudget(budgetRecord);
   if (!budget) return <CreateNewBudgetForm />;

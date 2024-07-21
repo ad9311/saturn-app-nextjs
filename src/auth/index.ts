@@ -3,7 +3,7 @@ import GitHub from 'next-auth/providers/github';
 import {
   CallbackData,
   restrictUsersCallback,
-  signInCallback,
+  setupUser,
 } from './callbacks';
 import NextAuth from 'next-auth';
 
@@ -28,11 +28,9 @@ export const authOptions = {
     },
     async signIn(data) {
       const restrict = await restrictUsersCallback(data as CallbackData);
-      if (restrict) {
-        return false;
-      }
+      if (restrict) return !restrict;
 
-      return await signInCallback(data as CallbackData);
+      return await setupUser(data as CallbackData);
     },
   },
 } satisfies NextAuthConfig;
