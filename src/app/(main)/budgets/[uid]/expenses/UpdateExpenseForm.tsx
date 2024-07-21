@@ -1,3 +1,5 @@
+'use client';
+
 import { Expense } from '@prisma/client';
 import { useEffect, useRef } from 'react';
 import { useFormState } from 'react-dom';

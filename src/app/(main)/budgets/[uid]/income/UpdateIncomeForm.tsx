@@ -1,3 +1,5 @@
+'use client';
+
 import { useFormState } from 'react-dom';
 
 import ErrorList from '@/components/ErrorList';
