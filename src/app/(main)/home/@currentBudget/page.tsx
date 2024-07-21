@@ -1,8 +1,10 @@
-import { checkAuth } from '@/server-actions/helpers/auth';
-import CreateNewBudgetForm from './CreateNewBudgetForm';
-import { findCurrentBudget } from '@/db/budgets';
 import Link from 'next/link';
+
+import { findCurrentBudget } from '@/db/budgets';
+import { checkAuth } from '@/server-actions/helpers/auth';
+
 import BudgetPieChart from './BudgetPieChart';
+import CreateNewBudgetForm from './CreateNewBudgetForm';
 
 export default async function CurrentBudget() {
   const { user } = await checkAuth();

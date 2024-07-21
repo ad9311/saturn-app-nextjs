@@ -1,6 +1,8 @@
 import { User } from '@prisma/client';
-import prisma from '..';
+
 import { BudgetRecordDb } from '@/types/budget-record';
+
+import prisma from '..';
 
 export async function createBudgetRecord(
   user: User

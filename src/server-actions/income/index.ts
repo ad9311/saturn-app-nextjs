@@ -1,7 +1,7 @@
 'use server';
 
-import { IncomeFormState, IncomeTemplate } from '@/types/transaction';
-import { checkAuth } from '../helpers/auth';
+import { revalidatePath } from 'next/cache';
+
 import {
   aggregateBudgetOnCreateIncome,
   aggregateBudgetOnUpdateIncome,
@@ -15,9 +15,11 @@ import {
   findIncomeById,
   updateIncome,
 } from '@/db/income';
-import { revalidatePath } from 'next/cache';
 import { NewIncomeValidation } from '@/db/income/validations';
 import { formatZodErrors } from '@/helpers/format';
+import { IncomeFormState, IncomeTemplate } from '@/types/transaction';
+
+import { checkAuth } from '../helpers/auth';
 
 function getIncomeFormData(formData: FormData): IncomeTemplate {
   return {

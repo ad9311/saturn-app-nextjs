@@ -1,8 +1,9 @@
 'use server';
 
+import { User } from '@prisma/client';
+
 import { auth } from '@/auth';
 import { findUserByEmail } from '@/db/users';
-import { User } from '@prisma/client';
 
 type AuthState = {
   user: User | null;

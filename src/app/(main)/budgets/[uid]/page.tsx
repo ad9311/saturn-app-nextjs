@@ -1,12 +1,14 @@
-import { findBudgetByUid } from '@/db/budgets';
-import IncomeList from './income/IncomeList';
-import ExpenseList from './expenses/ExpenseList';
-import ExpenseChart from './expenses/ExpenseChart';
-import { checkAuth } from '@/server-actions/helpers/auth';
 import { redirect } from 'next/navigation';
+
+import { findBudgetByUid } from '@/db/budgets';
 import { findExpenseCategories } from '@/db/expense-categories';
-import SavePageDataToStore from './SavePageDataToStore';
+import { checkAuth } from '@/server-actions/helpers/auth';
+
 import BudgetInfo from './BudgetInfo';
+import ExpenseChart from './expenses/ExpenseChart';
+import ExpenseList from './expenses/ExpenseList';
+import IncomeList from './income/IncomeList';
+import SavePageDataToStore from './SavePageDataToStore';
 
 export default async function BudgetPages({
   params,

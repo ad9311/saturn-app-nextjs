@@ -1,9 +1,10 @@
+import { useFormState } from 'react-dom';
+
 import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { deleteIncomeAction } from '@/server-actions/income';
 import { useBudgetStore } from '@/stores/budget';
 import { IncomeDb, IncomeFormState } from '@/types/transaction';
-import { useFormState } from 'react-dom';
 
 const initState: IncomeFormState = {
   income: null,

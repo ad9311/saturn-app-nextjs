@@ -2,7 +2,9 @@
 
 import { useModalStore } from '@/stores/modal';
 import { IncomeDb } from '@/types/transaction';
+
 import TransactionModal from '../TransactionModal';
+
 import UpdateIncomeForm from './UpdateIncomeForm';
 
 export default function UpdateIncomeButton({ income }: { income: IncomeDb }) {

@@ -1,5 +1,6 @@
-import { BudgetStoreActions, BudgetStoreValues } from '@/types/budget';
 import { create } from 'zustand';
+
+import { BudgetStoreActions, BudgetStoreValues } from '@/types/budget';
 
 export const useBudgetStore = create<BudgetStoreValues & BudgetStoreActions>(
   set => ({

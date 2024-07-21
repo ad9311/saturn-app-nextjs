@@ -1,7 +1,8 @@
 import { BudgetDb } from '@/types/budget';
+
+import DeleteExpenseButton from './DeleteExpenseButton';
 import NewExpenseButton from './NewExpenseButton';
 import UpdateExpenseButton from './UpdateExpenseButton';
-import DeleteExpenseButton from './DeleteExpenseButton';
 
 type ExpenseContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;

@@ -1,5 +1,6 @@
-import { ModalStoreActions, ModalStoreValues } from '@/types/modal';
 import { create } from 'zustand';
+
+import { ModalStoreActions, ModalStoreValues } from '@/types/modal';
 
 export const useModalStore = create<ModalStoreValues & ModalStoreActions>(
   set => ({

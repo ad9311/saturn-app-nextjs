@@ -1,7 +1,8 @@
 import { BudgetDb } from '@/types/budget';
+
+import DeleteIncomeButton from './DeleteIncomeButton';
 import NewIncomeButton from './NewIncomeButton';
 import UpdateIncomeButton from './UpdateIncomeButton';
-import DeleteIncomeButton from './DeleteIncomeButton';
 
 type IncomeContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;

@@ -1,7 +1,9 @@
 'use client';
 
 import { useModalStore } from '@/stores/modal';
+
 import TransactionModal from '../TransactionModal';
+
 import NewIncomeForm from './NewIncomeForm';
 
 export default function NewIncomeButton() {

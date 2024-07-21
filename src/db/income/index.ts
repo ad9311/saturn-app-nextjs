@@ -1,8 +1,9 @@
 'use server';
 
-import prisma from '..';
-import { IncomeDb, IncomeTemplate } from '@/types/transaction';
 import { BudgetDb } from '@/types/budget';
+import { IncomeDb, IncomeTemplate } from '@/types/transaction';
+
+import prisma from '..';
 
 export async function createIncome(
   budget: BudgetDb,

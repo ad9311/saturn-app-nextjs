@@ -1,10 +1,11 @@
 'use client';
 
+import { useFormState } from 'react-dom';
+
 import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { createBudgetAction } from '@/server-actions/budget';
 import { CreateBudgetState } from '@/types/budget';
-import { useFormState } from 'react-dom';
 
 const initState: CreateBudgetState = {
   budget: null,

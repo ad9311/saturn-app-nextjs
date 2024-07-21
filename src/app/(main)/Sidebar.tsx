@@ -1,7 +1,9 @@
-import { auth } from '@/auth';
-import SignOutButton from '../auth/sign-out/SignOutButton';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+
+import { auth } from '@/auth';
+
+import SignOutButton from '../auth/sign-out/SignOutButton';
 
 export default async function Sidebar(
   props: React.HTMLAttributes<HTMLDivElement>

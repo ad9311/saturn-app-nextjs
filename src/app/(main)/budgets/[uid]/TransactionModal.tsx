@@ -1,5 +1,6 @@
-import { useModalStore } from '@/stores/modal';
 import React from 'react';
+
+import { useModalStore } from '@/stores/modal';
 
 export default function TransactionModal({
   title,

@@ -1,9 +1,11 @@
-import prisma from '..';
 import { User } from '@prisma/client';
+
 import {
   ExpenseCategoryDb,
   ExpenseCategoryTemplate,
 } from '@/types/expense-category';
+
+import prisma from '..';
 
 export async function createExpenseCategory(
   expenseCategoryData: ExpenseCategoryTemplate

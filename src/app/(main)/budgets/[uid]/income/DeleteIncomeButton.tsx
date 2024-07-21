@@ -2,7 +2,9 @@
 
 import { useModalStore } from '@/stores/modal';
 import { IncomeDb } from '@/types/transaction';
+
 import TransactionModal from '../TransactionModal';
+
 import DeleteIncomeForm from './DeleteIncomeForm';
 
 export default function DeleteIncomeButton({ income }: { income: IncomeDb }) {

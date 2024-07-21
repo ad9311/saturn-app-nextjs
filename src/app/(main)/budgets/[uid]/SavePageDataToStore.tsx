@@ -1,10 +1,11 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useBudgetStore } from '@/stores/budget';
 import { useExpenseCategoriesStore } from '@/stores/expense-categories';
 import { BudgetDb } from '@/types/budget';
 import { ExpenseCategoryDb } from '@/types/expense-category';
-import { useEffect } from 'react';
 
 export default function SavePageDataToStore({
   budget,

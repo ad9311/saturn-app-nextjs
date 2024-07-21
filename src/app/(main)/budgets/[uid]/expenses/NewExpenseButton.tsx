@@ -1,7 +1,9 @@
 'use client';
 
 import { useModalStore } from '@/stores/modal';
+
 import TransactionModal from '../TransactionModal';
+
 import NewExpenseForm from './NewExpenseForm';
 
 export default function NewExpenseButton() {

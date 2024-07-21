@@ -1,5 +1,6 @@
 import { BudgetDb } from '@/types/budget';
 import { ExpenseDb, ExpenseTemplate } from '@/types/transaction';
+
 import prisma from '..';
 
 export async function createExpense(

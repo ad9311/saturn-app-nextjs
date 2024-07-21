@@ -1,10 +1,12 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
+import { findBudgetRecord } from '@/db/budget-records';
 import { createBudget, findBudgetByMonthYear } from '@/db/budgets';
 import { CreateBudgetState } from '@/types/budget';
-import { revalidatePath } from 'next/cache';
+
 import { checkAuth } from '../helpers/auth';
-import { findBudgetRecord } from '@/db/budget-records';
 
 export async function createBudgetAction(): Promise<CreateBudgetState> {
   const { user, error } = await checkAuth();

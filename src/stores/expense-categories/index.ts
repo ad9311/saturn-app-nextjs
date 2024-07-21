@@ -1,8 +1,9 @@
+import { create } from 'zustand';
+
 import {
   ExpenseCategoriesStoreActions,
   ExpenseCategoriesStoreValues,
 } from '@/types/expense-category';
-import { create } from 'zustand';
 
 export const useExpenseCategoriesStore = create<
   ExpenseCategoriesStoreValues & ExpenseCategoriesStoreActions

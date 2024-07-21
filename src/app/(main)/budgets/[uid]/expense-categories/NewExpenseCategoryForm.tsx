@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
+import { useFormState } from 'react-dom';
+
 import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
+import { createExpenseCategoryAction } from '@/server-actions/expense-category';
 import { useExpenseCategoriesStore } from '@/stores/expense-categories';
 import { useModalStore } from '@/stores/modal';
-import { useFormState } from 'react-dom';
-import TransactionModal from '../TransactionModal';
-import { createExpenseCategoryAction } from '@/server-actions/expense-category';
 import { ExpenseCategoryFormState } from '@/types/expense-category';
+
 import NewExpenseForm from '../expenses/NewExpenseForm';
+import TransactionModal from '../TransactionModal';
 
 const initState: ExpenseCategoryFormState = {
   expenseCategory: null,

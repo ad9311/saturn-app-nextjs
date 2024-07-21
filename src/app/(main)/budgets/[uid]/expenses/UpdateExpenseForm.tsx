@@ -1,4 +1,7 @@
+import { Expense } from '@prisma/client';
 import { useEffect, useRef } from 'react';
+import { useFormState } from 'react-dom';
+
 import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { updateExpenseAction } from '@/server-actions/expense';
@@ -6,10 +9,9 @@ import { useBudgetStore } from '@/stores/budget';
 import { useExpenseCategoriesStore } from '@/stores/expense-categories';
 import { useModalStore } from '@/stores/modal';
 import { ExpenseFormState } from '@/types/transaction';
-import { useFormState } from 'react-dom';
-import TransactionModal from '../TransactionModal';
+
 import NewExpenseCategoryForm from '../expense-categories/NewExpenseCategoryForm';
-import { Expense } from '@prisma/client';
+import TransactionModal from '../TransactionModal';
 
 const initState: ExpenseFormState = {
   expense: null,

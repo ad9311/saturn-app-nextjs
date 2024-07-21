@@ -1,4 +1,5 @@
 import { Budget, Expense, Income } from '@prisma/client';
+
 import { FormErrors } from '..';
 
 export type BudgetDb = Budget & {

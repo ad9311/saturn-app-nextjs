@@ -1,7 +1,8 @@
 import { NextAuthConfig } from 'next-auth';
-import GitHub from 'next-auth/providers/github';
-import { CallbackData, restrictUsersCallback, setupUser } from './callbacks';
 import NextAuth from 'next-auth';
+import GitHub from 'next-auth/providers/github';
+
+import { CallbackData, restrictUsersCallback, setupUser } from './callbacks';
 
 export const authOptions = {
   debug: true,

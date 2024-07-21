@@ -1,8 +1,11 @@
 'use client';
 
-import { useModalStore } from '@/stores/modal';
 import { Expense } from '@prisma/client';
+
+import { useModalStore } from '@/stores/modal';
+
 import TransactionModal from '../TransactionModal';
+
 import UpdateExpenseForm from './UpdateExpenseForm';
 
 export default function UpdateExpenseButton({ expense }: { expense: Expense }) {

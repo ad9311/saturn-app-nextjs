@@ -1,4 +1,5 @@
 import { Expense, ExpenseCategory, Income } from '@prisma/client';
+
 import { FormErrors } from '..';
 
 export type IncomeDb = Income;
