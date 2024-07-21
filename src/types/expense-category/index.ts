@@ -12,3 +12,12 @@ export type ExpenseCategoryTemplate = {
 export type ExpenseCategoryFormState = FormErrors & {
   expense: ExpenseCategoryDb | null;
 };
+
+export type ExpenseCategoriesStoreValues = {
+  expenseCategories: ExpenseCategoryDb[];
+};
+
+export type ExpenseCategoriesStoreActions = {
+  setExpenseCategories: (expenseCategories: ExpenseCategoryDb[]) => void;
+  clearExpenseCategories: () => void;
+};

@@ -6,7 +6,7 @@ import ChartContainer from './expenses/ChartContainer';
 import { checkAuth } from '@/server-actions/helpers/auth';
 import { redirect } from 'next/navigation';
 import { findExpenseCategories } from '@/db/expense-categories';
-import SaveBudgetToStore from './SaveBudgetToStore';
+import SavePageDataToStore from './SavePageDataToStore';
 
 export default async function BudgetPages({
   params,
@@ -23,7 +23,10 @@ export default async function BudgetPages({
 
   return (
     <>
-      <SaveBudgetToStore budget={budget} />
+      <SavePageDataToStore
+        budget={budget}
+        expenseCategories={expenseCategories}
+      />
       <div className="grid grid-flow-row gap-3">
         <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
           <InfoContainer
