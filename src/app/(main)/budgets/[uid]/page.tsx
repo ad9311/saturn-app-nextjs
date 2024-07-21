@@ -2,9 +2,9 @@ import { auth } from '@/auth';
 import { findBudgetByUid } from '@/db/budgets';
 import { findUserByEmail } from '@/db/users';
 import InfoContainer from './InfoContainer';
-import IncomeContainer from './IncomeContainer';
-import ExpensesContainer from './ExpensesContainer';
-import ChartContainer from './ChartContainer';
+import IncomeContainer from './income/IncomeContainer';
+import ExpensesContainer from './expenses/ExpensesContainer';
+import ChartContainer from './expenses/ChartContainer';
 
 export default async function BudgetPages({
   params,

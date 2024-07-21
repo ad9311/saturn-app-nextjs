@@ -1,12 +1,11 @@
 'use client';
 
 import { useModalStore } from '@/stores/modal';
-import { IncomeDb } from '@/types/transaction';
-import TransactionModal from './TransactionModal';
 import { useBudgetStore } from '@/stores/budget';
-import DeleteIncomeForm from './DeleteIncomeForm';
+import TransactionModal from '../TransactionModal';
+import NewIncomeForm from './NewIncomeForm';
 
-export default function DeleteIncomeButton({ income }: { income: IncomeDb }) {
+export default function NewIncomeButton() {
   const { budget } = useBudgetStore(state => ({ budget: state.budget }));
   const { setChildren } = useModalStore(state => ({
     setChildren: state.setChildren,
@@ -15,8 +14,8 @@ export default function DeleteIncomeButton({ income }: { income: IncomeDb }) {
   function handleOpenModal() {
     if (budget) {
       setChildren(
-        <TransactionModal title="Update Income">
-          <DeleteIncomeForm budget={budget} income={income} />
+        <TransactionModal title="New Income">
+          <NewIncomeForm budget={budget} />
         </TransactionModal>
       );
     }
@@ -24,7 +23,7 @@ export default function DeleteIncomeButton({ income }: { income: IncomeDb }) {
 
   return (
     <button type="button" onClick={handleOpenModal}>
-      Delete income
+      New Income
     </button>
   );
 }

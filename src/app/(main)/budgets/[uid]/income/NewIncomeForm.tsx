@@ -1,6 +1,7 @@
 import ErrorList from '@/components/ErrorList';
 import SubmitFormButton from '@/components/SubmitFormButton';
 import { createIncomeAction } from '@/server-actions/income';
+import { BudgetDb } from '@/types/budget';
 import { IncomeFormState } from '@/types/transaction';
 import { useEffect, useRef } from 'react';
 import { useFormState } from 'react-dom';
@@ -10,7 +11,7 @@ const initState: IncomeFormState = {
   errorMessages: null,
 };
 
-export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
+export default function NewIncomeForm({ budget }: { budget: BudgetDb }) {
   const [formState, formAction] = useFormState(createIncomeAction, initState);
   const ref = useRef<HTMLFormElement>(null);
 
@@ -24,7 +25,7 @@ export default function NewIncomeForm({ budgetUid }: { budgetUid: string }) {
     <>
       <ErrorList errorMessages={formState.errorMessages} />
       <form action={formAction} ref={ref}>
-        <input type="hidden" name="budget[uid]" value={budgetUid} readOnly />
+        <input type="hidden" name="budget[uid]" value={budget.uid} readOnly />
         <label htmlFor="description">
           <textarea
             name="income[description]"
