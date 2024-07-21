@@ -72,7 +72,7 @@ export async function createIncomeAction(
       errorMessages: null,
     };
   } catch (error) {
-    return { income: null, errorMessages: [error as string] };
+    return { income: null, errorMessages: [(error as Error).message] };
   }
 }
 
@@ -132,7 +132,7 @@ export async function updateIncomeAction(
       errorMessages: null,
     };
   } catch (error) {
-    return { income: null, errorMessages: [error as string] };
+    return { income: null, errorMessages: [(error as Error).message] };
   }
 }
 
@@ -181,6 +181,6 @@ export async function deleteIncomeAction(
       errorMessages: null,
     };
   } catch (error) {
-    return { income: null, errorMessages: [error as string] };
+    return { income: null, errorMessages: [(error as Error).message] };
   }
 }

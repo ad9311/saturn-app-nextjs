@@ -52,6 +52,6 @@ export async function createExpenseCategoryAction(
       errorMessages: null,
     };
   } catch (error) {
-    return { expenseCategory: null, errorMessages: [error as string] };
+    return { expenseCategory: null, errorMessages: [(error as Error).message] };
   }
 }

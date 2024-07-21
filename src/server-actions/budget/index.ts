@@ -52,6 +52,6 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
       errorMessages: null,
     };
   } catch (error) {
-    return { budget: null, errorMessages: [error as string] };
+    return { budget: null, errorMessages: [(error as Error).message] };
   }
 }
