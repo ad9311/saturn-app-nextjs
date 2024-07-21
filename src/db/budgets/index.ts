@@ -1,30 +1,33 @@
 import prisma from '..';
 import { BudgetDb, BudgetTemplate } from '@/types/budget';
-import { Budget, Income, User } from '@prisma/client';
+import { BudgetRecordDb } from '@/types/budget-record';
+import { Budget, Income } from '@prisma/client';
 import { startOfMonth, endOfMonth } from 'date-fns';
 
 export async function createBudget(
-  user: User,
+  budgetRecord: BudgetRecordDb,
   budgetData: BudgetTemplate
 ): Promise<Budget | null> {
-  const uid = `${budgetData.year}-${budgetData.month}-${user.accountId}`;
+  const uid = `${budgetData.year}-${budgetData.month}-${budgetRecord.id}`;
   return await prisma.budget.create({
     data: {
       ...budgetData,
       uid,
-      user: { connect: { accountId: user.accountId } },
+      budgetRecord: { connect: { id: budgetRecord.id } },
     },
   });
 }
 
-export async function findCurrentBudget(user: User): Promise<BudgetDb | null> {
+export async function findCurrentBudget(
+  budgetRecord: BudgetRecordDb
+): Promise<BudgetDb | null> {
   const now = new Date();
   const firstDayOfMonth = startOfMonth(now);
   const lastDayOfMonth = endOfMonth(now);
 
   return await prisma.budget.findFirst({
     where: {
-      userAccountId: user.accountId,
+      budgetRercordId: budgetRecord.id,
       createdAt: {
         gte: firstDayOfMonth,
         lte: lastDayOfMonth,
@@ -40,22 +43,22 @@ export async function findCurrentBudget(user: User): Promise<BudgetDb | null> {
 }
 
 export async function findBudgetByUid(
-  user: User,
+  budgetRecord: BudgetRecordDb,
   uid: string
 ): Promise<BudgetDb | null> {
   return await prisma.budget.findUnique({
-    where: { uid, userAccountId: user.accountId },
+    where: { uid, budgetRercordId: budgetRecord.id },
     include: { incomeList: true },
   });
 }
 
 export async function findBudgetByMonthYear(
-  user: User,
+  budgetRecord: BudgetRecordDb,
   month: number,
   year: number
 ): Promise<BudgetDb | null> {
   return await prisma.budget.findFirst({
-    where: { userAccountId: user.accountId, month, year },
+    where: { budgetRercordId: budgetRecord.id, month, year },
     include: { incomeList: true },
   });
 }

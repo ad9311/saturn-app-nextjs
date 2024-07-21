@@ -20,13 +20,27 @@ model User {
   email     String @unique
   image     String
 
-  budgets Budget[]
+  budgetRecord BudgetRecord?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@index([accountId, email])
   @@map("users")
+}
+
+model BudgetRecord {
+  id Int @id @default(autoincrement())
+
+  budgets Budget[]
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("budget_records")
 }
 
 model Budget {
@@ -43,13 +57,13 @@ model Budget {
 
   incomeList Income[]
 
-  user          User @relation(fields: [userAccountId], references: [accountId])
-  userAccountId Int  @map("user_account_id")
+  budgetRecord    BudgetRecord @relation(fields: [budgetRercordId], references: [id])
+  budgetRercordId Int          @map("budget_record_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@index([uid, userAccountId])
+  @@index([uid, budgetRercordId])
   @@map("budgets")
 }
 

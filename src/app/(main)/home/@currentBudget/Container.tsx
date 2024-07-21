@@ -1,19 +1,18 @@
-import { auth } from '@/auth';
 import { findCurrentBudget } from '@/db/budgets';
-import { findUserByEmail } from '@/db/users';
 import CreateNewBudgetForm from './CreateNewBudgetForm';
 import BudgetPieChart from './BudgetPieChart';
+import { checkAuth } from '@/server-actions/helpers/auth';
+import { findBudgetRecord } from '@/db/budget-records';
 import Link from 'next/link';
 
 export default async function Container() {
-  const session = await auth();
-  if (!session) return null;
-  if (!session.user) return null;
-
-  const user = await findUserByEmail(session.user.email as string);
+  const { user } = await checkAuth();
   if (!user) return null;
 
-  const budget = await findCurrentBudget(user);
+  const budgetRecord = await findBudgetRecord(user);
+  if (!budgetRecord) return null;
+
+  const budget = await findCurrentBudget(budgetRecord);
   if (!budget) return <CreateNewBudgetForm />;
 
   return (

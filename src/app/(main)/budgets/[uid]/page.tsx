@@ -4,6 +4,7 @@ import IncomeContainer from './income/IncomeContainer';
 import ExpensesContainer from './expenses/ExpensesContainer';
 import ChartContainer from './expenses/ChartContainer';
 import { checkAuth } from '@/server-actions/helpers/auth';
+import { findBudgetRecord } from '@/db/budget-records';
 
 export default async function BudgetPages({
   params,
@@ -13,7 +14,10 @@ export default async function BudgetPages({
   const { user, error } = await checkAuth();
   if (!user) return <p>{error?.message}</p>;
 
-  const budget = await findBudgetByUid(user, params.uid);
+  const budgetRecord = await findBudgetRecord(user);
+  if (!budgetRecord) return <p>NOT FOUND</p>;
+
+  const budget = await findBudgetByUid(budgetRecord, params.uid);
   if (!budget) return <p>NOT FOUND</p>;
 
   return (

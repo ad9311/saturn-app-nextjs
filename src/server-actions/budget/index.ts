@@ -4,6 +4,7 @@ import { createBudget, findBudgetByMonthYear } from '@/db/budgets';
 import { CreateBudgetState } from '@/types/budget';
 import { revalidatePath } from 'next/cache';
 import { checkAuth } from '../helpers/auth';
+import { findBudgetRecord } from '@/db/budget-records';
 
 export async function createBudgetAction(): Promise<CreateBudgetState> {
   const { user, error } = await checkAuth();
@@ -16,12 +17,24 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
   }
 
   try {
+    const budgetRecord = await findBudgetRecord(user);
+    if (!budgetRecord) {
+      return {
+        budget: null,
+        errorMessages: ['duplicated budget'],
+      };
+    }
+
     const now = new Date();
     const month = now.getMonth() + 1;
     const year = now.getFullYear();
-    const budgetDb = { month, year };
+    const budgetData = { month, year };
 
-    const existingBudget = await findBudgetByMonthYear(user, month, year);
+    const existingBudget = await findBudgetByMonthYear(
+      budgetRecord,
+      month,
+      year
+    );
 
     if (existingBudget) {
       return {
@@ -30,7 +43,7 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
       };
     }
 
-    const budget = await createBudget(user, budgetDb);
+    const budget = await createBudget(budgetRecord, budgetData);
 
     revalidatePath('/');
 
