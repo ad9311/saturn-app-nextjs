@@ -33,7 +33,7 @@ export default async function BudgetPages({
         />
       </div>
       <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
-        <ExpensesContainer className="p-3 bg-neutral-200 rounded-sm lg:col-span-8" />
+        <ExpensesContainer budget={budget} className="p-3 bg-neutral-200 rounded-sm lg:col-span-8" />
         <ChartContainer className="p-3 bg-neutral-200 rounded-sm lg:col-span-4" />
       </div>
     </div>

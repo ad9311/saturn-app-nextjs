@@ -1,4 +1,4 @@
-import { Income } from '@prisma/client';
+import { Expense, Income } from '@prisma/client';
 import { FormErrors } from '..';
 
 export type IncomeDb = Income;
@@ -9,5 +9,17 @@ export type IncomeTemplate = {
 };
 
 export type IncomeFormState = FormErrors & {
-  income: Income | null;
+  income: IncomeDb | null;
+};
+
+export type ExpenseDb = Expense;
+
+export type ExpenseTemplate = {
+  amount: number;
+  description: string;
+  expenseCategoryId: number;
+};
+
+export type ExpenseFormState = FormErrors & {
+  expense: ExpenseDb | null;
 };

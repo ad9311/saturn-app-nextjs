@@ -38,6 +38,7 @@ export async function findCurrentBudget(
     },
     include: {
       incomeList: true,
+      expenses: true,
     },
   });
 }
@@ -48,7 +49,7 @@ export async function findBudgetByUid(
 ): Promise<BudgetDb | null> {
   return await prisma.budget.findUnique({
     where: { uid, budgetRercordId: budgetRecord.id },
-    include: { incomeList: true },
+    include: { incomeList: true, expenses: true },
   });
 }
 
@@ -59,7 +60,7 @@ export async function findBudgetByMonthYear(
 ): Promise<BudgetDb | null> {
   return await prisma.budget.findFirst({
     where: { budgetRercordId: budgetRecord.id, month, year },
-    include: { incomeList: true },
+    include: { incomeList: true, expenses: true },
   });
 }
 

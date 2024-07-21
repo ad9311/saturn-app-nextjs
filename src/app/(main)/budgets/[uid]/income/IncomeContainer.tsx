@@ -3,14 +3,14 @@ import NewIncomeButton from './NewIncomeButton';
 import UpdateIncomeButton from './UpdateIncomeButton';
 import DeleteIncomeButton from './DeleteIncomeButton';
 
-type BudgetContainerProps = React.HTMLAttributes<HTMLDivElement> & {
+type IncomeContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;
 };
 
 export default function IncomeContainer({
   budget,
   ...props
-}: BudgetContainerProps) {
+}: IncomeContainerProps) {
   const mappedIncomeList = budget.incomeList.map(income => (
     <li key={income.id} className="flex items-center justify-between">
       <p>
