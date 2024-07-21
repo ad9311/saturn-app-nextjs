@@ -1,23 +1,17 @@
-import { auth } from '@/auth';
 import { findBudgetByUid } from '@/db/budgets';
-import { findUserByEmail } from '@/db/users';
 import InfoContainer from './InfoContainer';
 import IncomeContainer from './income/IncomeContainer';
 import ExpensesContainer from './expenses/ExpensesContainer';
 import ChartContainer from './expenses/ChartContainer';
+import { checkAuth } from '@/server-actions/helpers/auth';
 
 export default async function BudgetPages({
   params,
 }: {
   params: { uid: string };
 }) {
-  const session = await auth();
-  if (!session || !session.user) {
-    return null;
-  }
-
-  const user = await findUserByEmail(session.user.email as string);
-  if (!user) return null;
+  const { user, error } = await checkAuth();
+  if (!user) return <p>{error?.message}</p>
 
   const budget = await findBudgetByUid(user, params.uid);
   if (!budget) return <p>NOT FOUND</p>;

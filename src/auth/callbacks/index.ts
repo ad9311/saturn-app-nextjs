@@ -1,5 +1,5 @@
 import { createUser, findUserByAccountId } from '@/db/users';
-import { UserDB } from '@/types/user';
+import { UserTemplate } from '@/types/user';
 
 export type CallbackData = {
   user: {
@@ -21,7 +21,7 @@ export async function signInCallback(data: CallbackData) {
     return true;
   }
 
-  const newUser: UserDB = {
+  const newUser: UserTemplate = {
     name: data.user.name as string,
     email: data.user.email as string,
     accountId: Number(data.account?.providerAccountId),

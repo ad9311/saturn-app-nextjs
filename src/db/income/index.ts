@@ -19,11 +19,11 @@ export async function createIncome(
 }
 
 export async function findIncomeById(
-  incomeId: number
+  id: number
 ): Promise<IncomeDb | null> {
   return prisma.income.findUnique({
     where: {
-      id: incomeId,
+      id,
     },
   });
 }
