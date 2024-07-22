@@ -1,3 +1,5 @@
+'use server';
+
 import { BudgetDb } from '@/types/budget';
 import { ExpenseDb, ExpenseTemplate } from '@/types/transaction';
 

@@ -1,3 +1,5 @@
+'use server';
+
 import { Budget, Expense, Income, User } from '@prisma/client';
 import { endOfMonth, startOfMonth } from 'date-fns';
 

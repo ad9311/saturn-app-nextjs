@@ -1,3 +1,5 @@
+'use server';
+
 import { User } from '@prisma/client';
 
 import { BudgetRecordDb } from '@/types/budget-record';
