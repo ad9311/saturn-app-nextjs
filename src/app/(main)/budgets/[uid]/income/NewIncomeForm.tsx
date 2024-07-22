@@ -3,8 +3,8 @@
 import { useEffect, useRef } from 'react';
 import { useFormState } from 'react-dom';
 
-import ErrorList from '@/components/ErrorList';
-import SubmitFormButton from '@/components/SubmitFormButton';
+import ErrorList from '@/components/client/ErrorList';
+import SubmitFormButton from '@/components/client/SubmitFormButton';
 import { createIncomeAction } from '@/server-actions/income';
 import { useBudgetStore } from '@/stores/budget';
 import { IncomeFormState } from '@/types/transaction';

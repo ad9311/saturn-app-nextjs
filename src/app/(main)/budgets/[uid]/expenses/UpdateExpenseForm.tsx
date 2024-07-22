@@ -4,8 +4,8 @@ import { Expense } from '@prisma/client';
 import { useEffect, useRef } from 'react';
 import { useFormState } from 'react-dom';
 
-import ErrorList from '@/components/ErrorList';
-import SubmitFormButton from '@/components/SubmitFormButton';
+import ErrorList from '@/components/client/ErrorList';
+import SubmitFormButton from '@/components/client/SubmitFormButton';
 import { updateExpenseAction } from '@/server-actions/expense';
 import { useBudgetStore } from '@/stores/budget';
 import { useExpenseCategoriesStore } from '@/stores/expense-categories';
