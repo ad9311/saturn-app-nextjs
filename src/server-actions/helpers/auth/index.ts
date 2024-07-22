@@ -15,16 +15,10 @@ type AuthState = {
 export async function checkAuth(): Promise<AuthState> {
   try {
     const session = await auth();
-
-    if (!session || !session.user) {
-      throw new Error('user not authenticated');
-    }
+    if (!session || !session.user) throw new Error('user not authenticated');
 
     const user = await findUserByEmail(session.user.email as string);
-
-    if (!user) {
-      throw new Error('user not found');
-    }
+    if (!user) throw new Error('user not found');
 
     return { user, error: null };
   } catch (error) {

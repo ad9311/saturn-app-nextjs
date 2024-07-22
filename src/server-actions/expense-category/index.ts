@@ -16,22 +16,15 @@ export async function createExpenseCategoryAction(
   formData: FormData
 ): Promise<ExpenseCategoryFormState> {
   const { user, error } = await checkAuth();
-
-  if (!user) {
+  if (!user)
     return {
       expenseCategory: null,
-      errorMessages: [error?.message as string],
+      errorMessages: [error?.message ?? 'user not authenticated'],
     };
-  }
 
   try {
     const budgetRecord = await findBudgetRecord(user);
-    if (!budgetRecord) {
-      return {
-        expenseCategory: null,
-        errorMessages: ['budget record not found'],
-      };
-    }
+    if (!budgetRecord) throw new Error('budget record not found');
 
     const expenseCategoryData: ExpenseCategoryTemplate = {
       name: formData.get('expense_category[name]') as string,
@@ -39,19 +32,15 @@ export async function createExpenseCategoryAction(
       budgetRecordId: budgetRecord.id,
     };
     const result = NewExpenseCategoryValidation.safeParse(expenseCategoryData);
-    if (!result.success) {
+    if (!result.success)
       return {
         expenseCategory: null,
         errorMessages: formatZodErrors(result.error.issues),
       };
-    }
 
     const expenseCategory = await createExpenseCategory(expenseCategoryData);
 
-    return {
-      expenseCategory,
-      errorMessages: null,
-    };
+    return { expenseCategory, errorMessages: null };
   } catch (error) {
     return { expenseCategory: null, errorMessages: [(error as Error).message] };
   }

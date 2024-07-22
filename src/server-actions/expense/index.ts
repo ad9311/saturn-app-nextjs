@@ -34,46 +34,34 @@ export async function createExpenseAction(
   formData: FormData
 ): Promise<ExpenseFormState> {
   const { user, error } = await checkAuth();
-
-  if (!user) {
+  if (!user)
     return {
       expense: null,
-      errorMessages: [error?.message as string],
+      errorMessages: [error?.message ?? 'user not authenticated'],
     };
-  }
 
   const expenseData = getExpenseFormData(formData);
   const result = NewExpenseValidation.safeParse(expenseData);
 
-  if (!result.success) {
+  if (!result.success)
     return {
       expense: null,
       errorMessages: formatZodErrors(result.error.issues),
     };
-  }
 
   try {
     const budget = await findBudgetByUid(
       user,
       formData.get('budget[uid]') as string
     );
-
-    if (!budget) {
-      return {
-        expense: null,
-        errorMessages: ['budget not found'],
-      };
-    }
+    if (!budget) throw new Error('budget not found');
 
     const expense = await createExpense(budget, expenseData);
     await aggregateBudgetOnCreateExpense(budget, expense);
 
     revalidatePath(`/budgets/${budget.uid}`);
 
-    return {
-      expense,
-      errorMessages: null,
-    };
+    return { expense, errorMessages: null };
   } catch (error) {
     return { expense: null, errorMessages: [(error as Error).message] };
   }
@@ -84,46 +72,31 @@ export async function updateExpenseAction(
   formData: FormData
 ): Promise<ExpenseFormState> {
   const { user, error } = await checkAuth();
-
-  if (!user) {
+  if (!user)
     return {
       expense: null,
-      errorMessages: [error?.message as string],
+      errorMessages: [error?.message ?? 'user not authenticated'],
     };
-  }
 
   const expenseData = getExpenseFormData(formData);
   const result = NewExpenseValidation.safeParse(expenseData);
-
-  if (!result.success) {
+  if (!result.success)
     return {
       expense: null,
       errorMessages: formatZodErrors(result.error.issues),
     };
-  }
 
   try {
     const budget = await findBudgetByUid(
       user,
       formData.get('budget[uid]') as string
     );
-
-    if (!budget) {
-      return {
-        expense: null,
-        errorMessages: ['budget not found'],
-      };
-    }
+    if (!budget) throw new Error('budget not found');
 
     const oldExpense = await findExpenseById(
       Number(formData.get('expense[id]'))
     );
-    if (!oldExpense) {
-      return {
-        expense: null,
-        errorMessages: ['expense not found'],
-      };
-    }
+    if (!oldExpense) throw new Error('expense not found');
 
     const newExpense = await updateExpense(oldExpense, expenseData);
     await resolveBudgetOnUpdateExpense(budget, oldExpense);
@@ -131,10 +104,7 @@ export async function updateExpenseAction(
 
     revalidatePath(`/budgets/${budget.uid}`);
 
-    return {
-      expense: newExpense,
-      errorMessages: null,
-    };
+    return { expense: newExpense, errorMessages: null };
   } catch (error) {
     return { expense: null, errorMessages: [(error as Error).message] };
   }
@@ -145,45 +115,28 @@ export async function deleteExpenseAction(
   formData: FormData
 ): Promise<ExpenseFormState> {
   const { user, error } = await checkAuth();
-
-  if (!user) {
+  if (!user)
     return {
       expense: null,
-      errorMessages: [error?.message as string],
+      errorMessages: [error?.message ?? 'user not authenticated'],
     };
-  }
 
   try {
     const budget = await findBudgetByUid(
       user,
       formData.get('budget[uid]') as string
     );
-
-    if (!budget) {
-      return {
-        expense: null,
-        errorMessages: ['budget not found'],
-      };
-    }
+    if (!budget) throw new Error('budget not found');
 
     const expense = await findExpenseById(Number(formData.get('expense[id]')));
-
-    if (!expense) {
-      return {
-        expense: null,
-        errorMessages: ['expense not found'],
-      };
-    }
+    if (!expense) throw new Error('expense not found');
 
     await deleteExpense(expense);
     await resolveBudgetOnDeleteExpense(budget, expense);
 
     revalidatePath(`/budgets/${budget.uid}`);
 
-    return {
-      expense,
-      errorMessages: null,
-    };
+    return { expense, errorMessages: null };
   } catch (error) {
     return { expense: null, errorMessages: [(error as Error).message] };
   }
