@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import { findCurrentBudget } from '@/db/budgets';
 import { checkAuth } from '@/server-actions/helpers/auth';
@@ -9,7 +10,7 @@ import CreateNewBudgetForm from './CreateNewBudgetForm';
 export default async function CurrentBudget() {
   const { user } = await checkAuth();
   if (!user) {
-    return null;
+    redirect('/auth/sign-in');
   }
 
   const budget = await findCurrentBudget(user);
