@@ -5,9 +5,7 @@ import { auth } from '@/auth';
 
 import SignOutButton from '../auth/sign-out/SignOutButton';
 
-export default async function Sidebar(
-  props: React.HTMLAttributes<HTMLDivElement>
-) {
+export default async function Sidebar(props: React.HTMLAttributes<HTMLDivElement>) {
   const session = await auth();
 
   if (!session || !session.user) {

@@ -4,10 +4,7 @@ import { findBudgetRecord } from '@/db/budget-records';
 import { createExpenseCategory } from '@/db/expense-categories';
 import { NewExpenseCategoryValidation } from '@/db/expense-categories/validations';
 import { formatZodErrors } from '@/helpers/format';
-import {
-  ExpenseCategoryFormState,
-  ExpenseCategoryTemplate,
-} from '@/types/expense-category';
+import { ExpenseCategoryFormState, ExpenseCategoryTemplate } from '@/types/expense-category';
 
 import { checkAuth } from '../helpers/auth';
 

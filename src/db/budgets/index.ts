@@ -46,10 +46,7 @@ export async function findCurrentBudget(user: User): Promise<BudgetDb | null> {
   });
 }
 
-export async function findBudgetByUid(
-  user: User,
-  uid: string
-): Promise<BudgetDb | null> {
+export async function findBudgetByUid(user: User, uid: string): Promise<BudgetDb | null> {
   return await prisma.budget.findUnique({
     where: { uid, budgetRecord: { userId: user.id } },
     include: { incomeList: true, expenses: true },

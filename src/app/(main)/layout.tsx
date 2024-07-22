@@ -1,11 +1,7 @@
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="lg:grid grid-cols-12 h-full">
       <Navbar className="lg:hidden bg-neutral-200" />

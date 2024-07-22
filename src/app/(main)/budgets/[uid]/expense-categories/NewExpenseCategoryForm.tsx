@@ -23,10 +23,7 @@ export default function NewExpenseCategoryForm() {
   const { setChildren } = useModalStore(state => ({
     setChildren: state.setChildren,
   }));
-  const [formState, formAction] = useFormState(
-    createExpenseCategoryAction,
-    initState
-  );
+  const [formState, formAction] = useFormState(createExpenseCategoryAction, initState);
 
   useEffect(() => {
     if (formState.expenseCategory && !formState.errorMessages) {
@@ -44,12 +41,7 @@ export default function NewExpenseCategoryForm() {
       <ErrorList errorMessages={formState.errorMessages} />
       <form action={formAction}>
         <label htmlFor="name">
-          <input
-            type="text"
-            name="expense_category[name]"
-            id="name"
-            placeholder="Name"
-          />
+          <input type="text" name="expense_category[name]" id="name" placeholder="Name" />
         </label>
         <label htmlFor="color">
           <input type="color" name="expense_category[color]" id="color" />

@@ -24,9 +24,7 @@ export async function restrictUsersCallback(data: CallbackData) {
 }
 
 async function createUserOnFirstSignIn(data: CallbackData) {
-  const existingUser = await findUserByAccountId(
-    data.account?.providerAccountId as string
-  );
+  const existingUser = await findUserByAccountId(data.account?.providerAccountId as string);
   if (existingUser) {
     return existingUser;
   }

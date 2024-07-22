@@ -9,12 +9,7 @@ import {
   resolveBudgetOnDeleteIncome,
   resolveBudgetOnUpdateIncome,
 } from '@/db/budgets';
-import {
-  createIncome,
-  deleteIncome,
-  findIncomeById,
-  updateIncome,
-} from '@/db/income';
+import { createIncome, deleteIncome, findIncomeById, updateIncome } from '@/db/income';
 import { NewIncomeValidation } from '@/db/income/validations';
 import { formatZodErrors } from '@/helpers/format';
 import { IncomeFormState, IncomeTemplate } from '@/types/transaction';
@@ -50,10 +45,7 @@ export async function createIncomeAction(
   }
 
   try {
-    const budget = await findBudgetByUid(
-      user,
-      formData.get('budget[uid]') as string
-    );
+    const budget = await findBudgetByUid(user, formData.get('budget[uid]') as string);
 
     if (!budget) {
       throw new Error('budget not found');
@@ -92,10 +84,7 @@ export async function updateIncomeAction(
   }
 
   try {
-    const budget = await findBudgetByUid(
-      user,
-      formData.get('budget[uid]') as string
-    );
+    const budget = await findBudgetByUid(user, formData.get('budget[uid]') as string);
 
     if (!budget) {
       throw new Error('budget not found');
@@ -131,10 +120,7 @@ export async function deleteIncomeAction(
   }
 
   try {
-    const budget = await findBudgetByUid(
-      user,
-      formData.get('budget[uid]') as string
-    );
+    const budget = await findBudgetByUid(user, formData.get('budget[uid]') as string);
     if (!budget) {
       throw new Error('budget not found');
     }

@@ -9,12 +9,7 @@ import {
   resolveBudgetOnDeleteExpense,
   resolveBudgetOnUpdateExpense,
 } from '@/db/budgets';
-import {
-  createExpense,
-  deleteExpense,
-  findExpenseById,
-  updateExpense,
-} from '@/db/expenses';
+import { createExpense, deleteExpense, findExpenseById, updateExpense } from '@/db/expenses';
 import { NewExpenseValidation } from '@/db/expenses/validations';
 import { formatZodErrors } from '@/helpers/format';
 import { ExpenseFormState, ExpenseTemplate } from '@/types/transaction';
@@ -52,10 +47,7 @@ export async function createExpenseAction(
   }
 
   try {
-    const budget = await findBudgetByUid(
-      user,
-      formData.get('budget[uid]') as string
-    );
+    const budget = await findBudgetByUid(user, formData.get('budget[uid]') as string);
     if (!budget) {
       throw new Error('budget not found');
     }
@@ -93,17 +85,12 @@ export async function updateExpenseAction(
   }
 
   try {
-    const budget = await findBudgetByUid(
-      user,
-      formData.get('budget[uid]') as string
-    );
+    const budget = await findBudgetByUid(user, formData.get('budget[uid]') as string);
     if (!budget) {
       throw new Error('budget not found');
     }
 
-    const oldExpense = await findExpenseById(
-      Number(formData.get('expense[id]'))
-    );
+    const oldExpense = await findExpenseById(Number(formData.get('expense[id]')));
     if (!oldExpense) {
       throw new Error('expense not found');
     }
@@ -133,10 +120,7 @@ export async function deleteExpenseAction(
   }
 
   try {
-    const budget = await findBudgetByUid(
-      user,
-      formData.get('budget[uid]') as string
-    );
+    const budget = await findBudgetByUid(user, formData.get('budget[uid]') as string);
     if (!budget) {
       throw new Error('budget not found');
     }

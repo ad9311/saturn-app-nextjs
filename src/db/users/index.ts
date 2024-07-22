@@ -8,9 +8,7 @@ export async function createUser(userData: UserTemplate): Promise<User | null> {
   return await prisma.user.create({ data: userData });
 }
 
-export async function findUserByAccountId(
-  accountId: number | string
-): Promise<User | null> {
+export async function findUserByAccountId(accountId: number | string): Promise<User | null> {
   return await prisma.user.findUnique({
     where: { accountId: Number(accountId) },
   });

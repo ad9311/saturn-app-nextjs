@@ -28,11 +28,7 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
     const year = now.getFullYear();
     const budgetData = { month, year };
 
-    const existingBudget = await findBudgetByMonthYear(
-      budgetRecord,
-      month,
-      year
-    );
+    const existingBudget = await findBudgetByMonthYear(budgetRecord, month, year);
 
     if (existingBudget) {
       throw new Error('duplicated budget');

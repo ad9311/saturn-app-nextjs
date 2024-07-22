@@ -8,10 +8,7 @@ type ExpenseContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   budget: BudgetDb;
 };
 
-export default function ExpenseList({
-  budget,
-  ...props
-}: ExpenseContainerProps) {
+export default function ExpenseList({ budget, ...props }: ExpenseContainerProps) {
   const mappedExpenses = budget.expenses.map(expense => (
     <li key={expense.id} className="flex items-center justify-between">
       <p>

@@ -31,11 +31,7 @@ export default function NewIncomeForm() {
       <form action={formAction} ref={ref}>
         <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
         <label htmlFor="description">
-          <textarea
-            name="income[description]"
-            id="description"
-            placeholder="Description"
-          />
+          <textarea name="income[description]" id="description" placeholder="Description" />
         </label>
         <label htmlFor="amount">
           <input

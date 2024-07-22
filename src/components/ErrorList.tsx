@@ -7,9 +7,7 @@ export default function ErrorList({ errorMessages }: FormErrors) {
     return null;
   }
 
-  const mappedErrors = errorMessages.map(message => (
-    <li key={`${message}`}>{message}</li>
-  ));
+  const mappedErrors = errorMessages.map(message => <li key={`${message}`}>{message}</li>);
 
   return <ul>{mappedErrors}</ul>;
 }

@@ -56,11 +56,7 @@ export default function NewExpenseForm() {
       <form action={formAction} ref={ref}>
         <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
         <label htmlFor="description">
-          <textarea
-            name="expense[description]"
-            id="description"
-            placeholder="Description"
-          />
+          <textarea name="expense[description]" id="description" placeholder="Description" />
         </label>
         <label htmlFor="expense_category">
           <select name="expense_category[id]" id="expense_category">
