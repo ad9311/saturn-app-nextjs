@@ -18,8 +18,9 @@ export default function DeleteExpenseForm({ expense }: { expense: Expense }) {
   const { budget } = useBudgetStore(state => ({ budget: state.budget }));
   const [formState, formAction] = useFormState(deleteExpenseAction, initState);
 
-  if (formState.expense && !formState.errorMessages)
+  if (formState.expense && !formState.errorMessages) {
     return <p>Income deleted successfully</p>;
+  }
 
   return (
     <>

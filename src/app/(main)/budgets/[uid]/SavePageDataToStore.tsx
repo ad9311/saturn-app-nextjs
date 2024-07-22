@@ -22,8 +22,12 @@ export default function SavePageDataToStore({
   }));
 
   useEffect(() => {
-    if (budget) setBudget(budget);
-    if (expenseCategories.length > 0) setExpenseCategories(expenseCategories);
+    if (budget) {
+      setBudget(budget);
+    }
+    if (expenseCategories.length > 0) {
+      setExpenseCategories(expenseCategories);
+    }
   }, []);
 
   return null;

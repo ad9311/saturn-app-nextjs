@@ -27,7 +27,9 @@ async function createUserOnFirstSignIn(data: CallbackData) {
   const existingUser = await findUserByAccountId(
     data.account?.providerAccountId as string
   );
-  if (existingUser) return existingUser;
+  if (existingUser) {
+    return existingUser;
+  }
 
   const newUser: UserTemplate = {
     name: data.user.name as string,
@@ -42,10 +44,14 @@ async function createUserOnFirstSignIn(data: CallbackData) {
 
 export async function setupUser(data: CallbackData) {
   const user = await createUserOnFirstSignIn(data);
-  if (!user) return false;
+  if (!user) {
+    return false;
+  }
 
   const budgetRecord = await createBudgetRecord(user);
-  if (!budgetRecord) return false;
+  if (!budgetRecord) {
+    return false;
+  }
 
   return true;
 }

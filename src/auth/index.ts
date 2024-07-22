@@ -25,7 +25,9 @@ export const authOptions = {
     },
     async signIn(data) {
       const restrict = await restrictUsersCallback(data as CallbackData);
-      if (restrict) return !restrict;
+      if (restrict) {
+        return !restrict;
+      }
 
       return await setupUser(data as CallbackData);
     },

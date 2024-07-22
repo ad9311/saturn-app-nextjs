@@ -8,10 +8,14 @@ import CreateNewBudgetForm from './CreateNewBudgetForm';
 
 export default async function CurrentBudget() {
   const { user } = await checkAuth();
-  if (!user) return null;
+  if (!user) {
+    return null;
+  }
 
   const budget = await findCurrentBudget(user);
-  if (!budget) return <CreateNewBudgetForm />;
+  if (!budget) {
+    return <CreateNewBudgetForm />;
+  }
 
   return (
     <article className="bg-neutral-200 h-full p-3 rounded">

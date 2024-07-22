@@ -16,10 +16,14 @@ export default async function BudgetPages({
   params: { uid: string };
 }) {
   const { user } = await checkAuth();
-  if (!user) return redirect('/auth/sign-in');
+  if (!user) {
+    return redirect('/auth/sign-in');
+  }
 
   const budget = await findBudgetByUid(user, params.uid);
-  if (!budget) return <p>NOT FOUND</p>;
+  if (!budget) {
+    return <p>NOT FOUND</p>;
+  }
 
   const expenseCategories = await findExpenseCategories(user);
 

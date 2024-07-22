@@ -33,11 +33,12 @@ export async function createIncomeAction(
   formData: FormData
 ): Promise<IncomeFormState> {
   const { user, error } = await checkAuth();
-  if (!user)
+  if (!user) {
     return {
       income: null,
       errorMessages: [error?.message ?? 'user not authenticated'],
     };
+  }
 
   const incomeData = getIncomeFormData(formData);
   const result = NewIncomeValidation.safeParse(incomeData);
@@ -54,7 +55,9 @@ export async function createIncomeAction(
       formData.get('budget[uid]') as string
     );
 
-    if (!budget) throw new Error('budget not found');
+    if (!budget) {
+      throw new Error('budget not found');
+    }
 
     const income = await createIncome(budget, incomeData);
     await aggregateBudgetOnCreateIncome(budget, income);
@@ -72,11 +75,12 @@ export async function updateIncomeAction(
   formData: FormData
 ): Promise<IncomeFormState> {
   const { user, error } = await checkAuth();
-  if (!user)
+  if (!user) {
     return {
       income: null,
       errorMessages: [error?.message ?? 'user not authenticated'],
     };
+  }
 
   const incomeData = getIncomeFormData(formData);
   const result = NewIncomeValidation.safeParse(incomeData);
@@ -93,10 +97,14 @@ export async function updateIncomeAction(
       formData.get('budget[uid]') as string
     );
 
-    if (!budget) throw new Error('budget not found');
+    if (!budget) {
+      throw new Error('budget not found');
+    }
 
     const income = await findIncomeById(Number(formData.get('income[id]')));
-    if (!income) throw new Error('income not found');
+    if (!income) {
+      throw new Error('income not found');
+    }
 
     const newIncome = await updateIncome(income, incomeData);
     await resolveBudgetOnUpdateIncome(budget, income);
@@ -115,21 +123,26 @@ export async function deleteIncomeAction(
   formData: FormData
 ): Promise<IncomeFormState> {
   const { user, error } = await checkAuth();
-  if (!user)
+  if (!user) {
     return {
       income: null,
       errorMessages: [error?.message ?? 'user not authenticated'],
     };
+  }
 
   try {
     const budget = await findBudgetByUid(
       user,
       formData.get('budget[uid]') as string
     );
-    if (!budget) throw new Error('budget not found');
+    if (!budget) {
+      throw new Error('budget not found');
+    }
 
     const income = await findIncomeById(Number(formData.get('income[id]')));
-    if (!income) throw new Error('income not found');
+    if (!income) {
+      throw new Error('income not found');
+    }
 
     await deleteIncome(income);
     await resolveBudgetOnDeleteIncome(budget, income);

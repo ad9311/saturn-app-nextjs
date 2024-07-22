@@ -17,8 +17,9 @@ export default function UpdateIncomeForm({ income }: { income: IncomeDb }) {
   const { budget } = useBudgetStore(state => ({ budget: state.budget }));
   const [formState, formAction] = useFormState(updateIncomeAction, initState);
 
-  if (formState.income && !formState.errorMessages)
+  if (formState.income && !formState.errorMessages) {
     return <p>Income updated successfully</p>;
+  }
 
   return (
     <>

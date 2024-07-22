@@ -10,7 +10,9 @@ export default async function Sidebar(
 ) {
   const session = await auth();
 
-  if (!session || !session.user) return <div {...props} />;
+  if (!session || !session.user) {
+    return <div {...props} />;
+  }
 
   return (
     <div {...props}>

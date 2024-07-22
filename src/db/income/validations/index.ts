@@ -8,7 +8,9 @@ export const NewIncomeValidation = z.object({
     .refine(
       num => {
         const split = num.toString().split('.')[1];
-        if (!split) return true;
+        if (!split) {
+          return true;
+        }
         return split.length <= 2;
       },
       {
