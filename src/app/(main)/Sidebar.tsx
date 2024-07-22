@@ -1,28 +1,28 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
-import { auth } from '@/auth';
+import { checkAuth } from '@/server-actions/helpers/auth';
 
 import SignOutButton from '../auth/sign-out/SignOutButton';
 
 export default async function Sidebar(props: React.HTMLAttributes<HTMLDivElement>) {
-  const session = await auth();
-
-  if (!session || !session.user) {
-    return <div {...props} />;
+  const { user } = await checkAuth();
+  if (!user) {
+    redirect('/auth/sign-in');
   }
 
   return (
     <div {...props}>
       <div className="mt-10 text-center">
         <Image
-          src={session.user.image as string}
+          src={user.image as string}
           alt="profile-picture"
           width={100}
           height={100}
           className="w-fit mx-auto mb-5"
         />
-        <p>{session.user.name}</p>
+        <p>{user.name}</p>
         <SignOutButton />
         <br />
         <nav className="flex flex-col">
