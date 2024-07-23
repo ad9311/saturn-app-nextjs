@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
 
+import { auth } from '@/auth';
 import { findBudgetByUid } from '@/db/budgets';
 import { findExpenseCategories } from '@/db/expense-categories';
-import { checkAuth } from '@/server-actions/helpers/auth';
 
 import BudgetInfo from './BudgetInfo';
 import ExpenseChart from './expenses/ExpenseChart';
@@ -11,17 +11,17 @@ import IncomeList from './income/IncomeList';
 import SavePageDataToStore from './SavePageDataToStore';
 
 export default async function BudgetPages({ params }: { params: { uid: string } }) {
-  const { user } = await checkAuth();
-  if (!user) {
+  const session = await auth();
+  if (!session || !session.user || !session.user.email) {
     return redirect('/auth/sign-in');
   }
 
-  const budget = await findBudgetByUid(user, params.uid);
+  const budget = await findBudgetByUid(session.user.email, params.uid);
   if (!budget) {
     return <p>NOT FOUND</p>;
   }
 
-  const expenseCategories = await findExpenseCategories(user);
+  const expenseCategories = await findExpenseCategories(session.user.email);
 
   return (
     <>

@@ -1,6 +1,6 @@
 'use server';
 
-import { Budget, Expense, Income, User } from '@prisma/client';
+import { Budget, Expense, Income } from '@prisma/client';
 import { endOfMonth, startOfMonth } from 'date-fns';
 
 import { BudgetDb, BudgetTemplate } from '@/types/budget';
@@ -23,7 +23,7 @@ export async function createBudget(
   });
 }
 
-export async function findCurrentBudget(user: User): Promise<BudgetDb | null> {
+export async function findCurrentBudget(userEmail: string): Promise<BudgetDb | null> {
   const now = new Date();
   const firstDayOfMonth = startOfMonth(now);
   const lastDayOfMonth = endOfMonth(now);
@@ -31,7 +31,9 @@ export async function findCurrentBudget(user: User): Promise<BudgetDb | null> {
   return await prisma.budget.findFirst({
     where: {
       budgetRecord: {
-        userId: user.id,
+        user: {
+          email: userEmail,
+        },
       },
       createdAt: {
         gte: firstDayOfMonth,
@@ -48,9 +50,9 @@ export async function findCurrentBudget(user: User): Promise<BudgetDb | null> {
   });
 }
 
-export async function findBudgetByUid(user: User, uid: string): Promise<BudgetDb | null> {
+export async function findBudgetByUid(userEmail: string, uid: string): Promise<BudgetDb | null> {
   return await prisma.budget.findUnique({
-    where: { uid, budgetRecord: { userId: user.id } },
+    where: { uid, budgetRecord: { user: { email: userEmail } } },
     include: { incomeList: true, expenses: true },
   });
 }

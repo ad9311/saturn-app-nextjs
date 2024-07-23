@@ -1,5 +1,3 @@
-import { User } from '@prisma/client';
-
 import { ExpenseCategoryDb, ExpenseCategoryTemplate } from '@/types/expense-category';
 
 import prisma from '..';
@@ -10,11 +8,13 @@ export async function createExpenseCategory(
   return await prisma.expenseCategory.create({ data: expenseCategoryData });
 }
 
-export async function findExpenseCategories(user: User): Promise<ExpenseCategoryDb[]> {
+export async function findExpenseCategories(userEmail: string): Promise<ExpenseCategoryDb[]> {
   return await prisma.expenseCategory.findMany({
     where: {
       budgetRecord: {
-        userId: user.id,
+        user: {
+          email: userEmail,
+        },
       },
     },
   });

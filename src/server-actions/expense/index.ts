@@ -47,7 +47,7 @@ export async function createExpenseAction(
   }
 
   try {
-    const budget = await findBudgetByUid(user, formData.get('budget[uid]') as string);
+    const budget = await findBudgetByUid(user.email, formData.get('budget[uid]') as string);
     if (!budget) {
       throw new Error('budget not found');
     }
@@ -85,7 +85,7 @@ export async function updateExpenseAction(
   }
 
   try {
-    const budget = await findBudgetByUid(user, formData.get('budget[uid]') as string);
+    const budget = await findBudgetByUid(user.email, formData.get('budget[uid]') as string);
     if (!budget) {
       throw new Error('budget not found');
     }
@@ -120,7 +120,7 @@ export async function deleteExpenseAction(
   }
 
   try {
-    const budget = await findBudgetByUid(user, formData.get('budget[uid]') as string);
+    const budget = await findBudgetByUid(user.email, formData.get('budget[uid]') as string);
     if (!budget) {
       throw new Error('budget not found');
     }
