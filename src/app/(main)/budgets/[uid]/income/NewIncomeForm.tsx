@@ -11,7 +11,7 @@ import { IncomeFormState } from '@/types/transaction';
 
 const initState: IncomeFormState = {
   income: null,
-  errorMessages: null,
+  errors: null,
 };
 
 export default function NewIncomeForm() {
@@ -20,14 +20,14 @@ export default function NewIncomeForm() {
   const ref = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (formState.income && !formState.errorMessages) {
+    if (formState.income && !formState.errors) {
       ref.current?.reset();
     }
   }, [formState]);
 
   return (
     <>
-      <ErrorList errorMessages={formState.errorMessages} />
+      <ErrorList errors={formState.errors} />
       <form action={formAction} ref={ref}>
         <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
         <label htmlFor="description">

@@ -11,20 +11,20 @@ import { ExpenseFormState } from '@/types/transaction';
 
 const initState: ExpenseFormState = {
   expense: null,
-  errorMessages: null,
+  errors: null,
 };
 
 export default function DeleteExpenseForm({ expense }: { expense: Expense }) {
   const { budget } = useBudgetStore(state => ({ budget: state.budget }));
   const [formState, formAction] = useFormState(deleteExpenseAction, initState);
 
-  if (formState.expense && !formState.errorMessages) {
+  if (formState.expense && !formState.errors) {
     return <p>Income deleted successfully</p>;
   }
 
   return (
     <>
-      <ErrorList errorMessages={formState.errorMessages} />
+      <ErrorList errors={formState.errors} />
       <form action={formAction}>
         <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
         <input type="hidden" name="expense[id]" value={expense.id} readOnly />

@@ -9,14 +9,14 @@ import { CreateBudgetState } from '@/types/budget';
 
 const initState: CreateBudgetState = {
   budget: null,
-  errorMessages: null,
+  errors: null,
 };
 
 export default function CreateNewBudgetForm() {
   const [formState, formAction] = useFormState(createBudgetAction, initState);
 
-  if (formState.errorMessages) {
-    return <ErrorList errorMessages={formState.errorMessages} />;
+  if (formState.errors) {
+    return <ErrorList errors={formState.errors} />;
   }
 
   return (

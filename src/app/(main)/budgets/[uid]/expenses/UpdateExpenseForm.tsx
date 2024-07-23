@@ -17,7 +17,7 @@ import TransactionModal from '../TransactionModal';
 
 const initState: ExpenseFormState = {
   expense: null,
-  errorMessages: null,
+  errors: null,
 };
 
 export default function UpdateExpenseForm({ expense }: { expense: Expense }) {
@@ -32,7 +32,7 @@ export default function UpdateExpenseForm({ expense }: { expense: Expense }) {
   const ref = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (formState.expense && !formState.errorMessages) {
+    if (formState.expense && !formState.errors) {
       ref.current?.reset();
     }
   }, [formState]);
@@ -53,7 +53,7 @@ export default function UpdateExpenseForm({ expense }: { expense: Expense }) {
 
   return (
     <>
-      <ErrorList errorMessages={formState.errorMessages} />
+      <ErrorList errors={formState.errors} />
       <form action={formAction} ref={ref}>
         <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
         <input type="hidden" name="expense[id]" value={expense.id} readOnly />

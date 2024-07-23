@@ -13,7 +13,7 @@ import TransactionModal from '../TransactionModal';
 
 const initState: ExpenseCategoryFormState = {
   expenseCategory: null,
-  errorMessages: null,
+  errors: null,
 };
 
 export default function NewExpenseCategoryForm() {
@@ -26,7 +26,7 @@ export default function NewExpenseCategoryForm() {
   const [formState, formAction] = useFormState(createExpenseCategoryAction, initState);
 
   useEffect(() => {
-    if (formState.expenseCategory && !formState.errorMessages) {
+    if (formState.expenseCategory && !formState.errors) {
       addExpenseCategory(formState.expenseCategory);
       setChildren(
         <TransactionModal title="New Expense">
@@ -38,7 +38,7 @@ export default function NewExpenseCategoryForm() {
 
   return (
     <>
-      <ErrorList errorMessages={formState.errorMessages} />
+      <ErrorList errors={formState.errors} />
       <form action={formAction}>
         <label htmlFor="name">
           <input type="text" name="expense_category[name]" id="name" placeholder="Name" />

@@ -10,20 +10,20 @@ import { IncomeDb, IncomeFormState } from '@/types/transaction';
 
 const initState: IncomeFormState = {
   income: null,
-  errorMessages: null,
+  errors: null,
 };
 
 export default function UpdateIncomeForm({ income }: { income: IncomeDb }) {
   const { budget } = useBudgetStore(state => ({ budget: state.budget }));
   const [formState, formAction] = useFormState(updateIncomeAction, initState);
 
-  if (formState.income && !formState.errorMessages) {
+  if (formState.income && !formState.errors) {
     return <p>Income updated successfully</p>;
   }
 
   return (
     <>
-      <ErrorList errorMessages={formState.errorMessages} />
+      <ErrorList errors={formState.errors} />
       <form action={formAction}>
         <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
         <input type="hidden" name="income[id]" value={income.id} readOnly />
