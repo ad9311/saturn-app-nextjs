@@ -7,7 +7,6 @@ export type ExpenseCategoryDb = ExpenseCategory;
 export type ExpenseCategoryTemplate = {
   name: string;
   color: string;
-  budgetRecordId: number;
 };
 
 export type ExpenseCategoryFormState = FormErrors & {

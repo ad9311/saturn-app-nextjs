@@ -1,6 +1,7 @@
 import { BudgetDb } from '@/types/budget';
 
 import NewExpenseCategoryButton from '../expense-categories/NewExpenseCategoryButton';
+import OpenExpenseCategoryList from '../expense-categories/OpenExpenseCategoryList';
 
 import DeleteExpenseButton from './DeleteExpenseButton';
 import NewExpenseButton from './NewExpenseButton';
@@ -30,6 +31,7 @@ export default function ExpenseList({ budget, ...props }: ExpenseContainerProps)
           <h2>Expenses</h2>
           <NewExpenseButton />
           <NewExpenseCategoryButton />
+          <OpenExpenseCategoryList />
         </div>
         <ul>{mappedExpenses}</ul>
       </section>

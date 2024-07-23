@@ -1,7 +1,11 @@
 'use server';
 
 import { findBudgetRecord } from '@/db/budget-records';
-import { createExpenseCategory } from '@/db/expense-categories';
+import {
+  createExpenseCategory,
+  findExpenseCategoryById,
+  updateExpenseCategory,
+} from '@/db/expense-categories';
 import { NewExpenseCategoryValidation } from '@/db/expense-categories/validations';
 import { formatZodErrors } from '@/helpers/format';
 import { ExpenseCategoryFormState, ExpenseCategoryTemplate } from '@/types/expense-category';
@@ -29,7 +33,6 @@ export async function createExpenseCategoryAction(
     const expenseCategoryData: ExpenseCategoryTemplate = {
       name: formData.get('expense_category[name]') as string,
       color: formData.get('expense_category[color]') as string,
-      budgetRecordId: budgetRecord.id,
     };
     const result = NewExpenseCategoryValidation.safeParse(expenseCategoryData);
     if (!result.success) {
@@ -39,9 +42,49 @@ export async function createExpenseCategoryAction(
       };
     }
 
-    const expenseCategory = await createExpenseCategory(expenseCategoryData);
+    const expenseCategory = await createExpenseCategory(budgetRecord, expenseCategoryData);
 
     return { expenseCategory, errors: null };
+  } catch (error) {
+    return { expenseCategory: null, errors: [{ message: (error as Error).message }] };
+  }
+}
+
+export async function updateExpenseCategoryAction(
+  _initState: ExpenseCategoryFormState,
+  formData: FormData
+): Promise<ExpenseCategoryFormState> {
+  const { user, error } = await checkAuth();
+  if (!user) {
+    return {
+      expenseCategory: null,
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
+    };
+  }
+
+  try {
+    const oldExpenseCategory = await findExpenseCategoryById(
+      Number(formData.get('expense_category[id]'))
+    );
+    if (!oldExpenseCategory) {
+      throw new Error('expense category not found');
+    }
+
+    const expenseCategoryData: ExpenseCategoryTemplate = {
+      name: formData.get('expense_category[name]') as string,
+      color: formData.get('expense_category[color]') as string,
+    };
+    const result = NewExpenseCategoryValidation.safeParse(expenseCategoryData);
+    if (!result.success) {
+      return {
+        expenseCategory: null,
+        errors: formatZodErrors(result.error.issues),
+      };
+    }
+
+    const newExpenseCategory = await updateExpenseCategory(oldExpenseCategory, expenseCategoryData);
+
+    return { expenseCategory: newExpenseCategory, errors: null };
   } catch (error) {
     return { expenseCategory: null, errors: [{ message: (error as Error).message }] };
   }

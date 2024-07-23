@@ -1,7 +1,6 @@
 'use client';
 
 import { Expense } from '@prisma/client';
-import { useEffect, useRef } from 'react';
 import { useFormState } from 'react-dom';
 
 import ErrorList from '@/components/client/ErrorList';
@@ -29,13 +28,10 @@ export default function UpdateExpenseForm({ expense }: { expense: Expense }) {
   const { setModal } = useModalStore(state => ({
     setModal: state.setModal,
   }));
-  const ref = useRef<HTMLFormElement>(null);
 
-  useEffect(() => {
-    if (formState.expense && !formState.errors) {
-      ref.current?.reset();
-    }
-  }, [formState]);
+  if (formState.expense && !formState.errors) {
+    return <p>Income updated successfully</p>;
+  }
 
   function handleOpenCategoryForm() {
     setModal(
@@ -57,7 +53,7 @@ export default function UpdateExpenseForm({ expense }: { expense: Expense }) {
   return (
     <>
       <ErrorList errors={formState.errors} />
-      <form action={formAction} ref={ref}>
+      <form action={formAction}>
         <input type="hidden" name="budget[uid]" value={budget?.uid} readOnly />
         <input type="hidden" name="expense[id]" value={expense.id} readOnly />
         <label htmlFor="description">
