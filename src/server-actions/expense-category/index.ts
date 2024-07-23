@@ -16,7 +16,7 @@ export async function createExpenseCategoryAction(
   if (!user) {
     return {
       expenseCategory: null,
-      errorMessages: [error?.message ?? 'user not authenticated'],
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
     };
   }
 
@@ -35,14 +35,14 @@ export async function createExpenseCategoryAction(
     if (!result.success) {
       return {
         expenseCategory: null,
-        errorMessages: formatZodErrors(result.error.issues),
+        errors: formatZodErrors(result.error.issues),
       };
     }
 
     const expenseCategory = await createExpenseCategory(expenseCategoryData);
 
-    return { expenseCategory, errorMessages: null };
+    return { expenseCategory, errors: null };
   } catch (error) {
-    return { expenseCategory: null, errorMessages: [(error as Error).message] };
+    return { expenseCategory: null, errors: [{ message: (error as Error).message }] };
   }
 }

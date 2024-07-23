@@ -2,12 +2,12 @@
 
 import { FormErrors } from '@/types';
 
-export default function ErrorList({ errorMessages }: FormErrors) {
-  if (!errorMessages) {
+export default function ErrorList({ errors }: FormErrors) {
+  if (!errors) {
     return null;
   }
 
-  const mappedErrors = errorMessages.map(message => <li key={`${message}`}>{message}</li>);
+  const mappedErrors = errors.map(error => <li key={`${error.message}`}>{error.message}</li>);
 
   return <ul>{mappedErrors}</ul>;
 }

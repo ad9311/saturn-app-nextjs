@@ -31,7 +31,7 @@ export async function createIncomeAction(
   if (!user) {
     return {
       income: null,
-      errorMessages: [error?.message ?? 'user not authenticated'],
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
     };
   }
 
@@ -40,7 +40,7 @@ export async function createIncomeAction(
   if (!result.success) {
     return {
       income: null,
-      errorMessages: formatZodErrors(result.error.issues),
+      errors: formatZodErrors(result.error.issues),
     };
   }
 
@@ -56,9 +56,9 @@ export async function createIncomeAction(
 
     revalidatePath(`/budgets/${budget.uid}`);
 
-    return { income, errorMessages: null };
+    return { income, errors: null };
   } catch (error) {
-    return { income: null, errorMessages: [(error as Error).message] };
+    return { income: null, errors: [{ message: (error as Error).message }] };
   }
 }
 
@@ -70,7 +70,7 @@ export async function updateIncomeAction(
   if (!user) {
     return {
       income: null,
-      errorMessages: [error?.message ?? 'user not authenticated'],
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
     };
   }
 
@@ -79,7 +79,7 @@ export async function updateIncomeAction(
   if (!result.success) {
     return {
       income: null,
-      errorMessages: formatZodErrors(result.error.issues),
+      errors: formatZodErrors(result.error.issues),
     };
   }
 
@@ -101,9 +101,9 @@ export async function updateIncomeAction(
 
     revalidatePath(`/budgets/${budget.uid}`);
 
-    return { income: newIncome, errorMessages: null };
+    return { income: newIncome, errors: null };
   } catch (error) {
-    return { income: null, errorMessages: [(error as Error).message] };
+    return { income: null, errors: [{ message: (error as Error).message }] };
   }
 }
 
@@ -115,7 +115,7 @@ export async function deleteIncomeAction(
   if (!user) {
     return {
       income: null,
-      errorMessages: [error?.message ?? 'user not authenticated'],
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
     };
   }
 
@@ -135,8 +135,8 @@ export async function deleteIncomeAction(
 
     revalidatePath(`/budgets/${budget.uid}`);
 
-    return { income, errorMessages: null };
+    return { income, errors: null };
   } catch (error) {
-    return { income: null, errorMessages: [(error as Error).message] };
+    return { income: null, errors: [{ message: (error as Error).message }] };
   }
 }

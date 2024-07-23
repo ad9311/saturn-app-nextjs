@@ -32,7 +32,7 @@ export async function createExpenseAction(
   if (!user) {
     return {
       expense: null,
-      errorMessages: [error?.message ?? 'user not authenticated'],
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
     };
   }
 
@@ -42,7 +42,7 @@ export async function createExpenseAction(
   if (!result.success) {
     return {
       expense: null,
-      errorMessages: formatZodErrors(result.error.issues),
+      errors: formatZodErrors(result.error.issues),
     };
   }
 
@@ -57,9 +57,9 @@ export async function createExpenseAction(
 
     revalidatePath(`/budgets/${budget.uid}`);
 
-    return { expense, errorMessages: null };
+    return { expense, errors: null };
   } catch (error) {
-    return { expense: null, errorMessages: [(error as Error).message] };
+    return { expense: null, errors: [{ message: (error as Error).message }] };
   }
 }
 
@@ -71,7 +71,7 @@ export async function updateExpenseAction(
   if (!user) {
     return {
       expense: null,
-      errorMessages: [error?.message ?? 'user not authenticated'],
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
     };
   }
 
@@ -80,7 +80,7 @@ export async function updateExpenseAction(
   if (!result.success) {
     return {
       expense: null,
-      errorMessages: formatZodErrors(result.error.issues),
+      errors: formatZodErrors(result.error.issues),
     };
   }
 
@@ -101,9 +101,9 @@ export async function updateExpenseAction(
 
     revalidatePath(`/budgets/${budget.uid}`);
 
-    return { expense: newExpense, errorMessages: null };
+    return { expense: newExpense, errors: null };
   } catch (error) {
-    return { expense: null, errorMessages: [(error as Error).message] };
+    return { expense: null, errors: [{ message: (error as Error).message }] };
   }
 }
 
@@ -115,7 +115,7 @@ export async function deleteExpenseAction(
   if (!user) {
     return {
       expense: null,
-      errorMessages: [error?.message ?? 'user not authenticated'],
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
     };
   }
 
@@ -135,8 +135,8 @@ export async function deleteExpenseAction(
 
     revalidatePath(`/budgets/${budget.uid}`);
 
-    return { expense, errorMessages: null };
+    return { expense, errors: null };
   } catch (error) {
-    return { expense: null, errorMessages: [(error as Error).message] };
+    return { expense: null, errors: [{ message: (error as Error).message }] };
   }
 }

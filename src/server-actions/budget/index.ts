@@ -13,7 +13,7 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
   if (!user) {
     return {
       budget: null,
-      errorMessages: [error?.message ?? 'user not authenticated'],
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
     };
   }
 
@@ -38,8 +38,8 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
 
     revalidatePath('/');
 
-    return { budget, errorMessages: null };
+    return { budget, errors: null };
   } catch (error) {
-    return { budget: null, errorMessages: [(error as Error).message] };
+    return { budget: null, errors: [{ message: (error as Error).message }] };
   }
 }
