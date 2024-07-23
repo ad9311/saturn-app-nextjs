@@ -2,6 +2,7 @@ import { createBudgetRecord } from '@/db/budget-records';
 import { createUser, findUserByAccountId } from '@/db/users';
 import { NewUserValidation } from '@/db/users/validations';
 import { UserTemplate } from '@/types/user';
+import { User } from '@prisma/client';
 
 export type CallbackData = {
   user: {
@@ -24,12 +25,7 @@ export async function restrictUsersCallback(data: CallbackData) {
   return true;
 }
 
-async function createUserOnFirstSignIn(data: CallbackData) {
-  const existingUser = await findUserByAccountId(data.account?.providerAccountId as string);
-  if (existingUser) {
-    return existingUser;
-  }
-
+async function createUserOnFirstSignIn(data: CallbackData): Promise<User | null> {
   const newUser: UserTemplate = {
     name: data.user.name as string,
     email: data.user.email as string,
@@ -42,11 +38,15 @@ async function createUserOnFirstSignIn(data: CallbackData) {
     return null;
   }
 
-  const user = await createUser(newUser);
-  return user;
+  return await createUser(newUser);
 }
 
 export async function setupUser(data: CallbackData) {
+  const existingUser = await findUserByAccountId(data.account?.providerAccountId as string);
+  if (existingUser) {
+    return existingUser;
+  }
+
   const user = await createUserOnFirstSignIn(data);
   if (!user) {
     return false;
