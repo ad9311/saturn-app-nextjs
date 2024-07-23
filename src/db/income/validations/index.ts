@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const NewIncomeValidation = z.object({
-  description: z.string().min(1),
+  description: z.string().min(1).max(30),
   amount: z
     .number()
     .positive()

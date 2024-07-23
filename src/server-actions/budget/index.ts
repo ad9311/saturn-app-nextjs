@@ -4,6 +4,8 @@ import { revalidatePath } from 'next/cache';
 
 import { findBudgetRecord } from '@/db/budget-records';
 import { createBudget, findBudgetByMonthYear } from '@/db/budgets';
+import { NewBudgetValidation } from '@/db/budgets/validations';
+import { formatZodErrors } from '@/helpers/format';
 import { CreateBudgetState } from '@/types/budget';
 
 import { checkAuth } from '../helpers/auth';
@@ -27,6 +29,14 @@ export async function createBudgetAction(): Promise<CreateBudgetState> {
     const month = now.getMonth() + 1;
     const year = now.getFullYear();
     const budgetData = { month, year };
+
+    const result = NewBudgetValidation.safeParse(budgetData);
+    if (!result.success) {
+      return {
+        budget: null,
+        errors: formatZodErrors(result.error.issues),
+      };
+    }
 
     const existingBudget = await findBudgetByMonthYear(budgetRecord, month, year);
 

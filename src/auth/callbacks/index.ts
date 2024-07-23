@@ -1,5 +1,6 @@
 import { createBudgetRecord } from '@/db/budget-records';
 import { createUser, findUserByAccountId } from '@/db/users';
+import { NewUserValidation } from '@/db/users/validations';
 import { UserTemplate } from '@/types/user';
 
 export type CallbackData = {
@@ -35,6 +36,11 @@ async function createUserOnFirstSignIn(data: CallbackData) {
     accountId: Number(data.account?.providerAccountId),
     image: data.user.image as string,
   };
+
+  const result = NewUserValidation.safeParse(newUser);
+  if (!result.success) {
+    return null;
+  }
 
   const user = await createUser(newUser);
   return user;
