@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
-import { UserStoreActions, UserStoreValues } from '@/types/user';
+import { UserStore } from '@/types/user';
 
-export const useUserStore = create<UserStoreValues & UserStoreActions>(set => ({
+export const useUserStore = create<UserStore>(set => ({
   user: null,
   setUser: user => set({ user }),
   clearUser: () => set({ user: null }),

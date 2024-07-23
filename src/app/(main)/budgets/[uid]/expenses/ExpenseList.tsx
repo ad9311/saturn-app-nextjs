@@ -1,5 +1,7 @@
 import { BudgetDb } from '@/types/budget';
 
+import NewExpenseCategoryButton from '../expense-categories/NewExpenseCategoryButton';
+
 import DeleteExpenseButton from './DeleteExpenseButton';
 import NewExpenseButton from './NewExpenseButton';
 import UpdateExpenseButton from './UpdateExpenseButton';
@@ -27,6 +29,7 @@ export default function ExpenseList({ budget, ...props }: ExpenseContainerProps)
         <div className="flex items-center gap-3">
           <h2>Expenses</h2>
           <NewExpenseButton />
+          <NewExpenseCategoryButton />
         </div>
         <ul>{mappedExpenses}</ul>
       </section>

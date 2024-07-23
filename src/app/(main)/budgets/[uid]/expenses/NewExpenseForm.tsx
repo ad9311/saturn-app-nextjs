@@ -25,8 +25,8 @@ export default function NewExpenseForm() {
   const { expenseCategories } = useExpenseCategoriesStore(state => ({
     expenseCategories: state.expenseCategories,
   }));
-  const { setChildren } = useModalStore(state => ({
-    setChildren: state.setChildren,
+  const { setModal } = useModalStore(state => ({
+    setModal: state.setModal,
   }));
   const ref = useRef<HTMLFormElement>(null);
 
@@ -37,9 +37,9 @@ export default function NewExpenseForm() {
   }, [formState]);
 
   function handleOpenCategoryForm() {
-    setChildren(
+    setModal(
       <TransactionModal title="New expense categoría">
-        <NewExpenseCategoryForm />
+        <NewExpenseCategoryForm openModalOnSubmit modalContent={<NewExpenseForm />} />
       </TransactionModal>
     );
   }

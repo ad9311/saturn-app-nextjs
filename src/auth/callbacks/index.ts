@@ -1,8 +1,9 @@
+import { User } from '@prisma/client';
+
 import { createBudgetRecord } from '@/db/budget-records';
 import { createUser, findUserByAccountId } from '@/db/users';
 import { NewUserValidation } from '@/db/users/validations';
 import { UserTemplate } from '@/types/user';
-import { User } from '@prisma/client';
 
 export type CallbackData = {
   user: {

@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 
-import { ModalStoreActions, ModalStoreValues } from '@/types/modal';
+import { ModalStore } from '@/types/modal';
 
-export const useModalStore = create<ModalStoreValues & ModalStoreActions>(set => ({
+export const useModalStore = create<ModalStore>(set => ({
   children: null,
-  setChildren: children => set({ children }),
-  clearChildren: () => set({ children: null }),
+  setModal: children => set({ children }),
+  clearModal: () => set({ children: null }),
 }));

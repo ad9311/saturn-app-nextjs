@@ -9,12 +9,12 @@ import TransactionModal from '../TransactionModal';
 import DeleteExpenseForm from './DeleteExpenseForm';
 
 export default function DeleteExpenseButton({ expense }: { expense: Expense }) {
-  const { setChildren } = useModalStore(state => ({
-    setChildren: state.setChildren,
+  const { setModal } = useModalStore(state => ({
+    setModal: state.setModal,
   }));
 
   function handleOpenModal() {
-    setChildren(
+    setModal(
       <TransactionModal title="Update Income">
         <DeleteExpenseForm expense={expense} />
       </TransactionModal>

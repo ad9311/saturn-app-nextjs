@@ -8,12 +8,12 @@ import TransactionModal from '../TransactionModal';
 import UpdateIncomeForm from './UpdateIncomeForm';
 
 export default function UpdateIncomeButton({ income }: { income: IncomeDb }) {
-  const { setChildren } = useModalStore(state => ({
-    setChildren: state.setChildren,
+  const { setModal } = useModalStore(state => ({
+    setModal: state.setModal,
   }));
 
   function handleOpenModal() {
-    setChildren(
+    setModal(
       <TransactionModal title="Update Income">
         <UpdateIncomeForm income={income} />
       </TransactionModal>

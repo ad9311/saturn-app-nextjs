@@ -16,11 +16,8 @@ export type CreateBudgetState = FormErrors & {
   budget: Budget | null;
 };
 
-export type BudgetStoreValues = {
+export type BudgetStore = {
   budget: BudgetDb | null;
-};
-
-export type BudgetStoreActions = {
   setBudget: (budget: BudgetDb) => void;
   clearBudget: () => void;
 };

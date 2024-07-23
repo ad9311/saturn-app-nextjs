@@ -9,12 +9,12 @@ import TransactionModal from '../TransactionModal';
 import UpdateExpenseForm from './UpdateExpenseForm';
 
 export default function UpdateExpenseButton({ expense }: { expense: Expense }) {
-  const { setChildren } = useModalStore(state => ({
-    setChildren: state.setChildren,
+  const { setModal } = useModalStore(state => ({
+    setModal: state.setModal,
   }));
 
   function handleOpenModal() {
-    setChildren(
+    setModal(
       <TransactionModal title="Update Expense">
         <UpdateExpenseForm expense={expense} />
       </TransactionModal>

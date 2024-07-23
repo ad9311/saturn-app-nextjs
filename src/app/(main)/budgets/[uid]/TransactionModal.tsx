@@ -9,12 +9,12 @@ export default function TransactionModal({
   title: string;
   children?: React.ReactNode;
 }) {
-  const { clearChildren } = useModalStore(state => ({
-    clearChildren: state.clearChildren,
+  const { clearModal } = useModalStore(state => ({
+    clearModal: state.clearModal,
   }));
 
   function handleCloseModal() {
-    clearChildren();
+    clearModal();
   }
 
   return (

@@ -14,12 +14,10 @@ export type ExpenseCategoryFormState = FormErrors & {
   expenseCategory: ExpenseCategoryDb | null;
 };
 
-export type ExpenseCategoriesStoreValues = {
+export type ExpenseCategoriesStore = {
   expenseCategories: ExpenseCategoryDb[];
-};
-
-export type ExpenseCategoriesStoreActions = {
   setExpenseCategories: (expenseCategories: ExpenseCategoryDb[]) => void;
   clearExpenseCategories: () => void;
   addExpenseCategory: (expenseCategory: ExpenseCategoryDb) => void;
+  updateExpenseCategory: (expenseCategory: ExpenseCategoryDb) => void;
 };

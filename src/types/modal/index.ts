@@ -1,8 +1,5 @@
-export type ModalStoreValues = {
+export type ModalStore = {
   children: React.ReactNode;
-};
-
-export type ModalStoreActions = {
-  setChildren: (children: React.ReactNode) => void;
-  clearChildren: () => void;
+  setModal: (children: React.ReactNode) => void;
+  clearModal: () => void;
 };

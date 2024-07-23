@@ -8,12 +8,12 @@ import TransactionModal from '../TransactionModal';
 import DeleteIncomeForm from './DeleteIncomeForm';
 
 export default function DeleteIncomeButton({ income }: { income: IncomeDb }) {
-  const { setChildren } = useModalStore(state => ({
-    setChildren: state.setChildren,
+  const { setModal } = useModalStore(state => ({
+    setModal: state.setModal,
   }));
 
   function handleOpenModal() {
-    setChildren(
+    setModal(
       <TransactionModal title="Update Income">
         <DeleteIncomeForm income={income} />
       </TransactionModal>

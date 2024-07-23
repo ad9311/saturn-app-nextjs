@@ -7,12 +7,12 @@ import TransactionModal from '../TransactionModal';
 import NewIncomeForm from './NewIncomeForm';
 
 export default function NewIncomeButton() {
-  const { setChildren } = useModalStore(state => ({
-    setChildren: state.setChildren,
+  const { setModal } = useModalStore(state => ({
+    setModal: state.setModal,
   }));
 
   function handleOpenModal() {
-    setChildren(
+    setModal(
       <TransactionModal title="New Income">
         <NewIncomeForm />
       </TransactionModal>
