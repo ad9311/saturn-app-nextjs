@@ -1,13 +1,11 @@
-'use client';
-
 import { useModalStore } from '@/stores/modal';
 import { ExpenseCategoryDb } from '@/types/expense-category';
 
 import TransactionModal from '../TransactionModal';
 
-import UpdateExpenseCategoryForm from './UpdateExpenseCategoryForm';
+import DeleteExpenseCategoryForm from './DeleteExpenseCategoryForm';
 
-export default function UpdateExpenseCategoryButton({
+export default function DeleteExpenseCategoryButton({
   expenseCategory,
 }: {
   expenseCategory: ExpenseCategoryDb;
@@ -19,14 +17,14 @@ export default function UpdateExpenseCategoryButton({
   function handleOpenModal() {
     setModal(
       <TransactionModal title="Update expense category">
-        <UpdateExpenseCategoryForm expenseCategory={expenseCategory} />
+        <DeleteExpenseCategoryForm expenseCategory={expenseCategory} />
       </TransactionModal>
     );
   }
 
   return (
     <button type="button" onClick={handleOpenModal}>
-      Update
+      Delete
     </button>
   );
 }

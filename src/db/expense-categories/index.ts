@@ -34,11 +34,19 @@ export async function findExpenseCategoryById(id: number): Promise<ExpenseCatego
 export async function updateExpenseCategory(
   expenseCategory: ExpenseCategoryDb,
   expenseCategoryData: ExpenseCategoryTemplate
-) {
+): Promise<ExpenseCategoryDb> {
   return await prisma.expenseCategory.update({
     where: {
       id: expenseCategory.id,
     },
     data: expenseCategoryData,
+  });
+}
+
+export async function deleteExpenseCategory(
+  expenseCategory: ExpenseCategoryDb
+): Promise<ExpenseCategoryDb> {
+  return await prisma.expenseCategory.delete({
+    where: { id: expenseCategory.id },
   });
 }

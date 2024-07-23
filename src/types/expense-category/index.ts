@@ -19,4 +19,5 @@ export type ExpenseCategoriesStore = {
   clearExpenseCategories: () => void;
   addExpenseCategory: (expenseCategory: ExpenseCategoryDb) => void;
   updateExpenseCategory: (expenseCategory: ExpenseCategoryDb) => void;
+  deleteExpenseCategory: (expenseCategory: ExpenseCategoryDb) => void;
 };

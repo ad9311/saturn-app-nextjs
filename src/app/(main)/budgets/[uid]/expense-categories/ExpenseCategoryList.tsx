@@ -2,6 +2,7 @@
 
 import { useExpenseCategoriesStore } from '@/stores/expense-categories';
 
+import DeleteExpenseCategoryButton from './DeleteExpenseCategoryButton';
 import UpdateExpenseCategoryButton from './UpdateExpenseCategoryButton';
 
 export default function ExpenseCategoryList() {
@@ -10,15 +11,11 @@ export default function ExpenseCategoryList() {
   }));
   const mappedExpenses = expenseCategories.map(expenseCategory => (
     <li key={expenseCategory.id}>
-      <div className="grid grid-cols-12 items-center">
-        <p className="col-span-3">{expenseCategory.name}</p>
-        <div className="col-span-3">
-          <span
-            className="inline-block w-3 h-3"
-            style={{ backgroundColor: expenseCategory.color }}
-          />
-        </div>
+      <div className="flex items-center justify-between">
+        <p>{expenseCategory.name}</p>
+        <span className="inline-block w-3 h-3" style={{ backgroundColor: expenseCategory.color }} />
         <UpdateExpenseCategoryButton expenseCategory={expenseCategory} />
+        <DeleteExpenseCategoryButton expenseCategory={expenseCategory} />
       </div>
     </li>
   ));

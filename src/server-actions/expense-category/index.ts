@@ -3,6 +3,7 @@
 import { findBudgetRecord } from '@/db/budget-records';
 import {
   createExpenseCategory,
+  deleteExpenseCategory,
   findExpenseCategoryById,
   updateExpenseCategory,
 } from '@/db/expense-categories';
@@ -63,10 +64,10 @@ export async function updateExpenseCategoryAction(
   }
 
   try {
-    const oldExpenseCategory = await findExpenseCategoryById(
+    const expenseCategory = await findExpenseCategoryById(
       Number(formData.get('expense_category[id]'))
     );
-    if (!oldExpenseCategory) {
+    if (!expenseCategory) {
       throw new Error('expense category not found');
     }
 
@@ -82,9 +83,37 @@ export async function updateExpenseCategoryAction(
       };
     }
 
-    const newExpenseCategory = await updateExpenseCategory(oldExpenseCategory, expenseCategoryData);
+    const newExpenseCategory = await updateExpenseCategory(expenseCategory, expenseCategoryData);
 
     return { expenseCategory: newExpenseCategory, errors: null };
+  } catch (error) {
+    return { expenseCategory: null, errors: [{ message: (error as Error).message }] };
+  }
+}
+
+export async function deleteExpenseCategoryAction(
+  _initState: ExpenseCategoryFormState,
+  formData: FormData
+): Promise<ExpenseCategoryFormState> {
+  const { user, error } = await checkAuth();
+  if (!user) {
+    return {
+      expenseCategory: null,
+      errors: [{ message: error?.message ?? 'user not authenticated' }],
+    };
+  }
+
+  try {
+    const expenseCategory = await findExpenseCategoryById(
+      Number(formData.get('expense_category[id]'))
+    );
+    if (!expenseCategory) {
+      throw new Error('expense category not found');
+    }
+
+    await deleteExpenseCategory(expenseCategory);
+
+    return { expenseCategory, errors: null };
   } catch (error) {
     return { expenseCategory: null, errors: [{ message: (error as Error).message }] };
   }

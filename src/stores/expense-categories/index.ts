@@ -19,4 +19,11 @@ export const useExpenseCategoriesStore = create<ExpenseCategoriesStore>(set => (
         expenseCategories: [...expenseCategories, expenseCategory],
       };
     }),
+  deleteExpenseCategory: expenseCategory =>
+    set(state => {
+      const expenseCategories = state.expenseCategories.filter(ec => ec.id !== expenseCategory.id);
+      return {
+        expenseCategories: [...expenseCategories],
+      };
+    }),
 }));
