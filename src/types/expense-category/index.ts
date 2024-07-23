@@ -1,8 +1,10 @@
-import { ExpenseCategory } from '@prisma/client';
+import { Expense, ExpenseCategory } from '@prisma/client';
 
 import { FormErrors } from '..';
 
-export type ExpenseCategoryDb = ExpenseCategory;
+export type ExpenseCategoryDb = ExpenseCategory & {
+  expenses?: Expense[];
+};
 
 export type ExpenseCategoryTemplate = {
   name: string;

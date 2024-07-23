@@ -28,6 +28,7 @@ export async function findExpenseCategories(userEmail: string): Promise<ExpenseC
 export async function findExpenseCategoryById(id: number): Promise<ExpenseCategoryDb | null> {
   return await prisma.expenseCategory.findUnique({
     where: { id },
+    include: { expenses: true },
   });
 }
 

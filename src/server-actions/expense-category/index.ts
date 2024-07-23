@@ -110,6 +110,9 @@ export async function deleteExpenseCategoryAction(
     if (!expenseCategory) {
       throw new Error('expense category not found');
     }
+    if (expenseCategory.expenses && expenseCategory.expenses.length > 0) {
+      throw new Error('expense category cannot be deleted because it has expenses');
+    }
 
     await deleteExpenseCategory(expenseCategory);
 
