@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Oxygen } from 'next/font/google';
+import { Rubik } from 'next/font/google';
 
 import './globals.css';
 import ModalContainer from '@/components/client/ModalContainer';
 
-const inter = Oxygen({ subsets: ['latin', 'latin-ext'], weight: ['300', '400', '700'] });
+const inter = Rubik({ subsets: ['latin', 'latin-ext'] });
 
 export const metadata: Metadata = {
   title: 'SaturnApp',
