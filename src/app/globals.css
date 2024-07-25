@@ -5,13 +5,34 @@
 @layer base {
   html,
   body {
-    @apply h-full;
+    @apply h-full text-slate-800;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-3 py-2 rounded;
+  }
+
+  .github-button {
+    @apply bg-[#1c2128]
+    hover:bg-[#22272e]
+    text-[#c5d1de]
+    transition-all;
   }
 }
 
 @layer utilities {
+  .title {
+    @apply text-2xl font-bold;
+  }
+
+  .subtitle {
+    @apply text-slate-600;
+  }
+
   .card {
-    @apply bg-neutral-200 rounded-sm p-3 border border-neutral-300;
+    @apply bg-slate-100 rounded p-3 border-2 border-slate-200 drop-shadow-lg;
   }
 
   .modal {
