@@ -46,4 +46,8 @@
   .modal {
     @apply max-w-md mx-auto;
   }
+
+  .nav-link {
+    @apply block w-full px-3 py-2 bg-slate-200 text-left border border-slate-300 rounded hover:bg-slate-300 transition-all;
+  }
 }

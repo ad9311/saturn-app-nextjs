@@ -1,14 +1,24 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
-import SquareGrid from '@/assets/img/square-grid.svg';
+import { checkAuth } from '@/server-actions/helpers/auth';
 
-export default function Navbar(props: React.HTMLAttributes<HTMLDivElement>) {
+import MenuButton from './MenuButton';
+import SlidingMenu from './SlidingMenu';
+
+export default async function Navbar() {
+  const { user } = await checkAuth();
+  if (!user) {
+    redirect('/auth/sign-in');
+  }
+
   return (
-    <div {...props}>
-      <Image src={SquareGrid} alt="menu" className="w-7" />
-      {/* <Link href="/home">Home</Link>
-      <Link href="/profile">Profile</Link> */}
+    <div className="sticky top-0 left-0 right-0 z-50 lg:hidden">
+      <div className="px-3 py-2 bg-slate-100 border-2 border-slate-200">
+        <MenuButton />
+      </div>
+      <div className="relative">
+        <SlidingMenu user={user} />
+      </div>
     </div>
   );
 }
