@@ -1,5 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
+
 import OpenArrow from '@/assets/img/open-arrow.svg';
 
 export default function LastBudgets() {

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+
 import SquareGrid from '@/assets/img/square-grid.svg';
 
 export default function Navbar(props: React.HTMLAttributes<HTMLDivElement>) {
