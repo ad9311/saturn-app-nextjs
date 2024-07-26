@@ -1,34 +1,24 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import { checkAuth } from '@/server-actions/helpers/auth';
 
-import SignOutButton from '../auth/sign-out/SignOutButton';
+import NavLinks from './NavLinks';
+import ProfilePicture from './ProfilePicture';
 
-export default async function Sidebar(props: React.HTMLAttributes<HTMLDivElement>) {
+export default async function Sidebar() {
   const { user } = await checkAuth();
   if (!user) {
     redirect('/auth/sign-in');
   }
 
   return (
-    <div {...props}>
+    <div className="hidden lg:block col-span-2 h-full bg-slate-100 border-2 border-slate-200">
       <div className="mt-10 text-center">
-        <Image
-          src={user.image as string}
-          alt="profile-picture"
-          width={100}
-          height={100}
-          className="w-fit mx-auto mb-5"
-        />
-        <p>{user.name}</p>
-        <SignOutButton />
-        <br />
-        <nav className="flex flex-col">
-          <Link href="/">Home</Link>
-          <Link href="/profile">Profile</Link>
-        </nav>
+        <ProfilePicture user={user} />
+        <p className="title">{user.name}</p>
+        <div className="mt-20 px-5">
+          <NavLinks />
+        </div>
       </div>
     </div>
   );

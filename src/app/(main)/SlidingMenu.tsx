@@ -1,18 +1,12 @@
 'use client';
 
 import { User } from '@prisma/client';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect } from 'react';
 
-import GearImage from '@/assets/img/gear.svg';
 import { useSlidingMenuStore } from '@/stores/sliding-menu';
 
-const links = [
-  { body: 'Home', path: '/home' },
-  { body: 'Budgets', path: '/budgets' },
-  { body: 'Profile', path: '/profile' },
-];
+import NavLinks from './NavLinks';
+import ProfilePicture from './ProfilePicture';
 
 export default function SlidingMenu({ user }: { user: User }) {
   const { open, setToggle } = useSlidingMenuStore(state => ({
@@ -29,8 +23,6 @@ export default function SlidingMenu({ user }: { user: User }) {
       const clickOutside = !slidingMenuContainer.contains(target);
       if (clickOutside && slidingMenu.classList.contains('left-0')) {
         setToggle();
-        // slidingMenu.classList.toggle('-left-72')
-        // slidingMenu.classList.toggle('left-0')
       }
     }
   }
@@ -43,33 +35,16 @@ export default function SlidingMenu({ user }: { user: User }) {
     };
   });
 
-  const mappedLinks = links.map(link => (
-    <li key={link.path}>
-      <Link href={link.path} className="nav-link" onClick={setToggle}>
-        <span className="text-lg">{link.body}</span>
-      </Link>
-    </li>
-  ));
-
   return (
     <div
       id="sliding-menu"
       className={`absolute card h-[90vh] w-72 transition-all ${open ? 'left-0' : '-left-72'}`}>
       <div className="mt-10 text-center">
-        <div className="relative">
-          <Image
-            src={user.image}
-            alt="profile-picture"
-            width={100}
-            height={100}
-            className="w-fit mx-auto mb-5 rounded-full"
-          />
-          <Link href="/profile" className="absolute bottom-1 right-16" onClick={setToggle}>
-            <Image src={GearImage} alt="gear" className="w-8" />
-          </Link>
-        </div>
+        <ProfilePicture user={user} />
         <p className="title">{user.name}</p>
-        <ul className="mt-20 flex flex-col gap-5">{mappedLinks}</ul>
+        <div className="mt-20">
+          <NavLinks />
+        </div>
       </div>
     </div>
   );
