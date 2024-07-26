@@ -3,6 +3,7 @@ import { Rubik } from 'next/font/google';
 
 import './globals.css';
 import ModalContainer from '@/components/client/ModalContainer';
+import SessionProvider from '@/components/client/SessionProvider';
 
 const inter = Rubik({ subsets: ['latin', 'latin-ext'] });
 
@@ -15,8 +16,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
-        <ModalContainer />
+        <SessionProvider>
+          {children}
+          <ModalContainer />
+        </SessionProvider>
       </body>
     </html>
   );

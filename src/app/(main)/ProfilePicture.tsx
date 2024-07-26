@@ -1,20 +1,31 @@
 'use client';
 
-import { User } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import GearImage from '@/assets/img/gear.svg';
 import { useSlidingMenuStore } from '@/stores/sliding-menu';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
-export default function ProfilePicture({ user }: { user: User }) {
+export default function ProfilePicture() {
+  const { data, status } = useSession();
   const { setToggle } = useSlidingMenuStore(state => ({
     setToggle: state.setToggle,
   }));
+
+  if (status === 'loading') {
+    return null;
+  }
+
+  // if (status === 'unauthenticated') {
+  //   redirect('/auth/sign-in');
+  // }
+
   return (
     <div className="relative w-fit mx-auto">
       <Image
-        src={user.image}
+        src={data?.user?.image as string}
         alt="profile-picture"
         width={100}
         height={100}

@@ -1,6 +1,5 @@
 'use client';
 
-import { User } from '@prisma/client';
 import { useEffect } from 'react';
 
 import { useSlidingMenuStore } from '@/stores/sliding-menu';
@@ -8,7 +7,7 @@ import { useSlidingMenuStore } from '@/stores/sliding-menu';
 import NavLinks from './NavLinks';
 import ProfilePicture from './ProfilePicture';
 
-export default function SlidingMenu({ user }: { user: User }) {
+export default function SlidingMenu() {
   const { open, setToggle } = useSlidingMenuStore(state => ({
     open: state.open,
     setToggle: state.setToggle,
@@ -40,8 +39,8 @@ export default function SlidingMenu({ user }: { user: User }) {
       id="sliding-menu"
       className={`absolute card h-[90vh] w-72 transition-all ${open ? 'left-0' : '-left-72'}`}>
       <div className="mt-10 text-center">
-        <ProfilePicture user={user} />
-        <p className="title">{user.name}</p>
+        <ProfilePicture />
+        {/* <p className="title">{user.name}</p> */}
         <div className="mt-20">
           <NavLinks />
         </div>
