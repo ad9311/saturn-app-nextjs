@@ -1,7 +1,7 @@
 import NavLinks from './NavLinks';
 import ProfilePicture from './ProfilePicture';
 
-export default async function Sidebar() {
+export default function Sidebar() {
   return (
     <div className="hidden lg:block col-span-2 h-full bg-slate-100 border-2 border-slate-200">
       <div className="mt-10 text-center">
