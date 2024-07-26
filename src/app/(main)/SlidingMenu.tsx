@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useSlidingMenuStore } from '@/stores/sliding-menu';
+import { useEffect } from 'react';
 
 const links = [
   { body: 'Home', path: '/home' },
@@ -15,6 +16,28 @@ const links = [
 export default function SlidingMenu({ user }: { user: User }) {
   const { open } = useSlidingMenuStore(state => ({ open: state.open }));
 
+  function handleClickOutside(event: MouseEvent) {
+    const slidingMenuContainer = document.getElementById('sliding-menu-container');
+    const slidingMenu = document.getElementById('sliding-menu');
+    const target = event.target as HTMLElement;
+
+    if (slidingMenuContainer && slidingMenu) {
+      const clickOutside = !slidingMenuContainer.contains(target);
+      if (clickOutside && slidingMenu.classList.contains('left-0')) {
+        slidingMenu.classList.toggle('-left-72')
+        slidingMenu.classList.toggle('left-0')
+      }
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+
+    return (() => {
+      window.removeEventListener('click', handleClickOutside);
+    })
+  })
+
   const mappedLinks = links.map(link => (
     <li key={link.path}>
       <Link href={link.path} className="nav-link">
@@ -24,7 +47,7 @@ export default function SlidingMenu({ user }: { user: User }) {
   ));
 
   return (
-    <div className={`absolute card h-[90vh] w-72 transition-all ${open ? 'left-0' : '-left-72'}`}>
+    <div id="sliding-menu" className={`absolute card h-[90vh] w-72 transition-all ${open ? 'left-0' : '-left-72'}`}>
       <div className="mt-10 text-center">
         <Image
           src={user.image}

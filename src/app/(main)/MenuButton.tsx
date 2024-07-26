@@ -8,7 +8,7 @@ import { useSlidingMenuStore } from '@/stores/sliding-menu';
 export default function MenuButton() {
   const { setToggle } = useSlidingMenuStore(state => ({ setToggle: state.setToggle }));
   return (
-    <button type="button" onClick={() => setToggle()}>
+    <button id="sliding-menu-button" type="button" onClick={() => setToggle()}>
       <Image src={SquareGrid} alt="menu" className="w-7" />
     </button>
   );
