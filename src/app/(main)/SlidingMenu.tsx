@@ -6,6 +6,7 @@ import { useSlidingMenuStore } from '@/stores/sliding-menu';
 
 import NavLinks from './NavLinks';
 import ProfilePicture from './ProfilePicture';
+import UserFullName from './UserFullName';
 
 export default function SlidingMenu() {
   const { open, setToggle } = useSlidingMenuStore(state => ({
@@ -40,7 +41,7 @@ export default function SlidingMenu() {
       className={`absolute card h-[90vh] w-72 transition-all ${open ? 'left-0' : '-left-72'}`}>
       <div className="mt-10 text-center">
         <ProfilePicture />
-        {/* <p className="title">{user.name}</p> */}
+        <UserFullName />
         <div className="mt-20">
           <NavLinks />
         </div>
