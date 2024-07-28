@@ -4,7 +4,7 @@ import UserFullName from './UserFullName';
 
 export default function Sidebar() {
   return (
-    <div className="hidden lg:block col-span-2 h-full bg-slate-100 border-2 border-slate-200">
+    <div className="hidden lg:block col-span-2 h-full bg-slate-50 border border-slate-200">
       <div className="mt-10 text-center">
         <ProfilePicture />
         <UserFullName />

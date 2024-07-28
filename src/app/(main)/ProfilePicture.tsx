@@ -26,7 +26,7 @@ export default function ProfilePicture() {
         height={100}
         className="w-fit mx-auto mb-5 rounded-full"
       />
-      <Link href="/profile" className="absolute bottom-1 right-0" onClick={setToggle}>
+      <Link href="/settings" className="absolute bottom-1 right-0" onClick={setToggle}>
         <Image src={GearImage} alt="gear" className="w-8" />
       </Link>
     </div>
