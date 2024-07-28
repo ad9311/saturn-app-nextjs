@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 import { useSlidingMenuStore } from '@/stores/sliding-menu';
-import { usePathname } from 'next/navigation';
 
 type NavLinkProp = {
   path: string;
@@ -21,7 +21,7 @@ export default function NavLink(props: NavLinkProp) {
     setToggle: state.setToggle,
   }));
 
-  const isActive=  pathname.startsWith(props.path);
+  const isActive = pathname.startsWith(props.path);
 
   const className = 'block px-3 py-2 rounded-md';
   const selectedClassName = 'bg-primary-500 text-white';
