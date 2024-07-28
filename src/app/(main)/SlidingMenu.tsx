@@ -38,7 +38,7 @@ export default function SlidingMenu() {
   return (
     <div
       id="sliding-menu"
-      className={`absolute card h-[90vh] w-72 transition-all ${open ? 'left-0' : '-left-72'}`}>
+      className={`absolute h-[90vh] w-72 transition-all rounded bg-slate-50 p-3 border border-slate-200 ${open ? 'left-0' : '-left-72'}`}>
       <div className="mt-10 text-center">
         <ProfilePicture />
         <UserFullName />

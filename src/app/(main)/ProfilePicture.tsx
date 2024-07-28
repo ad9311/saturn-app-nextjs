@@ -2,11 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 import GearImage from '@/assets/img/gear.svg';
 import { useSlidingMenuStore } from '@/stores/sliding-menu';
-import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
 
 export default function ProfilePicture() {
   const { data, status } = useSession();
@@ -17,10 +16,6 @@ export default function ProfilePicture() {
   if (status === 'loading') {
     return null;
   }
-
-  // if (status === 'unauthenticated') {
-  //   redirect('/auth/sign-in');
-  // }
 
   return (
     <div className="relative w-fit mx-auto">

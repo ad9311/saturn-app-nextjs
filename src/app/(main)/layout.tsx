@@ -1,7 +1,9 @@
 import { redirect } from 'next/navigation';
+
+import { checkAuth } from '@/server-actions/helpers/auth';
+
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
-import { checkAuth } from '@/server-actions/helpers/auth';
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
   const { user } = await checkAuth();

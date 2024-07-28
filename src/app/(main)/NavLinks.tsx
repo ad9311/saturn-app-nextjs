@@ -1,27 +1,25 @@
 'use client';
 
-import Link from 'next/link';
+import CoinIWhitecon from '@/assets/img/coin-white.svg';
+import CoinIcon from '@/assets/img/coin.svg';
+import HouseWhiteIcon from '@/assets/img/house-white.svg';
+import HouseIcon from '@/assets/img/house.svg';
 
-import { useSlidingMenuStore } from '@/stores/sliding-menu';
+import NavLink from './NavLink';
 
-const links = [
-  { body: 'Home', path: '/home' },
-  { body: 'Budgets', path: '/budgets' },
-  { body: 'Profile', path: '/profile' },
+const navLinks = [
+  { body: 'Home', path: '/home', icon: HouseIcon, activeIcon: HouseWhiteIcon, alt: 'home' },
+  { body: 'Budgets', path: '/budgets', icon: CoinIcon, activeIcon: CoinIWhitecon, alt: 'budgets' },
 ];
 
 export default function NavLinks() {
-  const { setToggle } = useSlidingMenuStore(state => ({
-    setToggle: state.setToggle,
-  }));
-
-  const mappedLinks = links.map(link => (
-    <li key={link.path}>
-      <Link href={link.path} className="nav-link" onClick={setToggle}>
-        <span className="text-lg">{link.body}</span>
-      </Link>
-    </li>
-  ));
+  const mappedLinks = navLinks.map(navLink => {
+    return (
+      <li key={navLink.path}>
+        <NavLink {...navLink} />
+      </li>
+    );
+  });
 
   return <ul className="flex flex-col gap-5">{mappedLinks}</ul>;
 }

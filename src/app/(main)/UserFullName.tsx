@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 
 export default function UserFullName() {
   const { data, status } = useSession();
@@ -9,7 +9,5 @@ export default function UserFullName() {
     return null;
   }
 
-  return (
-    <p className="title">{data?.user?.name}</p>
-  )
+  return <p className="title">{data?.user?.name}</p>;
 }
