@@ -1,3 +1,4 @@
+import Amount from '@/components/Amount';
 import { BudgetDb } from '@/types/budget';
 
 export default function BudgetInfo({ budget }: { budget: BudgetDb }) {
@@ -6,7 +7,9 @@ export default function BudgetInfo({ budget }: { budget: BudgetDb }) {
       <p className="subtitle">
         0{budget.month}/{budget.year}
       </p>
-      <p className="text-green-700">${budget.balance.toFixed(2)}</p>
+      <p>
+        <Amount value={budget.balance} />
+      </p>
     </div>
   );
 }
