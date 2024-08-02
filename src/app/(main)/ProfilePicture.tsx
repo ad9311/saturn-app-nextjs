@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 
 import GearImage from '@/assets/img/gear.svg';
 import { useSlidingMenuStore } from '@/stores/sliding-menu';
+import Spinner from '@/components/Spinner';
 
 export default function ProfilePicture() {
   const { data, status } = useSession();
@@ -14,7 +15,11 @@ export default function ProfilePicture() {
   }));
 
   if (status === 'loading') {
-    return null;
+    return (
+      <div className="pt-10 w-fit mx-auto">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
