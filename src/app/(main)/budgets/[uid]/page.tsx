@@ -28,12 +28,12 @@ export default async function BudgetPages({ params }: { params: { uid: string } 
       <SavePageDataToStore budget={budget} expenseCategories={expenseCategories} />
       <div className="grid grid-flow-row gap-3">
         <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
-          <BudgetInfo budget={budget} className="p-3 bg-neutral-200 rounded-sm lg:col-span-5" />
-          <IncomeList budget={budget} className="p-3 bg-neutral-200 rounded-sm lg:col-span-7" />
+          <BudgetInfo budget={budget} className="card lg:col-span-5" />
+          <IncomeList budget={budget} className="card lg:col-span-7" />
         </div>
         <div className="grid grid-flow-row gap-3 lg:grid-cols-12 lg:grid-flow-col">
-          <ExpenseList budget={budget} className="p-3 bg-neutral-200 rounded-sm lg:col-span-8" />
-          <ExpenseChart className="p-3 bg-neutral-200 rounded-sm lg:col-span-4" />
+          <ExpenseList budget={budget} className="card lg:col-span-8" />
+          <ExpenseChart className="card lg:col-span-4" />
         </div>
       </div>
     </>

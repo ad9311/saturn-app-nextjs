@@ -11,7 +11,7 @@ import BudgetInfo from './BudgetInfo';
 import CreateNewBudgetForm from './CreateNewBudgetForm';
 
 function Wrapper({ children }: { children: React.ReactNode }) {
-  return <article className="card h-full p-3 rounded">{children}</article>;
+  return <article className="card">{children}</article>;
 }
 
 export default async function CurrentBudget() {

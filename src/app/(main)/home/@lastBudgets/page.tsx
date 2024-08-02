@@ -5,7 +5,7 @@ import OpenArrow from '@/assets/img/open-arrow.svg';
 
 export default function LastBudgets() {
   return (
-    <article className="card h-full p-3 rounded">
+    <article className="card h-full">
       <div className="flex items-center gap-3">
         <h2 className="title">Budget history</h2>
         <Link href="/budgets">

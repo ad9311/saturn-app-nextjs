@@ -47,7 +47,7 @@
   }
 
   .card {
-    @apply bg-slate-100 rounded p-3 border border-slate-200 drop-shadow-lg;
+    @apply bg-slate-100 rounded py-4 px-6  border border-slate-200;
   }
 
   .modal {
@@ -65,13 +65,13 @@
     display: inline-block;
     position: relative;
     border: 3px solid;
-    border-color: #cbd5e1 #cbd5e1 transparent transparent;
+    border-color: #a3a3a3 #a3a3a3 transparent transparent;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
   }
   .loader::after,
   .loader::before {
-    content: '';  
+    content: '';
     box-sizing: border-box;
     position: absolute;
     left: 0;
@@ -91,7 +91,7 @@
   .loader::before {
     width: 32px;
     height: 32px;
-    border-color: #cbd5e1 #cbd5e1 transparent transparent;
+    border-color: #a3a3a3 #a3a3a3 transparent transparent;
     animation: rotation 1.5s linear infinite;
   }
   @keyframes rotation {

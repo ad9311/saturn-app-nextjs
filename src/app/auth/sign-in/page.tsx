@@ -8,7 +8,7 @@ import SignInButton from './SignInButton';
 export default function SignInPage() {
   return (
     <>
-      <div className="mt-20 mx-auto w-fit drop-shadow-lg">
+      <div className="mt-20 mx-auto w-fit">
         <Image
           src={RenioFull}
           alt="renio"
